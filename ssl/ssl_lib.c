@@ -932,7 +932,7 @@ SSL *ossl_ssl_connection_new_int(SSL_CTX *ctx, SSL *user_ssl,
             if (s->ech->outer_name == NULL)
                 goto err;
         }
-        if (s->ech && s->ech->cfg && s->ech->cfg->recs) 
+        if (s->ech && s->ech->cfg && s->ech->cfg->recs)
             s->ext.ech_attempted_type=s->ech->cfg->recs[0].version;
         else
             s->ext.ech_attempted_type=TLSEXT_TYPE_ech_unknown;
@@ -951,7 +951,7 @@ SSL *ossl_ssl_connection_new_int(SSL_CTX *ctx, SSL *user_ssl,
     s->ext.ech_grease_suite=NULL;
     s->ext.ch_depth=0;
     s->ext.encoded_innerch_len=0;
-    if (ctx->options & SSL_OP_ECH_GREASE) { 
+    if (ctx->options & SSL_OP_ECH_GREASE) {
         s->ext.ech_grease=ECH_IS_GREASE;
     } else {
         s->ext.ech_grease=ECH_NOT_GREASE;
@@ -961,8 +961,8 @@ SSL *ossl_ssl_connection_new_int(SSL_CTX *ctx, SSL *user_ssl,
         s->ext.alpn_outer = OPENSSL_malloc(s->ssl.ctx->ext.alpn_outer_len);
         if (s->ext.alpn_outer == NULL)
             goto err;
-        memcpy(s->ext.alpn_outer, 
-                s->ssl.ctx->ext.alpn_outer, 
+        memcpy(s->ext.alpn_outer,
+                s->ssl.ctx->ext.alpn_outer,
                 s->ssl.ctx->ext.alpn_outer_len);
         s->ext.alpn_outer_len = ctx->ext.alpn_outer_len;
     }
@@ -1444,7 +1444,7 @@ void SSL_free(SSL *s)
     REF_ASSERT_ISNT(i < 0);
 
 #ifndef OPENSSL_NO_ECH
-    /* 
+    /*
      * Tricksy way to only free something a) on a server
      * or b) on a client that's greasing or has an inner_s
      * allocated (i.e. in process of attempting ECH) or
@@ -1496,9 +1496,9 @@ void ossl_ssl_connection_free(SSL *ssl)
 
 #ifndef OPENSSL_NO_ECH
     /* This seems needed on client but not on server */
-    if ( s->init_buf && 
+    if ( s->init_buf &&
          (
-          (!s->server && (s->ext.inner_s || !s->ech)) || 
+          (!s->server && (s->ext.inner_s || !s->ech)) ||
           s->server
          )
        )
@@ -1515,21 +1515,21 @@ void ossl_ssl_connection_free(SSL *ssl)
     /* only do this one if... */
     if (    s->server ||
             !s->ech ||
-            (   
-                !s->server && 
+            (  
+                !s->server &&
                 s->ext.ech_grease!=ECH_IS_GREASE &&
-                s->ext.ech_success==1 
+                s->ext.ech_success==1
             )
                 ||
-            (   
-                !s->server && 
+            (  
+                !s->server &&
                 s->ext.ech_grease!=ECH_IS_GREASE &&
-                (s->ext.ech_done==1 && s->ext.ch_depth==0) 
+                (s->ext.ech_done==1 && s->ext.ch_depth==0)
             )
                 ||
             (
-                !s->server && 
-                s->ext.ech_grease==ECH_IS_GREASE && 
+                !s->server &&
+                s->ext.ech_grease==ECH_IS_GREASE &&
                 s->ext.inner_s==NULL
             )
        ) {
@@ -1570,12 +1570,12 @@ void ossl_ssl_connection_free(SSL *ssl)
     OPENSSL_free(s->ext.alpn);
     OPENSSL_free(s->ext.tls13_cookie);
 #ifndef OPENSSL_NO_ECH
-    if (s->ext.inner_s==NULL && s->ext.outer_s!=NULL) 
+    if (s->ext.inner_s==NULL && s->ext.outer_s!=NULL)
 #endif
     if (s->clienthello != NULL)
         OPENSSL_free(s->clienthello->pre_proc_exts);
 #ifndef OPENSSL_NO_ECH
-    if (s->ext.inner_s==NULL && s->ext.outer_s!=NULL) 
+    if (s->ext.inner_s==NULL && s->ext.outer_s!=NULL)
 #endif
     OPENSSL_free(s->clienthello);
     OPENSSL_free(s->pha_context);
@@ -1648,7 +1648,7 @@ void ossl_ssl_connection_free(SSL *ssl)
         s->ext.inner_s->ext.outer_s=NULL;
         SSL_free(&s->ext.inner_s->ssl);
         s->ext.inner_s=NULL;
-    } 
+    }
 
     if (s->s3.handshake_buffer) {
         (void)BIO_set_close(s->s3.handshake_buffer, BIO_CLOSE);
@@ -4405,7 +4405,7 @@ out:
 #ifndef OPENSSL_NO_ECH
 	ret->ext.nechs=0;
 	ret->ext.ech=NULL;
-    ret->ext.ech_cb=NULL; 
+    ret->ext.ech_cb=NULL;
     ret->ext.alpn_outer=NULL;
     ret->ext.alpn_outer_len=0;
 #endif
@@ -5346,7 +5346,7 @@ SSL *SSL_dup(SSL *s)
         if (!retsc->ech) {
             goto err;
         }
-    } 
+    }
     retsc->ech_cb=sc->ech_cb;
     if (sc->ext.alpn_outer && sc->ext.alpn_outer_len >0) {
         if (retsc->ext.alpn_outer!=NULL) OPENSSL_free(retsc->ext.alpn_outer);
