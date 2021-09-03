@@ -2393,7 +2393,6 @@ MSG_PROCESS_RETURN tls_process_server_hello(SSL_CONNECTION *s, PACKET *pkt)
                     goto err;
                 }
                 OPENSSL_free(abuf);
-
             } else {
                 OSSL_TRACE_BEGIN(TLS) {
                     BIO_printf(trc_out, "ECH not accepted - cleaning some\n");
@@ -2401,6 +2400,7 @@ MSG_PROCESS_RETURN tls_process_server_hello(SSL_CONNECTION *s, PACKET *pkt)
                 SSL_SESSION_free(s->ext.inner_s->session);
                 s->ext.inner_s->session=NULL;
             }
+
         }
     }
 #endif
