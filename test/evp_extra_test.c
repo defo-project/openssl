@@ -38,10 +38,6 @@
 #include "crypto/evp.h"
 #include "fake_rsaprov.h"
 #include "fake_pipelineprov.h"
-#include "../e_os.h" /* strcasecmp */
-#ifndef OPENSSL_NO_EC
-#include "openssl/hpke.h"
-#endif
 
 #ifdef STATIC_LEGACY
 OSSL_provider_init_fn ossl_legacy_provider_init;
@@ -7846,6 +7842,7 @@ int setup_tests(void)
     }
 # endif
 #endif
+
 #ifndef OPENSSL_NO_EC
     ADD_TEST(test_hpke);
     ADD_TEST(x25519kdfsha256_hkdfsha256_aes128gcm_base_test);
