@@ -773,10 +773,8 @@ static const STRINT_PAIR tlsext_types[] = {
     {"post handshake auth", TLSEXT_TYPE_post_handshake_auth},
     {"early_data", TLSEXT_TYPE_early_data},
 #ifndef OPENSSL_NO_ECH
-    {"encrypted ClientHello (draft-10)",TLSEXT_TYPE_ech},
     {"encrypted ClientHello (draft-13)",TLSEXT_TYPE_ech13},
     {"outer exts",TLSEXT_TYPE_outer_extensions},
-    {"ECH is inner",TLSEXT_TYPE_ech_is_inner},
 #endif
     {NULL}
 };
