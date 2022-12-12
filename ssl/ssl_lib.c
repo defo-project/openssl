@@ -942,7 +942,6 @@ SSL *ossl_ssl_connection_new_int(SSL_CTX *ctx, SSL *user_ssl,
     } else {
         s->ech = NULL;
     }
-
     s->ech_cb = ctx->ext.ech_cb;
     s->ext.inner_s = NULL;
     s->ext.outer_s = NULL;
@@ -960,7 +959,6 @@ SSL *ossl_ssl_connection_new_int(SSL_CTX *ctx, SSL *user_ssl,
     } else {
         s->ext.ech_grease = OSSL_ECH_NOT_GREASE;
     }
-
     if (s->ssl.ctx->ext.alpn_outer != NULL) {
         s->ext.alpn_outer = OPENSSL_malloc(s->ssl.ctx->ext.alpn_outer_len);
         if (s->ext.alpn_outer == NULL)
@@ -969,7 +967,6 @@ SSL *ossl_ssl_connection_new_int(SSL_CTX *ctx, SSL *user_ssl,
                s->ssl.ctx->ext.alpn_outer_len);
         s->ext.alpn_outer_len = ctx->ext.alpn_outer_len;
     }
-
     s->ext.ech_returned = NULL;
     s->ext.ech_returned_len = 0;
     s->ext.ech_sent = NULL;
@@ -1481,7 +1478,7 @@ void ossl_ssl_connection_free(SSL *ssl)
 #ifndef OPENSSL_NO_ECH
     /*
      * This isn't satisfactory and is v. brittle to changes by others.
-     * But works right now.
+     * But works right now. Absent this check we leak or double-free.
      * TODO: FIXME: figure that out
      */
     if (s->server == 1
@@ -1600,9 +1597,7 @@ void ossl_ssl_connection_free(SSL *ssl)
         s->ech = NULL;
         s->nechs = 0;
     }
-
     EVP_PKEY_free(s->s3.tmp.pkey);
-
     /* Free up the inner or outer, as needed */
     if (s->ext.outer_s != NULL && s->ext.outer_s != s)  {
         if (s->init_buf == s->ext.outer_s->init_buf)
@@ -1626,7 +1621,6 @@ void ossl_ssl_connection_free(SSL *ssl)
         BIO_free(s->s3.handshake_buffer);
         s->s3.handshake_buffer = NULL;
     }
-
 #endif
 }
 
@@ -4377,7 +4371,6 @@ out:
     ret->ext.alpn_outer = NULL;
     ret->ext.alpn_outer_len = 0;
 #endif
-
     return ret;
  err:
     SSL_CTX_free(ret);
@@ -4506,9 +4499,9 @@ void SSL_CTX_free(SSL_CTX *a)
     OPENSSL_free(a->server_cert_type);
 #ifndef OPENSSL_NO_ECH
 	if (a->ext.ech != NULL) {
-        int n=0;
+        int n = 0;
 
-        for (n=0; n != a->ext.nechs; n++)
+        for (n = 0; n != a->ext.nechs; n++)
             SSL_ECH_free(&a->ext.ech[n]);
         memset(a->ext.ech, 0, a->ext.nechs * sizeof(SSL_ECH));
         OPENSSL_free(a->ext.ech);
@@ -5378,9 +5371,7 @@ SSL *SSL_dup(SSL *s)
                sc->ext.ech_returned_len);
         retsc->ext.ech_returned_len = sc->ext.ech_returned_len;
     }
-
 #endif
-
     return ret;
 
  err:
