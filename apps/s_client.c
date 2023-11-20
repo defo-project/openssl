@@ -18,10 +18,6 @@
 #include "internal/nelem.h"
 #include "internal/sockets.h" /* for openssl_fdset() */
 
-#ifndef OPENSSL_NO_ECH
-# include <openssl/ech.h>
-#endif
-
 #ifndef OPENSSL_NO_SOCK
 
 /*
