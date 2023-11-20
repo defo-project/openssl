@@ -27,7 +27,6 @@
 #include "internal/sockets.h" /* for openssl_fdset() */
 
 #ifndef OPENSSL_NO_ECH
-# include <openssl/ech.h>
 # ifndef PATH_MAX
 #  define PATH_MAX 4096
 # endif
