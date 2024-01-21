@@ -147,6 +147,14 @@ Test failures and suppressions
 There are tests for different software tokens - softhsm, nss-softokn and kryoptic.
 Kryoptic tests will not run at this point. Currently no test fails.
 
+Encrypted Client Hello (ECH) external tests
+===========================================
+
+In order to be able to test an ECH-enabled build that only has server-side
+changes (to reduce the size of the ECH-PR), we use boringssl to test that
+the server code interoperates. That's also a useful interop test in any
+case.
+
 Updating test suites
 ====================
 
