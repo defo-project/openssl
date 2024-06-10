@@ -978,7 +978,7 @@ SSL *ossl_ssl_connection_new_int(SSL_CTX *ctx, const SSL_METHOD *method)
     s->ext.ech.innerch1 = NULL;
     s->ext.ech.encoded_innerch = NULL;
     s->ext.ech.kepthrr = NULL;
-    s->ext.ech.pad_sizes = ctx->ext.pad_sizes;
+    s->ext.ech.pad_sizes = ctx->ext.ech_pad_sizes;
 #endif
     return ssl;
  cerr:
@@ -4327,12 +4327,12 @@ out:
     ret->ext.ech_cb = NULL;
     ret->ext.alpn_outer = NULL;
     ret->ext.alpn_outer_len = 0;
-    ret->ext.pad_sizes.cert_min = OSSL_ECH_CERTPAD_MIN;
-    ret->ext.pad_sizes.cert_unit = OSSL_ECH_CERTPAD_UNIT;
-    ret->ext.pad_sizes.certver_min = OSSL_ECH_CERTVERPAD_MIN;
-    ret->ext.pad_sizes.certver_unit = OSSL_ECH_CERTVERPAD_UNIT;
-    ret->ext.pad_sizes.ee_min = OSSL_ECH_ENCEXTPAD_MIN;
-    ret->ext.pad_sizes.ee_unit = OSSL_ECH_ENCEXTPAD_UNIT;
+    ret->ext.ech_pad_sizes.cert_min = OSSL_ECH_CERTPAD_MIN;
+    ret->ext.ech_pad_sizes.cert_unit = OSSL_ECH_CERTPAD_UNIT;
+    ret->ext.ech_pad_sizes.certver_min = OSSL_ECH_CERTVERPAD_MIN;
+    ret->ext.ech_pad_sizes.certver_unit = OSSL_ECH_CERTVERPAD_UNIT;
+    ret->ext.ech_pad_sizes.ee_min = OSSL_ECH_ENCEXTPAD_MIN;
+    ret->ext.ech_pad_sizes.ee_unit = OSSL_ECH_ENCEXTPAD_UNIT;
 #endif
     return ret;
  err:
