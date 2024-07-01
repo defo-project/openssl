@@ -1,0 +1,189 @@
+Format: 1.0
+Source: openssl
+Binary: libcrypto3-udeb libssl-dev libssl-doc libssl3-udeb libssl3t64 libssl3t64-dbgsym openssl openssl-dbgsym
+Architecture: all amd64
+Version: 3.2.99.ech.1816.g7a6343ba9a-20240701.053801570516334
+Checksums-Md5:
+ cefa17d5075e01b7a21271e45f1a30cb 1649676 libcrypto3-udeb_3.2.99.ech.1816.g7a6343ba9a-20240701.053801570516334_amd64.udeb
+ 0e62975a1d5a7228a84b95cb48261ad2 2802044 libssl-dev_3.2.99.ech.1816.g7a6343ba9a-20240701.053801570516334_amd64.deb
+ 3a31ad906da0b5a7e282da3ef8ec6cb0 2151192 libssl-doc_3.2.99.ech.1816.g7a6343ba9a-20240701.053801570516334_all.deb
+ aec4c449a837db1e125e095e125cd439 386492 libssl3-udeb_3.2.99.ech.1816.g7a6343ba9a-20240701.053801570516334_amd64.udeb
+ 995b8c9c8c8ef8c236912890f8c2325a 5861216 libssl3t64-dbgsym_3.2.99.ech.1816.g7a6343ba9a-20240701.053801570516334_amd64.deb
+ 3e1b72114a42a551cdc3c9c6de52ec27 2325112 libssl3t64_3.2.99.ech.1816.g7a6343ba9a-20240701.053801570516334_amd64.deb
+ 6b9d35934fd576ae29f4c290dae1dee8 735052 openssl-dbgsym_3.2.99.ech.1816.g7a6343ba9a-20240701.053801570516334_amd64.deb
+ 16585245fae16f5d9ea124d88d4dcc14 1401424 openssl_3.2.99.ech.1816.g7a6343ba9a-20240701.053801570516334_amd64.deb
+Checksums-Sha1:
+ 029b34018f997b876cbf68eed54778d75ea0b3a9 1649676 libcrypto3-udeb_3.2.99.ech.1816.g7a6343ba9a-20240701.053801570516334_amd64.udeb
+ e79e4d7e55c2b7ced6208d7cabf194d95cdb4826 2802044 libssl-dev_3.2.99.ech.1816.g7a6343ba9a-20240701.053801570516334_amd64.deb
+ e74d03f759e5a4fdcc5b862fb1b8ffda14b351c1 2151192 libssl-doc_3.2.99.ech.1816.g7a6343ba9a-20240701.053801570516334_all.deb
+ 0b056628cda1c60d88f122c790806d08c901ffb9 386492 libssl3-udeb_3.2.99.ech.1816.g7a6343ba9a-20240701.053801570516334_amd64.udeb
+ ced2f96824659e11e6bc257a6c65f003cf13d8fd 5861216 libssl3t64-dbgsym_3.2.99.ech.1816.g7a6343ba9a-20240701.053801570516334_amd64.deb
+ dce93a08043454686fd8bf7f2b53f652ab3b2982 2325112 libssl3t64_3.2.99.ech.1816.g7a6343ba9a-20240701.053801570516334_amd64.deb
+ a690675970e9292a5e18afc3219284f0c5920aa1 735052 openssl-dbgsym_3.2.99.ech.1816.g7a6343ba9a-20240701.053801570516334_amd64.deb
+ 9c3d5bde0316a18ff7b2f428f2f3c37e7d4b3bed 1401424 openssl_3.2.99.ech.1816.g7a6343ba9a-20240701.053801570516334_amd64.deb
+Checksums-Sha256:
+ c872b026a220826cd23b0ef016dc63adb3f2c5ff7860eba25e546ff7fbd9cc65 1649676 libcrypto3-udeb_3.2.99.ech.1816.g7a6343ba9a-20240701.053801570516334_amd64.udeb
+ cd5817274c0b68d26b6e62115585b008aef39b4e7becdd8d97fdad03d4583924 2802044 libssl-dev_3.2.99.ech.1816.g7a6343ba9a-20240701.053801570516334_amd64.deb
+ 8f32df74edb0d8c85aab3f56bf9bd03f4ae6305dae4af6c807b65a456c695f3a 2151192 libssl-doc_3.2.99.ech.1816.g7a6343ba9a-20240701.053801570516334_all.deb
+ 225da13a55c5166ac3f070b46f69f492928cb862eb1b1b7befbac1780c1a2f45 386492 libssl3-udeb_3.2.99.ech.1816.g7a6343ba9a-20240701.053801570516334_amd64.udeb
+ f246743321cb02b5206c2388fb1fadebb8dd90e437cfab56e253efb8b3a19677 5861216 libssl3t64-dbgsym_3.2.99.ech.1816.g7a6343ba9a-20240701.053801570516334_amd64.deb
+ c67c1845e9412675b93e8950359475d5ecbd77779f2c72bd3765c8a0406bce91 2325112 libssl3t64_3.2.99.ech.1816.g7a6343ba9a-20240701.053801570516334_amd64.deb
+ 53bd3a84c82a4aba08d7ca44b5e3b70d82e32be24553b3cbea6ccd3bc84f0c71 735052 openssl-dbgsym_3.2.99.ech.1816.g7a6343ba9a-20240701.053801570516334_amd64.deb
+ 5246e90c2ee3a383f8a240ec87abacb5b66f0057e236739ab98955b87e50676e 1401424 openssl_3.2.99.ech.1816.g7a6343ba9a-20240701.053801570516334_amd64.deb
+Build-Origin: Debian
+Build-Architecture: amd64
+Build-Date: Mon, 01 Jul 2024 05:57:42 +0000
+Build-Path: /build/package/package
+Build-Tainted-By:
+ merged-usr-via-aliased-dirs
+Installed-Build-Depends:
+ autoconf (= 2.71-3),
+ automake (= 1:1.16.5-1.3),
+ autopoint (= 0.22.5-1),
+ autotools-dev (= 20220109.1),
+ base-files (= 13.3),
+ base-passwd (= 3.6.3),
+ bash (= 5.2.21-2.1),
+ binutils (= 2.42.50.20240625-1),
+ binutils-common (= 2.42.50.20240625-1),
+ binutils-x86-64-linux-gnu (= 2.42.50.20240625-1),
+ bsdextrautils (= 2.40.1-9),
+ bsdutils (= 1:2.40.1-9),
+ build-essential (= 12.10),
+ bzip2 (= 1.0.8-5.1),
+ coreutils (= 9.4-3.1),
+ cpp (= 4:13.2.0-7),
+ cpp-13 (= 13.3.0-1),
+ cpp-13-x86-64-linux-gnu (= 13.3.0-1),
+ cpp-x86-64-linux-gnu (= 4:13.2.0-7),
+ dash (= 0.5.12-9),
+ debconf (= 1.5.86),
+ debhelper (= 13.16),
+ debianutils (= 5.19),
+ dh-autoreconf (= 20),
+ dh-strip-nondeterminism (= 1.14.0-1),
+ diffutils (= 1:3.10-1),
+ dpkg (= 1.22.6),
+ dpkg-dev (= 1.22.6),
+ dwz (= 0.15-1+b1),
+ file (= 1:5.45-3),
+ findutils (= 4.10.0-2),
+ g++ (= 4:13.2.0-7),
+ g++-13 (= 13.3.0-1),
+ g++-13-x86-64-linux-gnu (= 13.3.0-1),
+ g++-x86-64-linux-gnu (= 4:13.2.0-7),
+ gcc (= 4:13.2.0-7),
+ gcc-13 (= 13.3.0-1),
+ gcc-13-base (= 13.3.0-1),
+ gcc-13-x86-64-linux-gnu (= 13.3.0-1),
+ gcc-14-base (= 14-20240330-1),
+ gcc-x86-64-linux-gnu (= 4:13.2.0-7),
+ gettext (= 0.22.5-1),
+ gettext-base (= 0.22.5-1),
+ grep (= 3.11-4),
+ groff-base (= 1.23.0-4),
+ gzip (= 1.12-1.1),
+ hostname (= 3.23+nmu2),
+ init-system-helpers (= 1.66),
+ intltool-debian (= 0.35.0+20060710.6),
+ libacl1 (= 2.3.2-2),
+ libarchive-zip-perl (= 1.68-1),
+ libasan8 (= 14-20240330-1),
+ libatomic1 (= 14-20240330-1),
+ libattr1 (= 1:2.5.2-1),
+ libaudit-common (= 1:3.1.2-4),
+ libaudit1 (= 1:3.1.2-4),
+ libbinutils (= 2.42.50.20240625-1),
+ libblkid1 (= 2.40.1-9),
+ libbz2-1.0 (= 1.0.8-5.1),
+ libc-bin (= 2.38-13),
+ libc-dev-bin (= 2.38-13),
+ libc6 (= 2.38-13),
+ libc6-dev (= 2.38-13),
+ libcap-ng0 (= 0.8.5-1),
+ libcap2 (= 1:2.66-5),
+ libcc1-0 (= 14-20240330-1),
+ libcrypt-dev (= 1:4.4.36-4),
+ libcrypt1 (= 1:4.4.36-4),
+ libctf-nobfd0 (= 2.42.50.20240625-1),
+ libctf0 (= 2.42.50.20240625-1),
+ libdb5.3t64 (= 5.3.28+dfsg2-7),
+ libdebconfclient0 (= 0.272),
+ libdebhelper-perl (= 13.16),
+ libdpkg-perl (= 1.22.6),
+ libelf1t64 (= 0.191-1+b1),
+ libfile-stripnondeterminism-perl (= 1.14.0-1),
+ libgcc-13-dev (= 13.3.0-1),
+ libgcc-s1 (= 14-20240330-1),
+ libgdbm-compat4t64 (= 1.23-6),
+ libgdbm6t64 (= 1.23-6),
+ libgmp10 (= 2:6.3.0+dfsg-2+b1),
+ libgomp1 (= 14-20240330-1),
+ libgprofng0 (= 2.42.50.20240625-1),
+ libhwasan0 (= 14-20240330-1),
+ libicu72 (= 72.1-4+b1),
+ libisl23 (= 0.26-3+b2),
+ libitm1 (= 14-20240330-1),
+ libjansson4 (= 2.14-2+b2),
+ liblsan0 (= 14-20240330-1),
+ liblzma5 (= 5.6.2-1),
+ libmagic-mgc (= 1:5.45-3),
+ libmagic1t64 (= 1:5.45-3),
+ libmd0 (= 1.1.0-2),
+ libmount1 (= 2.40.1-9),
+ libmpc3 (= 1.3.1-1+b2),
+ libmpfr6 (= 4.2.1-1+b1),
+ libpam-modules (= 1.5.3-7),
+ libpam-modules-bin (= 1.5.3-7),
+ libpam-runtime (= 1.5.3-7),
+ libpam0g (= 1.5.3-7),
+ libpcre2-8-0 (= 10.42-4+b1),
+ libperl5.38t64 (= 5.38.2-5),
+ libpipeline1 (= 1.5.7-2),
+ libquadmath0 (= 14-20240330-1),
+ libseccomp2 (= 2.5.5-1),
+ libselinux1 (= 3.5-2+b2),
+ libsframe1 (= 2.42.50.20240625-1),
+ libsmartcols1 (= 2.40.1-9),
+ libssl3t64 (= 3.2.2-1),
+ libstdc++-13-dev (= 13.3.0-1),
+ libstdc++6 (= 14-20240330-1),
+ libsystemd0 (= 256.1-2),
+ libtinfo6 (= 6.5-2),
+ libtool (= 2.4.7-7),
+ libtsan2 (= 14-20240330-1),
+ libubsan1 (= 14-20240330-1),
+ libuchardet0 (= 0.0.8-1+b1),
+ libudev1 (= 256.1-2),
+ libunistring5 (= 1.2-1),
+ libuuid1 (= 2.40.1-9),
+ libxml2 (= 2.9.14+dfsg-1.3+b3),
+ libzstd-dev (= 1.5.6+dfsg-1),
+ libzstd1 (= 1.5.6+dfsg-1),
+ linux-libc-dev (= 6.8.12-1),
+ m4 (= 1.4.19-4),
+ make (= 4.3-4.1),
+ man-db (= 2.12.1-2),
+ mawk (= 1.3.4.20240622-1),
+ ncurses-base (= 6.5-2),
+ ncurses-bin (= 6.5-2),
+ patch (= 2.7.6-7),
+ perl (= 5.38.2-5),
+ perl-base (= 5.38.2-5),
+ perl-modules-5.38 (= 5.38.2-5),
+ po-debconf (= 1.0.21+nmu1),
+ rpcsvc-proto (= 1.4.3-1),
+ sed (= 4.9-2),
+ sensible-utils (= 0.0.24),
+ sysvinit-utils (= 3.09-2),
+ tar (= 1.35+dfsg-3),
+ util-linux (= 2.40.1-9),
+ xz-utils (= 5.6.2-1),
+ zlib1g (= 1:1.3.dfsg+really1.3.1-1),
+ zlib1g-dev (= 1:1.3.dfsg+really1.3.1-1)
+Environment:
+ DEB_BUILD_OPTIONS="parallel=4"
+ LANG="C.UTF-8"
+ LC_ALL="C.UTF-8"
+ LC_COLLATE="C.UTF-8"
+ SOURCE_DATE_EPOCH="1696948600"
