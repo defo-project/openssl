@@ -1,0 +1,54 @@
+Format: 1.8
+Date: Tue, 10 Oct 2023 16:36:40 +0200
+Source: openssl
+Binary: libcrypto3-udeb libssl-dev libssl-doc libssl3-udeb libssl3t64 libssl3t64-dbgsym openssl openssl-dbgsym
+Architecture: amd64 all
+Version: 3.4.0.ech-20240809.053835242653155
+Distribution: testing
+Urgency: medium
+Maintainer: Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>
+Changed-By: Jochen Sprickerhof <jspricke@debian.org>
+Description:
+ libcrypto3-udeb - Secure Sockets Layer toolkit - libcrypto udeb (udeb)
+ libssl-dev - Secure Sockets Layer toolkit - development files
+ libssl-doc - Secure Sockets Layer toolkit - development documentation
+ libssl3-udeb - ssl shared library - udeb (udeb)
+ libssl3t64 - Secure Sockets Layer toolkit - shared libraries
+ openssl    - Secure Sockets Layer toolkit - cryptographic utility
+Changes:
+ openssl (3.4.0.ech-20240809.053835242653155) UNRELEASED; urgency=medium
+ .
+   ** SNAPSHOT build @9f532ba7fd **
+ .
+   * Add DEfO patches
+   * Fix Debian patches and symbols
+Checksums-Sha1:
+ e18d2420fc43551d8747798285864c039775c03c 1655756 libcrypto3-udeb_3.4.0.ech-20240809.053835242653155_amd64.udeb
+ d68e982c944efe452c36704893ad965b867744a9 2811876 libssl-dev_3.4.0.ech-20240809.053835242653155_amd64.deb
+ dff5ca7ce22bdfe6a9ba17b800a011d824cbde99 2161164 libssl-doc_3.4.0.ech-20240809.053835242653155_all.deb
+ 00a67e2793570344d09b803c986f56e9ced0cb17 385592 libssl3-udeb_3.4.0.ech-20240809.053835242653155_amd64.udeb
+ 2dd895122fb181919cb3cc83ef7ed4d9f01f5237 5890116 libssl3t64-dbgsym_3.4.0.ech-20240809.053835242653155_amd64.deb
+ e08e09ffec2f1c8e19cecbc61f27e54485462940 2330984 libssl3t64_3.4.0.ech-20240809.053835242653155_amd64.deb
+ 3e4f6602dfac6ebc88e2ddd3b09a428c0ea7ff90 736024 openssl-dbgsym_3.4.0.ech-20240809.053835242653155_amd64.deb
+ efbcc7142d43fe9e2a772293a62765bc95fe08c5 7188 openssl_3.4.0.ech-20240809.053835242653155_amd64.buildinfo
+ e3a7fcafbe6565bc41274a0aa8bcfce119768d74 1414476 openssl_3.4.0.ech-20240809.053835242653155_amd64.deb
+Checksums-Sha256:
+ 6990c625484f3b1d67cd3bfee746e8d067a2248445904b6c37808b92f5e1f7c8 1655756 libcrypto3-udeb_3.4.0.ech-20240809.053835242653155_amd64.udeb
+ 6d1680f18bc0012c48abbdf7f1dda1865b354a28ccaab9f2b213275800dbe69f 2811876 libssl-dev_3.4.0.ech-20240809.053835242653155_amd64.deb
+ faee56fd19ca5225c33eca0fea1d680564d9cd50249a57971247025c3f503574 2161164 libssl-doc_3.4.0.ech-20240809.053835242653155_all.deb
+ add6ff2798cedf9b46fbb672be2a37e3ac3f74f93024062f2ccb7cc78213cd72 385592 libssl3-udeb_3.4.0.ech-20240809.053835242653155_amd64.udeb
+ 210ce326417019a0f89d0d98df8af38c518f9a02c15a86c4b7f3a68aacddb8c7 5890116 libssl3t64-dbgsym_3.4.0.ech-20240809.053835242653155_amd64.deb
+ 081b0cd3ee4623516fff16cc3759600e0f3d85c2a3c28f4357621f58eca4a5ed 2330984 libssl3t64_3.4.0.ech-20240809.053835242653155_amd64.deb
+ 8df131314e3375dd7f0b5e996499de665879b2a82df115a2e6beb1299b636bf4 736024 openssl-dbgsym_3.4.0.ech-20240809.053835242653155_amd64.deb
+ a267d44e6e1674ceccf20dec2504f0d1c2a47785035f72791d963b08b8bbef3e 7188 openssl_3.4.0.ech-20240809.053835242653155_amd64.buildinfo
+ 903b070126cad52354c5bebfea885e0dd175ff455fcdc97bbd245f1b9921d495 1414476 openssl_3.4.0.ech-20240809.053835242653155_amd64.deb
+Files:
+ 734e23c9eceb8bfa1fed89e8a220b1c0 1655756 debian-installer optional libcrypto3-udeb_3.4.0.ech-20240809.053835242653155_amd64.udeb
+ bc0a4577bbd738fb9b7141944ae4f59a 2811876 libdevel optional libssl-dev_3.4.0.ech-20240809.053835242653155_amd64.deb
+ 605622f0a121a7881aa4b01abc340369 2161164 doc optional libssl-doc_3.4.0.ech-20240809.053835242653155_all.deb
+ 09d055365f74353017bb77fe8face9b4 385592 debian-installer optional libssl3-udeb_3.4.0.ech-20240809.053835242653155_amd64.udeb
+ 47b0faa818eec08d5a3be4159832854e 5890116 debug optional libssl3t64-dbgsym_3.4.0.ech-20240809.053835242653155_amd64.deb
+ cce79ef32ccf606ac700afc166c63c2b 2330984 libs optional libssl3t64_3.4.0.ech-20240809.053835242653155_amd64.deb
+ c37fac4c302c4c3fedf36a983107dde6 736024 debug optional openssl-dbgsym_3.4.0.ech-20240809.053835242653155_amd64.deb
+ f97e72ce333d8744a320a56db1ff6e9f 7188 utils optional openssl_3.4.0.ech-20240809.053835242653155_amd64.buildinfo
+ 6e34804c379c3a45be9beb72bfab1192 1414476 utils optional openssl_3.4.0.ech-20240809.053835242653155_amd64.deb
