@@ -20,7 +20,7 @@ index 4c24cae7ab62..8fb1792bfc03 100644
  HTMLSUFFIX=html
  
  # For "optional" echo messages, to get "real" silence
-@@ -1559,7 +1560,7 @@ EOF
+@@ -1566,7 +1567,7 @@ EOF
            my $pod = $gen0;
            return <<"EOF";
  $args{src}: $pod
