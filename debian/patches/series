@@ -1,0 +1,11 @@
+debian-targets.patch
+man-section.patch
+no-symbolic.patch
+pic.patch
+c_rehash-compat.patch
+Configure-allow-to-enable-ktls-if-target-does-not-start-w.patch
+conf-Serialize-allocation-free-of-ssl_names.patch
+80-test_cmp_http_data-test_connection.csv-disable-localho.patch
+Give-util-mkinstallvars.pl-more-fine-grained-control-over.patch
+Adapt-all-the-exporter-files-to-the-new-vars-from-util-mk.patch
+Fix-cmake-generator.patch
