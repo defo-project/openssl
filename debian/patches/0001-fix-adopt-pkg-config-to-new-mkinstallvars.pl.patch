@@ -1,0 +1,53 @@
+From 230a7359948ca7ff942c604c3e446bcdf8764067 Mon Sep 17 00:00:00 2001
+From: Jochen Sprickerhof <git@jochen.sprickerhof.de>
+Date: Wed, 28 Aug 2024 18:27:19 +0200
+Subject: [PATCH] fix: adopt pkg-config to new mkinstallvars.pl
+
+Fixes: #25299
+
+This fixes a regression of accd835f8d.
+---
+ exporters/pkg-config/libssl.pc.in  |  8 ++++----
+ exporters/pkg-config/openssl.pc.in | 10 ++++++----
+ 2 files changed, 10 insertions(+), 8 deletions(-)
+
+diff --git a/exporters/pkg-config/libssl.pc.in b/exporters/pkg-config/libssl.pc.in
+index 80c91ec034..91ca0b7c55 100644
+--- a/exporters/pkg-config/libssl.pc.in
++++ b/exporters/pkg-config/libssl.pc.in
+@@ -1,8 +1,8 @@
+-prefix={- $OpenSSL::safe::installdata::PREFIX -}
++prefix={- $OpenSSL::safe::installdata::PREFIX[0] -}
+ exec_prefix=${prefix}
+-libdir={- $OpenSSL::safe::installdata::LIBDIR_REL_PREFIX
+-          ? '${exec_prefix}/' . $OpenSSL::safe::installdata::LIBDIR_REL_PREFIX
+-          : $OpenSSL::safe::installdata::libdir -}
++libdir={- $OpenSSL::safe::installdata::LIBDIR_REL_PREFIX[0]
++          ? '${exec_prefix}/' . $OpenSSL::safe::installdata::LIBDIR_REL_PREFIX[0]
++          : $OpenSSL::safe::installdata::libdir[0] -}
+ includedir={- $OUT = '';
+               $OUT .= '${prefix}/' . $_ . ' '
+                   foreach (@OpenSSL::safe::installdata::INCLUDEDIR_REL_PREFIX); -}
+diff --git a/exporters/pkg-config/openssl.pc.in b/exporters/pkg-config/openssl.pc.in
+index 225bef9e23..3c38c6f659 100644
+--- a/exporters/pkg-config/openssl.pc.in
++++ b/exporters/pkg-config/openssl.pc.in
+@@ -1,9 +1,11 @@
+ prefix={- $OpenSSL::safe::installdata::PREFIX -}
+ exec_prefix=${prefix}
+-libdir={- $OpenSSL::safe::installdata::LIBDIR_REL_PREFIX
+-          ? '${exec_prefix}/' . $OpenSSL::safe::installdata::LIBDIR_REL_PREFIX
+-          : $OpenSSL::safe::installdata::libdir -}
+-includedir=${prefix}/{- $OpenSSL::safe::installdata::INCLUDEDIR_REL_PREFIX -}
++libdir={- $OpenSSL::safe::installdata::LIBDIR_REL_PREFIX[0]
++          ? '${exec_prefix}/' . $OpenSSL::safe::installdata::LIBDIR_REL_PREFIX[0]
++          : $OpenSSL::safe::installdata::libdir[0] -}
++includedir={- $OUT = '';
++              $OUT .= '${prefix}/' . $_ . ' '
++                  foreach (@OpenSSL::safe::installdata::INCLUDEDIR_REL_PREFIX); -}
+ 
+ Name: OpenSSL
+ Description: Secure Sockets Layer and cryptography libraries and tools
+-- 
+2.45.2
+
