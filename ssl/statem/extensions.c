@@ -114,13 +114,11 @@ typedef struct extensions_definition_st {
      * protocol versions
      */
     unsigned int context;
-#ifndef OPENSSL_NO_ECH
     /*
-     * TODO(ECH): it might be better to not conditionally compile this
-     * field so we don't need ifndefs all over the ext_defs values
+     * exceptionally, we don't conditionally compile this field to avoid a pile of
+     * fndefs all over the ext_defs values
      */
     int ech_handling;  /* how to handle ECH for this extension type */
-#endif /* OPENSSL_NO_ECH */
     /*
      * Initialise extension before parsing. Always called for relevant contexts
      * even if extension not present
@@ -175,20 +173,14 @@ typedef struct extensions_definition_st {
  * NOTE: WebSphere Application Server 7+ cannot handle empty extensions at
  * the end, keep these extensions before signature_algorithm.
  */
-#ifndef OPENSSL_NO_ECH
-# define INVALID_EXTENSION { TLSEXT_TYPE_invalid, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL }
-#else
-# define INVALID_EXTENSION { TLSEXT_TYPE_invalid, 0, NULL, NULL, NULL, NULL, NULL, NULL }
-#endif /* OPENSSL_NO_ECH */
+#define INVALID_EXTENSION { TLSEXT_TYPE_invalid, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL }
 
 static const EXTENSION_DEFINITION ext_defs[] = {
     {
         TLSEXT_TYPE_renegotiate,
         SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS1_2_SERVER_HELLO
         | SSL_EXT_SSL3_ALLOWED | SSL_EXT_TLS1_2_AND_BELOW_ONLY,
-#ifndef OPENSSL_NO_ECH
         OSSL_ECH_HANDLING_COMPRESS,
-#endif
         NULL, tls_parse_ctos_renegotiate, tls_parse_stoc_renegotiate,
         tls_construct_stoc_renegotiate, tls_construct_ctos_renegotiate,
         final_renegotiate
@@ -197,9 +189,7 @@ static const EXTENSION_DEFINITION ext_defs[] = {
         TLSEXT_TYPE_server_name,
         SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS1_2_SERVER_HELLO
         | SSL_EXT_TLS1_3_ENCRYPTED_EXTENSIONS,
-#ifndef OPENSSL_NO_ECH
         OSSL_ECH_HANDLING_CALL_BOTH,
-#endif
         init_server_name,
         tls_parse_ctos_server_name, tls_parse_stoc_server_name,
         tls_construct_stoc_server_name, tls_construct_ctos_server_name,
@@ -209,9 +199,7 @@ static const EXTENSION_DEFINITION ext_defs[] = {
         TLSEXT_TYPE_max_fragment_length,
         SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS1_2_SERVER_HELLO
         | SSL_EXT_TLS1_3_ENCRYPTED_EXTENSIONS,
-#ifndef OPENSSL_NO_ECH
         OSSL_ECH_HANDLING_COMPRESS,
-#endif
         NULL, tls_parse_ctos_maxfragmentlen, tls_parse_stoc_maxfragmentlen,
         tls_construct_stoc_maxfragmentlen, tls_construct_ctos_maxfragmentlen,
         final_maxfragmentlen
@@ -220,9 +208,7 @@ static const EXTENSION_DEFINITION ext_defs[] = {
     {
         TLSEXT_TYPE_srp,
         SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS1_2_AND_BELOW_ONLY,
-# ifndef OPENSSL_NO_ECH
         OSSL_ECH_HANDLING_COMPRESS,
-# endif
         init_srp, tls_parse_ctos_srp, NULL, NULL, tls_construct_ctos_srp, NULL
     },
 #else
@@ -232,9 +218,7 @@ static const EXTENSION_DEFINITION ext_defs[] = {
         TLSEXT_TYPE_ec_point_formats,
         SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS1_2_SERVER_HELLO
         | SSL_EXT_TLS1_2_AND_BELOW_ONLY,
-#ifndef OPENSSL_NO_ECH
         OSSL_ECH_HANDLING_COMPRESS,
-#endif
         init_ec_point_formats, tls_parse_ctos_ec_pt_formats, tls_parse_stoc_ec_pt_formats,
         tls_construct_stoc_ec_pt_formats, tls_construct_ctos_ec_pt_formats,
         final_ec_pt_formats
@@ -268,9 +252,7 @@ static const EXTENSION_DEFINITION ext_defs[] = {
         TLSEXT_TYPE_supported_groups,
         SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS1_3_ENCRYPTED_EXTENSIONS
         | SSL_EXT_TLS1_2_SERVER_HELLO,
-#ifndef OPENSSL_NO_ECH
         OSSL_ECH_HANDLING_COMPRESS,
-#endif
         NULL, tls_parse_ctos_supported_groups, NULL,
         tls_construct_stoc_supported_groups,
         tls_construct_ctos_supported_groups, NULL
@@ -279,9 +261,7 @@ static const EXTENSION_DEFINITION ext_defs[] = {
         TLSEXT_TYPE_session_ticket,
         SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS1_2_SERVER_HELLO
         | SSL_EXT_TLS1_2_AND_BELOW_ONLY,
-#ifndef OPENSSL_NO_ECH
         OSSL_ECH_HANDLING_COMPRESS,
-#endif
         init_session_ticket, tls_parse_ctos_session_ticket,
         tls_parse_stoc_session_ticket, tls_construct_stoc_session_ticket,
         tls_construct_ctos_session_ticket, NULL
@@ -291,9 +271,7 @@ static const EXTENSION_DEFINITION ext_defs[] = {
         TLSEXT_TYPE_status_request,
         SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS1_2_SERVER_HELLO
         | SSL_EXT_TLS1_3_CERTIFICATE | SSL_EXT_TLS1_3_CERTIFICATE_REQUEST,
-# ifndef OPENSSL_NO_ECH
         OSSL_ECH_HANDLING_COMPRESS,
-# endif
         init_status_request, tls_parse_ctos_status_request,
         tls_parse_stoc_status_request, tls_construct_stoc_status_request,
         tls_construct_ctos_status_request, NULL
@@ -306,9 +284,7 @@ static const EXTENSION_DEFINITION ext_defs[] = {
         TLSEXT_TYPE_next_proto_neg,
         SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS1_2_SERVER_HELLO
         | SSL_EXT_TLS1_2_AND_BELOW_ONLY,
-# ifndef OPENSSL_NO_ECH
         OSSL_ECH_HANDLING_COMPRESS,
-# endif
         init_npn, tls_parse_ctos_npn, tls_parse_stoc_npn,
         tls_construct_stoc_next_proto_neg, tls_construct_ctos_npn, NULL
     },
@@ -323,9 +299,7 @@ static const EXTENSION_DEFINITION ext_defs[] = {
         TLSEXT_TYPE_application_layer_protocol_negotiation,
         SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS1_2_SERVER_HELLO
         | SSL_EXT_TLS1_3_ENCRYPTED_EXTENSIONS,
-#ifndef OPENSSL_NO_ECH
         OSSL_ECH_HANDLING_CALL_BOTH,
-#endif
         init_alpn, tls_parse_ctos_alpn, tls_parse_stoc_alpn,
         tls_construct_stoc_alpn, tls_construct_ctos_alpn, final_alpn
     },
@@ -334,9 +308,7 @@ static const EXTENSION_DEFINITION ext_defs[] = {
         TLSEXT_TYPE_use_srtp,
         SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS1_2_SERVER_HELLO
         | SSL_EXT_TLS1_3_ENCRYPTED_EXTENSIONS | SSL_EXT_DTLS_ONLY,
-# ifndef OPENSSL_NO_ECH
         OSSL_ECH_HANDLING_COMPRESS,
-# endif
         init_srtp, tls_parse_ctos_use_srtp, tls_parse_stoc_use_srtp,
         tls_construct_stoc_use_srtp, tls_construct_ctos_use_srtp, NULL
     },
@@ -347,7 +319,6 @@ static const EXTENSION_DEFINITION ext_defs[] = {
         TLSEXT_TYPE_encrypt_then_mac,
         SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS1_2_SERVER_HELLO
         | SSL_EXT_TLS1_2_AND_BELOW_ONLY,
-#ifndef OPENSSL_NO_ECH
         /*
          * If you want to demonstrate/exercise duplicate, then
          * this does that and has no effect on sizes, but it
@@ -357,7 +328,6 @@ static const EXTENSION_DEFINITION ext_defs[] = {
          * OSSL_ECH_HANDLING_DUPLICATE,
          */
         OSSL_ECH_HANDLING_COMPRESS,
-#endif
         init_etm, tls_parse_ctos_etm, tls_parse_stoc_etm,
         tls_construct_stoc_etm, tls_construct_ctos_etm, NULL
     },
@@ -366,9 +336,7 @@ static const EXTENSION_DEFINITION ext_defs[] = {
         TLSEXT_TYPE_signed_certificate_timestamp,
         SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS1_2_SERVER_HELLO
         | SSL_EXT_TLS1_3_CERTIFICATE | SSL_EXT_TLS1_3_CERTIFICATE_REQUEST,
-# ifndef OPENSSL_NO_ECH
         OSSL_ECH_HANDLING_COMPRESS,
-# endif
         NULL,
         /*
          * No server side support for this, but can be provided by a custom
@@ -384,18 +352,14 @@ static const EXTENSION_DEFINITION ext_defs[] = {
         TLSEXT_TYPE_extended_master_secret,
         SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS1_2_SERVER_HELLO
         | SSL_EXT_TLS1_2_AND_BELOW_ONLY,
-#ifndef OPENSSL_NO_ECH
         OSSL_ECH_HANDLING_COMPRESS,
-#endif
         init_ems, tls_parse_ctos_ems, tls_parse_stoc_ems,
         tls_construct_stoc_ems, tls_construct_ctos_ems, final_ems
     },
     {
         TLSEXT_TYPE_signature_algorithms_cert,
         SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS1_3_CERTIFICATE_REQUEST,
-#ifndef OPENSSL_NO_ECH
         OSSL_ECH_HANDLING_COMPRESS,
-#endif
         init_sig_algs_cert, tls_parse_ctos_sig_algs_cert,
         tls_parse_ctos_sig_algs_cert,
         /* We do not generate signature_algorithms_cert at present. */
@@ -404,9 +368,7 @@ static const EXTENSION_DEFINITION ext_defs[] = {
     {
         TLSEXT_TYPE_post_handshake_auth,
         SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS1_3_ONLY,
-#ifndef OPENSSL_NO_ECH
         OSSL_ECH_HANDLING_COMPRESS,
-#endif
         init_post_handshake_auth,
         tls_parse_ctos_post_handshake_auth, NULL,
         NULL, tls_construct_ctos_post_handshake_auth,
@@ -416,9 +378,7 @@ static const EXTENSION_DEFINITION ext_defs[] = {
         TLSEXT_TYPE_client_cert_type,
         SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS1_3_ENCRYPTED_EXTENSIONS
         | SSL_EXT_TLS1_2_SERVER_HELLO,
-#ifndef OPENSSL_NO_ECH
         OSSL_ECH_HANDLING_CALL_BOTH,
-#endif
         init_client_cert_type,
         tls_parse_ctos_client_cert_type, tls_parse_stoc_client_cert_type,
         tls_construct_stoc_client_cert_type, tls_construct_ctos_client_cert_type,
@@ -428,9 +388,7 @@ static const EXTENSION_DEFINITION ext_defs[] = {
         TLSEXT_TYPE_server_cert_type,
         SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS1_3_ENCRYPTED_EXTENSIONS
         | SSL_EXT_TLS1_2_SERVER_HELLO,
-#ifndef OPENSSL_NO_ECH
         OSSL_ECH_HANDLING_CALL_BOTH,
-#endif
         init_server_cert_type,
         tls_parse_ctos_server_cert_type, tls_parse_stoc_server_cert_type,
         tls_construct_stoc_server_cert_type, tls_construct_ctos_server_cert_type,
@@ -439,9 +397,7 @@ static const EXTENSION_DEFINITION ext_defs[] = {
     {
         TLSEXT_TYPE_signature_algorithms,
         SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS1_3_CERTIFICATE_REQUEST,
-#ifndef OPENSSL_NO_ECH
         OSSL_ECH_HANDLING_COMPRESS,
-#endif
         init_sig_algs, tls_parse_ctos_sig_algs,
         tls_parse_ctos_sig_algs, tls_construct_ctos_sig_algs,
         tls_construct_ctos_sig_algs, final_sig_algs
@@ -450,9 +406,7 @@ static const EXTENSION_DEFINITION ext_defs[] = {
         TLSEXT_TYPE_supported_versions,
         SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS1_3_SERVER_HELLO
         | SSL_EXT_TLS1_3_HELLO_RETRY_REQUEST | SSL_EXT_TLS_IMPLEMENTATION_ONLY,
-#ifndef OPENSSL_NO_ECH
         OSSL_ECH_HANDLING_COMPRESS,
-#endif
         NULL,
         /* Processed inline as part of version selection */
         NULL, tls_parse_stoc_supported_versions,
@@ -463,9 +417,7 @@ static const EXTENSION_DEFINITION ext_defs[] = {
         TLSEXT_TYPE_psk_kex_modes,
         SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS_IMPLEMENTATION_ONLY
         | SSL_EXT_TLS1_3_ONLY,
-#ifndef OPENSSL_NO_ECH
         OSSL_ECH_HANDLING_COMPRESS,
-#endif
         init_psk_kex_modes, tls_parse_ctos_psk_kex_modes, NULL, NULL,
         tls_construct_ctos_psk_kex_modes, NULL
     },
@@ -478,9 +430,7 @@ static const EXTENSION_DEFINITION ext_defs[] = {
         SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS1_3_SERVER_HELLO
         | SSL_EXT_TLS1_3_HELLO_RETRY_REQUEST | SSL_EXT_TLS_IMPLEMENTATION_ONLY
         | SSL_EXT_TLS1_3_ONLY,
-#ifndef OPENSSL_NO_ECH
         OSSL_ECH_HANDLING_COMPRESS,
-#endif
         NULL, tls_parse_ctos_key_share, tls_parse_stoc_key_share,
         tls_construct_stoc_key_share, tls_construct_ctos_key_share,
         final_key_share
@@ -490,9 +440,7 @@ static const EXTENSION_DEFINITION ext_defs[] = {
         TLSEXT_TYPE_cookie,
         SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS1_3_HELLO_RETRY_REQUEST
         | SSL_EXT_TLS_IMPLEMENTATION_ONLY | SSL_EXT_TLS1_3_ONLY,
-#ifndef OPENSSL_NO_ECH
         OSSL_ECH_HANDLING_COMPRESS,
-#endif
         NULL, tls_parse_ctos_cookie, tls_parse_stoc_cookie,
         tls_construct_stoc_cookie, tls_construct_ctos_cookie, NULL
     },
@@ -505,18 +453,14 @@ static const EXTENSION_DEFINITION ext_defs[] = {
         TLSEXT_TYPE_cryptopro_bug,
         SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS1_2_SERVER_HELLO
         | SSL_EXT_TLS1_2_AND_BELOW_ONLY,
-#ifndef OPENSSL_NO_ECH
         OSSL_ECH_HANDLING_COMPRESS,
-#endif
         NULL, NULL, NULL, tls_construct_stoc_cryptopro_bug, NULL, NULL
     },
     {
         TLSEXT_TYPE_compress_certificate,
         SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS1_3_CERTIFICATE_REQUEST
         | SSL_EXT_TLS_IMPLEMENTATION_ONLY | SSL_EXT_TLS1_3_ONLY,
-#ifndef OPENSSL_NO_ECH
         OSSL_ECH_HANDLING_COMPRESS,
-#endif
         tls_init_compress_certificate,
         tls_parse_compress_certificate, tls_parse_compress_certificate,
         tls_construct_compress_certificate, tls_construct_compress_certificate,
@@ -526,9 +470,7 @@ static const EXTENSION_DEFINITION ext_defs[] = {
         TLSEXT_TYPE_early_data,
         SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS1_3_ENCRYPTED_EXTENSIONS
         | SSL_EXT_TLS1_3_NEW_SESSION_TICKET | SSL_EXT_TLS1_3_ONLY,
-#ifndef OPENSSL_NO_ECH
         OSSL_ECH_HANDLING_CALL_BOTH,
-#endif
         NULL, tls_parse_ctos_early_data, tls_parse_stoc_early_data,
         tls_construct_stoc_early_data, tls_construct_ctos_early_data,
         final_early_data
@@ -537,9 +479,7 @@ static const EXTENSION_DEFINITION ext_defs[] = {
         TLSEXT_TYPE_certificate_authorities,
         SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS1_3_CERTIFICATE_REQUEST
         | SSL_EXT_TLS1_3_ONLY,
-#ifndef OPENSSL_NO_ECH
         OSSL_ECH_HANDLING_COMPRESS,
-#endif
         init_certificate_authorities,
         tls_parse_certificate_authorities, tls_parse_certificate_authorities,
         tls_construct_certificate_authorities,
@@ -579,9 +519,7 @@ static const EXTENSION_DEFINITION ext_defs[] = {
         /* Must be immediately before pre_shared_key */
         TLSEXT_TYPE_padding,
         SSL_EXT_CLIENT_HELLO,
-#ifndef OPENSSL_NO_ECH
         OSSL_ECH_HANDLING_CALL_BOTH,
-#endif
         NULL,
         /* We send this, but don't read it */
         NULL, NULL, NULL, tls_construct_ctos_padding, NULL
@@ -591,9 +529,7 @@ static const EXTENSION_DEFINITION ext_defs[] = {
         TLSEXT_TYPE_psk,
         SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS1_3_SERVER_HELLO
         | SSL_EXT_TLS_IMPLEMENTATION_ONLY | SSL_EXT_TLS1_3_ONLY,
-#ifndef OPENSSL_NO_ECH
         OSSL_ECH_HANDLING_CALL_BOTH,
-#endif
         NULL, tls_parse_ctos_psk, tls_parse_stoc_psk, tls_construct_stoc_psk,
         tls_construct_ctos_psk, final_psk
     }
@@ -660,7 +596,7 @@ static int ech_copy_inner2outer(SSL_CONNECTION *s, uint16_t ext_type,
  * Check if we're using the same/different key shares
  * return 1 if same key share in inner and outer, 0 otherwise
  */
-int ech_same_key_share(void)
+int ossl_ech_same_key_share(void)
 {
 # ifdef DUPEMALL
     return 0;
@@ -673,7 +609,7 @@ int ech_same_key_share(void)
  * say if extension at index i in ext_defs is to be ECH compressed
  * return 1 if this one is to be compressed, 0 if not, -1 for error
  */
-int ech_2bcompressed(int ind)
+int ossl_ech_2bcompressed(int ind)
 {
     const int nexts = OSSL_NELEM(ext_defs);
 
@@ -686,7 +622,7 @@ int ech_2bcompressed(int ind)
 }
 
 /* as needed, repeat extension from inner in outer handling compression */
-int ech_same_ext(SSL_CONNECTION *s, WPACKET *pkt)
+int ossl_ech_same_ext(SSL_CONNECTION *s, WPACKET *pkt)
 {
     unsigned int type = 0;
     int tind = 0, nexts = OSSL_NELEM(ext_defs);
@@ -1204,40 +1140,41 @@ int tls_construct_extensions(SSL_CONNECTION *s, WPACKET *pkt,
     for (pass = 0; pass <= 1; pass++)
 #endif
 
-    for (i = 0, thisexd = ext_defs; i < OSSL_NELEM(ext_defs); i++, thisexd++) {
-        EXT_RETURN (*construct)(SSL_CONNECTION *s, WPACKET *pkt,
-                                unsigned int context,
-                                X509 *x, size_t chainidx);
-        EXT_RETURN ret;
+        for (i = 0, thisexd = ext_defs; i < OSSL_NELEM(ext_defs);
+             i++, thisexd++) {
+            EXT_RETURN (*construct)(SSL_CONNECTION *s, WPACKET *pkt,
+                                    unsigned int context,
+                                    X509 *x, size_t chainidx);
+            EXT_RETURN ret;
 
 #ifndef OPENSSL_NO_ECH
-        /* do compressed in pass 0, non-compressed in pass 1 */
-        if (ech_2bcompressed(i) == pass)
-            continue;
-        /* stash index - needed for COMPRESS ECH handling */
-        s->ext.ech.ext_ind = i;
+            /* do compressed in pass 0, non-compressed in pass 1 */
+            if (ossl_ech_2bcompressed(i) == pass)
+                continue;
+            /* stash index - needed for COMPRESS ECH handling */
+            s->ext.ech.ext_ind = i;
 #endif
-        /* Skip if not relevant for our context */
-        if (!should_add_extension(s, thisexd->context, context, max_version))
-            continue;
+            /* Skip if not relevant for our context */
+            if (!should_add_extension(s, thisexd->context, context, max_version))
+                continue;
 
-        construct = s->server ? thisexd->construct_stoc
-                              : thisexd->construct_ctos;
+            construct = s->server ? thisexd->construct_stoc
+                                  : thisexd->construct_ctos;
 
-        if (construct == NULL)
-            continue;
+            if (construct == NULL)
+                continue;
 
-        ret = construct(s, pkt, context, x, chainidx);
-        if (ret == EXT_RETURN_FAIL) {
-            /* SSLfatal() already called */
-            return 0;
+            ret = construct(s, pkt, context, x, chainidx);
+            if (ret == EXT_RETURN_FAIL) {
+                /* SSLfatal() already called */
+                return 0;
+            }
+            if (ret == EXT_RETURN_SENT
+                    && (context & (SSL_EXT_CLIENT_HELLO
+                                   | SSL_EXT_TLS1_3_CERTIFICATE_REQUEST
+                                   | SSL_EXT_TLS1_3_NEW_SESSION_TICKET)) != 0)
+                s->ext.extflags[i] |= SSL_EXT_FLAG_SENT;
         }
-        if (ret == EXT_RETURN_SENT
-                && (context & (SSL_EXT_CLIENT_HELLO
-                               | SSL_EXT_TLS1_3_CERTIFICATE_REQUEST
-                               | SSL_EXT_TLS1_3_NEW_SESSION_TICKET)) != 0)
-            s->ext.extflags[i] |= SSL_EXT_FLAG_SENT;
-    }
 
 #ifndef OPENSSL_NO_ECH
     /*
@@ -1895,6 +1832,8 @@ int tls_psk_do_binder(SSL_CONNECTION *s, const EVP_MD *md,
     EVP_MD_CTX *ctx = NULL;
     WPACKET tpkt;
     BUF_MEM *tpkt_mem = NULL;
+
+    memset(&tpkt, 0, sizeof(tpkt));
 #endif
 
     /* Ensure cast to size_t is safe */
@@ -2009,13 +1948,12 @@ int tls_psk_do_binder(SSL_CONNECTION *s, const EVP_MD *md,
             hdata = WPACKET_get_curr(&tpkt) - hdatalen;
         } else {
 #endif
-
-        hdatalen = hdatalen_l =
-            BIO_get_mem_data(s->s3.handshake_buffer, &hdata);
-        if (hdatalen_l <= 0) {
-            SSLfatal(s, SSL_AD_INTERNAL_ERROR, SSL_R_BAD_HANDSHAKE_LENGTH);
-            goto err;
-        }
+            hdatalen = hdatalen_l =
+                BIO_get_mem_data(s->s3.handshake_buffer, &hdata);
+            if (hdatalen_l <= 0) {
+                SSLfatal(s, SSL_AD_INTERNAL_ERROR, SSL_R_BAD_HANDSHAKE_LENGTH);
+                goto err;
+            }
 #ifndef OPENSSL_NO_ECH
         }
 #endif
@@ -2088,8 +2026,7 @@ int tls_psk_do_binder(SSL_CONNECTION *s, const EVP_MD *md,
     EVP_MD_CTX_free(mctx);
 #ifndef OPENSSL_NO_ECH
     EVP_MD_CTX_free(ctx);
-    if (tpkt_mem != NULL)
-        WPACKET_cleanup(&tpkt);
+    WPACKET_cleanup(&tpkt);
     BUF_MEM_free(tpkt_mem);
 #endif
 
