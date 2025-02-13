@@ -1913,7 +1913,8 @@ int tls_psk_do_binder(SSL_CONNECTION *s, const EVP_MD *md,
 #ifndef OPENSSL_NO_ECH
         /* handle the hashing as per ECH needs (on client) */
         if (s->ext.ech.attempted == 1 && s->ext.ech.ch_depth == 1) {
-            if (ossl_ech_intbuf_fetch(s, (unsigned char **)&hdata, &hdatalen) != 1) {
+            if (ossl_ech_intbuf_fetch(s, (unsigned char **)&hdata,
+                                      &hdatalen) != 1) {
                 SSLfatal(s, SSL_AD_INTERNAL_ERROR, ERR_R_INTERNAL_ERROR);
                 goto err;
             }
