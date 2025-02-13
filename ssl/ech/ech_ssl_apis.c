@@ -377,7 +377,9 @@ int SSL_CTX_ech_raw_decrypt(SSL_CTX *ctx,
         ERR_raise(ERR_LIB_SSL, SSL_R_ECH_REQUIRED);
         return 0;
     }
-    return 0;
+    return ossl_ech_raw_dec(ctx, decrypted_ok, inner_sni, outer_sni,
+                            outer_ch, outer_len, inner_ch, inner_len,
+                            hrrtok, toklen);
 }
 
 void SSL_CTX_ech_set_callback(SSL_CTX *ctx, SSL_ech_cb_func f)

@@ -1247,15 +1247,19 @@ int ossl_ech_calc_confirm(SSL_CONNECTION *s, int for_hrr,
     memcpy(acbuf, hoval, OSSL_ECH_SIGNAL_LEN); /* Finally, set the output */
 # ifdef OSSL_ECH_SUPERVERBOSE
     ossl_ech_pbuf("cx: result", acbuf, OSSL_ECH_SIGNAL_LEN);
+    ossl_ech_pbuf("cx: conf_loc", conf_loc, OSSL_ECH_SIGNAL_LEN);
 # endif
     /* put confirm value back into transcript */
     memcpy(conf_loc, acbuf, OSSL_ECH_SIGNAL_LEN);
     /* on a server, we need to reset the hs buffer now */
-     if (s->server && s->hello_retry_request == SSL_HRR_NONE)
+    if (s->server && s->hello_retry_request == SSL_HRR_NONE)
         ossl_ech_reset_hs_buffer(s, s->ext.ech.innerch, s->ext.ech.innerch_len);
     if (s->server && s->hello_retry_request == SSL_HRR_COMPLETE)
         ossl_ech_reset_hs_buffer(s, tbuf, tlen - fixedshbuf_len);
     rv = 1;
+# ifdef OSSL_ECH_SUPERVERBOSE
+    ossl_ech_pbuf("cx: tbuf after after", tbuf, tlen);
+# endif
 err:
     OPENSSL_free(fixedshbuf);
     EVP_MD_CTX_free(ctx);
@@ -1310,9 +1314,9 @@ int ossl_ech_get_ch_offsets(SSL_CONNECTION *s, PACKET *pkt, size_t *sessid,
         BIO_printf(trc_out, "orig CH/ECH type: %4x\n", *echtype);
     } OSSL_TRACE_END(TLS);
     ossl_ech_pbuf("orig CH", (unsigned char *)ch, ch_len);
-    ossl_ech_pbuf("orig CH exts", (unsigned char *)ch + *exts, extlens);
-    ossl_ech_pbuf("orig CH/ECH", (unsigned char *)ch + *echoffset, echlen);
-    ossl_ech_pbuf("orig CH SNI", (unsigned char *)ch + *snioffset, snilen);
+    ossl_ech_pbuf("orig CH exts", (unsigned char *)ch + *exts, extlens + 2);
+    ossl_ech_pbuf("orig CH/ECH", (unsigned char *)ch + *echoffset, echlen + 4);
+    ossl_ech_pbuf("orig CH SNI", (unsigned char *)ch + *snioffset, snilen + 4);
 # endif
     return 1;
 }
@@ -2337,5 +2341,275 @@ int ossl_ech_intbuf_fetch(SSL_CONNECTION *s, unsigned char **buf, size_t *blen)
     *buf = s->ext.ech.transbuf;
     *blen = s->ext.ech.transbuf_len;
     return 1;
+}
+
+static int ech_read_hrrtoken(SSL_CONNECTION *sc, unsigned char **hrrtok,
+                             size_t *toklen)
+{
+    PACKET pkt_hrrtok;
+    unsigned int pi_tmp;
+    const unsigned char *pp_tmp;
+
+    /*
+     * invented TLS presentation form packet format for this is:
+     *  struct {
+     *     opaque enc<0..2^16-1>;
+     *  }
+     *
+     *  Note that enc is public having been visible on the n/w
+     *  when CH1 was sent.
+     */
+    if (PACKET_buf_init(&pkt_hrrtok, *hrrtok, *toklen) != 1
+        || !PACKET_get_net_2(&pkt_hrrtok, &pi_tmp)
+        || !PACKET_get_bytes(&pkt_hrrtok, &pp_tmp, pi_tmp)
+        || PACKET_remaining(&pkt_hrrtok) > 0) {
+        ERR_raise(ERR_LIB_SSL, ERR_R_INTERNAL_ERROR);
+        return 0;
+    }
+    sc->ext.ech.pub = OPENSSL_malloc(pi_tmp);
+    if (sc->ext.ech.pub == NULL)
+        return 0;
+    memcpy(sc->ext.ech.pub, pp_tmp, pi_tmp);
+    sc->ext.ech.pub_len = pi_tmp;
+    /* also set this to get calculations right */
+    sc->hello_retry_request = SSL_HRR_PENDING;
+    return 1;
+}
+
+static int ech_write_hrrtoken(SSL_CONNECTION *sc, unsigned char **hrrtok,
+                              size_t *toklen)
+{
+    WPACKET hpkt;
+    BUF_MEM *hpkt_mem = NULL;
+
+    /* invented TLS presentation form packet format as above */
+    if ((hpkt_mem = BUF_MEM_new()) == NULL
+        || !BUF_MEM_grow(hpkt_mem, OSSL_ECH_MAX_ECHCONFIG_LEN)) {
+        ERR_raise(ERR_LIB_SSL, ERR_R_INTERNAL_ERROR);
+        return 0;
+    }
+    if (!WPACKET_init(&hpkt, hpkt_mem)
+        || !WPACKET_put_bytes_u16(&hpkt, sc->ext.ech.pub_len)
+        || !WPACKET_memcpy(&hpkt, sc->ext.ech.pub,
+                           sc->ext.ech.pub_len)) {
+        ERR_raise(ERR_LIB_SSL, ERR_R_INTERNAL_ERROR);
+        WPACKET_cleanup(&hpkt);
+        BUF_MEM_free(hpkt_mem);
+        return 0;
+    }
+    WPACKET_get_total_written(&hpkt, toklen);
+    *hrrtok = OPENSSL_malloc(*toklen);
+    if (*hrrtok == NULL) {
+        WPACKET_cleanup(&hpkt);
+        BUF_MEM_free(hpkt_mem);
+        return 0;
+    }
+    memcpy(*hrrtok, WPACKET_get_curr(&hpkt) - *toklen, *toklen);
+    WPACKET_cleanup(&hpkt);
+    BUF_MEM_free(hpkt_mem);
+    return 1;
+}
+
+int ossl_ech_raw_dec(SSL_CTX *ctx, int *decrypted_ok,
+                     char **inner_sni, char **outer_sni,
+                     unsigned char *outer_ch, size_t outer_len,
+                     unsigned char *inner_ch, size_t *inner_len,
+                     unsigned char **hrrtok, size_t *toklen)
+{
+    SSL *s = NULL;
+    PACKET pkt_outer, pkt_inner;
+    unsigned char *inner_buf = NULL;
+    size_t inner_buf_len = 0;
+    int rv = 0, innerflag = -1;
+    size_t startofsessid = 0; /* offset of session id within Ch */
+    size_t startofexts = 0; /* offset of extensions within CH */
+    size_t echoffset = 0; /* offset of start of ECH within CH */
+    uint16_t echtype = OSSL_ECH_type_unknown; /* type of ECH seen */
+    size_t innersnioffset = 0; /* offset to SNI in inner */
+    SSL_CONNECTION *sc = NULL;
+
+    if (ctx == NULL || outer_ch == NULL || outer_len == 0
+        || inner_ch == NULL || inner_len == NULL || *inner_len == 0
+        || inner_sni == NULL || outer_sni == NULL || decrypted_ok == NULL) {
+        ERR_raise(ERR_LIB_SSL, ERR_R_PASSED_NULL_PARAMETER);
+        return 0;
+    }
+    inner_buf_len = *inner_len;
+    s = SSL_new(ctx);
+    if (s == NULL) {
+        ERR_raise(ERR_LIB_SSL, ERR_R_INTERNAL_ERROR);
+        return 0;
+    }
+    /* sanity checks on record layer and preamble */
+    if (outer_len <= 9
+        || outer_ch[0] != SSL3_RT_HANDSHAKE
+        || outer_ch[1] != TLS1_2_VERSION_MAJOR
+        || (outer_ch[2] != TLS1_VERSION_MINOR
+            && outer_ch[2] != TLS1_2_VERSION_MINOR)
+        || (size_t)((outer_ch[3] << 8) + outer_ch[4]) != (size_t)(outer_len - 5)
+        || outer_ch[5] != SSL3_MT_CLIENT_HELLO
+        || (size_t)((outer_ch[6] << 16) + (outer_ch[7] << 8) + outer_ch[8])
+        != (size_t)(outer_len - 9)) {
+        ERR_raise(ERR_LIB_SSL, ERR_R_PASSED_INVALID_ARGUMENT);
+        goto err;
+    }
+    if (PACKET_buf_init(&pkt_outer, outer_ch + 9, outer_len - 9) != 1) {
+        ERR_raise(ERR_LIB_SSL, ERR_R_INTERNAL_ERROR);
+        goto err;
+    }
+    inner_buf = OPENSSL_malloc(inner_buf_len);
+    if (inner_buf == NULL)
+        goto err;
+    if (PACKET_buf_init(&pkt_inner, inner_buf, inner_buf_len) != 1) {
+        ERR_raise(ERR_LIB_SSL, ERR_R_INTERNAL_ERROR);
+        goto err;
+    }
+    sc = SSL_CONNECTION_FROM_SSL(s);
+    if (sc == NULL) {
+        ERR_raise(ERR_LIB_SSL, ERR_R_INTERNAL_ERROR);
+        goto err;
+    }
+    if (hrrtok != NULL && toklen != NULL
+        && *hrrtok != NULL && *toklen != 0
+        && ech_read_hrrtoken(sc, hrrtok, toklen) != 1) {
+        ERR_raise(ERR_LIB_SSL, ERR_R_PASSED_INVALID_ARGUMENT);
+        goto err;
+    }
+    /*
+     * Check if there's any ECH and if so, whether it's an outer
+     * (that might need decrypting) or an inner
+     */
+    rv = ossl_ech_get_ch_offsets(sc, &pkt_outer, &startofsessid, &startofexts,
+                                 &echoffset, &echtype, &innerflag, &innersnioffset);
+    if (rv != 1) {
+        ERR_raise(ERR_LIB_SSL, ERR_R_PASSED_INVALID_ARGUMENT);
+        goto err;
+    }
+    if (echoffset == 0) {
+        /* no ECH present */
+        SSL_free(s);
+        OPENSSL_free(inner_buf);
+        *decrypted_ok = 0;
+        return 1;
+    }
+    /* If we're asked to decrypt an inner, that's not ok */
+    if (innerflag == 1) {
+        ERR_raise(ERR_LIB_SSL, ERR_R_PASSED_INVALID_ARGUMENT);
+        SSL_free(s);
+        OPENSSL_free(inner_buf);
+        *decrypted_ok = 0;
+        return 0;
+    }
+
+    rv = ossl_ech_early_decrypt(sc, &pkt_outer, &pkt_inner);
+    if (rv != 1) {
+        /* that could've been GREASE, but we've no idea */
+        ERR_raise(ERR_LIB_SSL, ERR_R_PASSED_INVALID_ARGUMENT);
+        goto err;
+    }
+    if (sc->ext.ech.outer_hostname != NULL) {
+        *outer_sni = OPENSSL_strdup(sc->ext.ech.outer_hostname);
+        if (*outer_sni == NULL) {
+            ERR_raise(ERR_LIB_SSL, ERR_R_INTERNAL_ERROR);
+            goto err;
+        }
+    }
+    if (sc->ext.ech.success == 0) {
+        *decrypted_ok = 0;
+        OPENSSL_free(*outer_sni);
+        *outer_sni = NULL;
+    } else {
+        size_t ilen = PACKET_remaining(&pkt_inner);
+        const unsigned char *iptr = NULL;
+
+        /* make sure there's space */
+        if ((ilen + 9) > inner_buf_len) {
+            ERR_raise(ERR_LIB_SSL, ERR_R_PASSED_INVALID_ARGUMENT);
+            goto err;
+        }
+        if ((iptr = PACKET_data(&pkt_inner)) == NULL) {
+            ERR_raise(ERR_LIB_SSL, ERR_R_PASSED_INVALID_ARGUMENT);
+            goto err;
+        }
+        /* Fix up header and length of inner CH */
+        inner_ch[0] = SSL3_RT_HANDSHAKE;
+        inner_ch[1] = outer_ch[1];
+        inner_ch[2] = outer_ch[2];
+        inner_ch[3] = ((ilen + 4) >> 8) & 0xff;
+        inner_ch[4] = (ilen + 4) & 0xff;
+        inner_ch[5] = SSL3_MT_CLIENT_HELLO;
+        inner_ch[6] = (ilen >> 16) & 0xff;
+        inner_ch[7] = (ilen >> 8) & 0xff;
+        inner_ch[8] = ilen & 0xff;
+        memcpy(inner_ch + 9, iptr, ilen);
+        *inner_len = ilen + 9;
+        /* Grab the inner SNI (if it's there) */
+        rv = ossl_ech_get_ch_offsets(sc, &pkt_inner, &startofsessid,
+                                     &startofexts, &echoffset,
+                                     &echtype, &innerflag,
+                                     &innersnioffset);
+        if (rv != 1) {
+            ERR_raise(ERR_LIB_SSL, ERR_R_PASSED_INVALID_ARGUMENT);
+            return rv;
+        }
+        if (innersnioffset > 0) {
+            PACKET isni;
+            size_t plen;
+            const unsigned char *isnipeek = NULL;
+            const unsigned char *isnibuf = NULL;
+            size_t isnilen = 0;
+
+            plen = PACKET_remaining(&pkt_inner);
+            if (PACKET_peek_bytes(&pkt_inner, &isnipeek, plen) != 1) {
+                ERR_raise(ERR_LIB_SSL, ERR_R_PASSED_INVALID_ARGUMENT);
+                goto err;
+            }
+            if (plen <= 4) {
+                ERR_raise(ERR_LIB_SSL, ERR_R_PASSED_INVALID_ARGUMENT);
+                goto err;
+            }
+            isnibuf = &(isnipeek[innersnioffset + 4]);
+            isnilen = isnipeek[innersnioffset + 2] * 256
+                + isnipeek[innersnioffset + 3];
+            if (isnilen >= plen - 4) {
+                ERR_raise(ERR_LIB_SSL, ERR_R_PASSED_INVALID_ARGUMENT);
+                goto err;
+            }
+            if (PACKET_buf_init(&isni, isnibuf, isnilen) != 1) {
+                ERR_raise(ERR_LIB_SSL, ERR_R_PASSED_INVALID_ARGUMENT);
+                goto err;
+            }
+            if (tls_parse_ctos_server_name(sc, &isni, 0, NULL, 0) != 1) {
+                ERR_raise(ERR_LIB_SSL, ERR_R_PASSED_INVALID_ARGUMENT);
+                goto err;
+            }
+            if (sc->ext.hostname != NULL) {
+                *inner_sni = OPENSSL_strdup(sc->ext.hostname);
+                if (*inner_sni == NULL) {
+                    ERR_raise(ERR_LIB_SSL, ERR_R_INTERNAL_ERROR);
+                    goto err;
+                }
+            }
+        }
+
+        /* stash client's ephemeral ECH pub in case of HRR */
+        if (hrrtok != NULL && toklen != NULL) {
+            if (*hrrtok != NULL)
+                OPENSSL_free(*hrrtok);
+            if (ech_write_hrrtoken(sc, hrrtok, toklen) != 1) {
+                ERR_raise(ERR_LIB_SSL, ERR_R_INTERNAL_ERROR);
+                goto err;
+            }
+        }
+        /* Declare success to caller */
+        *decrypted_ok = 1;
+    }
+    SSL_free(s);
+    OPENSSL_free(inner_buf);
+    return 1;
+err:
+    SSL_free(s);
+    OPENSSL_free(inner_buf);
+    return 0;
 }
 #endif
