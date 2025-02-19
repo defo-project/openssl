@@ -198,12 +198,16 @@ int ossl_ech_conn_init(SSL_CONNECTION *s, SSL_CTX *ctx,
         if (s->ext.ech.alpn_outer == NULL)
             goto err;
         s->ext.ech.alpn_outer_len = ctx->ext.ech.alpn_outer_len;
+        s->ext.ech.attempted = 1;
     }
     /* initialise type/cid to unknown */
     s->ext.ech.attempted_type = OSSL_ECH_type_unknown;
     s->ext.ech.attempted_cid = OSSL_ECH_config_id_unset;
     if (s->ext.ech.es != NULL)
         s->ext.ech.attempted = 1;
+    /* if attempting real ECH, force min version to TLSV1.3 */
+    if (s->ext.ech.attempted == 1)
+        s->min_proto_version = TLS1_3_VERSION;
     if ((ctx->options & SSL_OP_ECH_GREASE) != 0)
         s->options |= SSL_OP_ECH_GREASE;
     return 1;
