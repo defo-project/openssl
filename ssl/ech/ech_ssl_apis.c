@@ -45,9 +45,15 @@ int SSL_set1_echstore(SSL *ssl, OSSL_ECHSTORE *es)
     }
     /*
      * Here, and below, if the application calls an API that implies it
-     * wants to try ECH, then we set attempted to 1
+     * wants to try real ECH, then we set attempted to 1 and we force
+     * (attempted) use of TLSv1.3.
+     * We don't need (or want) that for GREASE though
      */
     s->ext.ech.attempted = 1;
+    if (!SSL_set_min_proto_version(ssl, TLS1_3_VERSION)) {
+        SSLfatal(s, SSL_AD_INTERNAL_ERROR, ERR_R_INTERNAL_ERROR);
+        return 0;
+    }
     return 1;
 }
 
@@ -111,6 +117,10 @@ int SSL_ech_set1_server_names(SSL *ssl, const char *inner_name,
     }
     s->ext.ech.no_outer = no_outer;
     s->ext.ech.attempted = 1;
+    if (!SSL_set_min_proto_version(ssl, TLS1_3_VERSION)) {
+        SSLfatal(s, SSL_AD_INTERNAL_ERROR, ERR_R_INTERNAL_ERROR);
+        return 0;
+    }
     return 1;
 }
 
@@ -131,6 +141,10 @@ int SSL_ech_set1_outer_server_name(SSL *ssl, const char *outer_name,
     }
     s->ext.ech.no_outer = no_outer;
     s->ext.ech.attempted = 1;
+    if (!SSL_set_min_proto_version(ssl, TLS1_3_VERSION)) {
+        SSLfatal(s, SSL_AD_INTERNAL_ERROR, ERR_R_INTERNAL_ERROR);
+        return 0;
+    }
     return 1;
 }
 
@@ -160,6 +174,10 @@ int SSL_ech_set1_outer_alpn_protos(SSL *ssl, const unsigned char *protos,
         return 0;
     s->ext.ech.alpn_outer_len = protos_len;
     s->ext.ech.attempted = 1;
+    if (!SSL_set_min_proto_version(ssl, TLS1_3_VERSION)) {
+        SSLfatal(s, SSL_AD_INTERNAL_ERROR, ERR_R_INTERNAL_ERROR);
+        return 0;
+    }
     return 1;
 }
 
@@ -258,7 +276,6 @@ int SSL_ech_set1_grease_suite(SSL *ssl, const char *suite)
     s->ext.ech.grease_suite = OPENSSL_strdup(suite);
     if (s->ext.ech.grease_suite == NULL)
         return 0;
-    s->ext.ech.attempted = 1;
     return 1;
 }
 
@@ -270,7 +287,6 @@ int SSL_ech_set_grease_type(SSL *ssl, uint16_t type)
     if (s == NULL)
         return 0;
     s->ext.ech.attempted_type = type;
-    s->ext.ech.attempted = 1;
     return 1;
 }
 
