@@ -2563,6 +2563,7 @@ EXT_RETURN tls_construct_ctos_ech(SSL_CONNECTION *s, WPACKET *pkt,
                                   unsigned int context, X509 *x,
                                   size_t chainidx)
 {
+    /* if we're not doing real ECH and not GREASEing then exit */
     if (s->ext.ech.attempted_type != TLSEXT_TYPE_ech
         && s->ext.ech.grease != OSSL_ECH_IS_GREASE
         && !(s->options & SSL_OP_ECH_GREASE))
@@ -2573,7 +2574,7 @@ EXT_RETURN tls_construct_ctos_ech(SSL_CONNECTION *s, WPACKET *pkt,
             || (s->options & SSL_OP_ECH_GREASE))) {
         if (s->hello_retry_request == SSL_HRR_PENDING
             && s->ext.ech.sent != NULL) {
-            /* re-tx already sent GREASEy ECH */
+            /* during HRR, re-tx already sent GREASEy ECH */
             if (WPACKET_memcpy(pkt, s->ext.ech.sent,
                                s->ext.ech.sent_len) != 1) {
                 SSLfatal(s, SSL_AD_INTERNAL_ERROR, ERR_R_INTERNAL_ERROR);
@@ -2595,6 +2596,8 @@ EXT_RETURN tls_construct_ctos_ech(SSL_CONNECTION *s, WPACKET *pkt,
      * entire thing has been constructed we only then finally encode
      * and encrypt - need to do it that way as we need the rest of
      * the outer CH as AAD input to the encryption.
+     * This branch also takes care of not sending when real ECH is
+     * not being attempted.
      */
     if (s->ext.ech.ch_depth == 0)
         return EXT_RETURN_NOT_SENT;
