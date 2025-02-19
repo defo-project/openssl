@@ -15,6 +15,7 @@
 #include "../statem/statem_local.h"
 #include <internal/ech_helpers.h>
 #include <openssl/kdf.h>
+#include <internal/ssl_unwrap.h>
 
 #ifndef OPENSSL_NO_ECH
 
