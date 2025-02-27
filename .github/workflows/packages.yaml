@@ -58,7 +58,7 @@ jobs:
 
       - name: Run sbuild
         run: |
-          sed -i "1 s/([^)]*)/($(git describe --tags | sed 's/^[^0-9]*//;s/-/./g;s/_/./g')-$(date -u '+%Y%m%d.%H%M%S%N'))/" debian/changelog
+          sed -i "1 s/([^)]*)/1:($(git describe --tags | sed 's/^[^0-9]*//;s/-/./g;s/_/./g')-$(date -u '+%Y%m%d.%H%M%S%N'))/" debian/changelog
           sbuild -d testing --chroot-mode=unshare --no-clean-source --no-run-lintian \
             --dpkg-source-opts="-Zgzip -z1 --format=1.0 -sn" --build-dir="$HOME/apt_repo"
           cd "$HOME/apt_repo"
