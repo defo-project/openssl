@@ -810,16 +810,6 @@ static int add_key_share(SSL_CONNECTION *s, WPACKET *pkt, unsigned int group_id,
         goto err;
     }
 
-#ifndef OPENSSL_NO_ECH
-    /* TODO(ECH): update this to handle >1 key share properly */
-    if (s->ext.ech.ch_depth == 1) { /* stash inner */
-        EVP_PKEY_up_ref(key_share_key);
-        EVP_PKEY_free(s->ext.ech.tmp_pkey);
-        s->ext.ech.tmp_pkey = key_share_key;
-        s->ext.ech.group_id = group_id;
-    }
-# endif
-
     /* For backward compatibility, we use the first valid group to add a key share */
     if (loop_num == 0) {
         s->s3.tmp.pkey = key_share_key;
@@ -921,6 +911,13 @@ EXT_RETURN tls_construct_ctos_key_share(SSL_CONNECTION *s, WPACKET *pkt,
         SSLfatal(s, SSL_AD_INTERNAL_ERROR, SSL_R_NO_SUITABLE_KEY_SHARE);
         return EXT_RETURN_FAIL;
     }
+#ifndef OPENSSL_NO_ECH
+    /* stash inner key shares */
+    if (s->ext.ech.ch_depth == 1 && ossl_ech_stash_keyshares(s) != 1) {
+        SSLfatal(s, SSL_AD_INTERNAL_ERROR, ERR_R_INTERNAL_ERROR);
+        return EXT_RETURN_FAIL;
+    }
+# endif
 
     if (!WPACKET_close(pkt) || !WPACKET_close(pkt)) {
         SSLfatal(s, SSL_AD_INTERNAL_ERROR, ERR_R_INTERNAL_ERROR);
