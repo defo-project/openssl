@@ -94,10 +94,6 @@ static void print_connection_info(SSL *con);
 
 # ifndef OPENSSL_NO_ECH
 static unsigned int ech_print_cb(SSL *s, const char *str);
-#  ifndef OPENSSL_NO_SSL_TRACE
-static size_t ech_trace_cb(const char *buf, size_t cnt,
-                           int category, int cmd, void *vdata);
-#  endif
 # endif
 
 static const int bufsize = 16 * 1024;
@@ -462,44 +458,6 @@ static unsigned int ech_print_cb(SSL *s, const char *str)
     return 1;
 }
 
-#  ifndef OPENSSL_NO_SSL_TRACE
-static size_t ech_trace_cb(const char *buf, size_t cnt,
-                           int category, int cmd, void *vdata)
-{
-     BIO *bio = vdata;
-     const char *label = NULL;
-     size_t brv = 0;
-
-     switch (cmd) {
-     case OSSL_TRACE_CTRL_BEGIN:
-         label = "ECH TRACE BEGIN";
-         break;
-     case OSSL_TRACE_CTRL_END:
-         label = "ECH TRACE END";
-         break;
-     }
-     if (label != NULL) {
-#  if defined(OPENSSL_THREADS) && !defined(OPENSSL_SYS_WINDOWS) \
-      && !defined(OPENSSL_SYS_MSDOS)
-         union {
-             pthread_t tid;
-             unsigned long ltid;
-         } tid;
-
-         tid.tid = pthread_self();
-         BIO_printf(bio, "%s TRACE[%s]:%lx\n", label,
-                    OSSL_trace_get_category_name(category), tid.ltid);
-#  else
-         BIO_printf(bio, "%s TRACE[%s]:0\n", label,
-                    OSSL_trace_get_category_name(category));
-#  endif
-     }
-     brv = (size_t)BIO_puts(bio, buf);
-     (void)BIO_flush(bio);
-     return brv;
-}
-# endif
-
 /*
  * The server has possibly 2 TLS server names basically in ctx and ctx2.  So we
  * need to check if any client-supplied SNI in the inner/outer matches either
@@ -523,11 +481,13 @@ static int ssl_ech_servername_cb(SSL *s, int *ad, void *arg)
 {
     tlsextctx *p = (tlsextctx *) arg;
     time_t now = time(0); /* For a bit of basic logging */
+# if !defined(OPENSSL_SYS_WINDOWS)
     int sockfd = 0, res = 0, echrv = 0, srv = 0;
     struct sockaddr_storage ss;
     socklen_t salen = sizeof(ss);
     struct sockaddr *sa;
     char clientip[INET6_ADDRSTRLEN], lstr[ECH_TIME_STR_LEN];
+# endif
     const char *servername = NULL;
     char *inner_sni = NULL, *outer_sni = NULL;
     struct tm local;
@@ -551,6 +511,7 @@ static int ssl_ech_servername_cb(SSL *s, int *ad, void *arg)
         if (srv == 0)
             strcpy(lstr, "sometime");
     }
+# if !defined(OPENSSL_SYS_WINDOWS)
     memset(clientip, 0, INET6_ADDRSTRLEN);
     strncpy(clientip, "dunno", INET6_ADDRSTRLEN);
     memset(&ss, 0, salen);
@@ -564,14 +525,17 @@ static int ssl_ech_servername_cb(SSL *s, int *ad, void *arg)
         if (res != 0)
             strncpy(clientip, "dunno", INET6_ADDRSTRLEN);
     }
+# endif
     /* Name that matches "main" ctx */
     servername = SSL_get_servername(s, TLSEXT_NAMETYPE_host_name);
     echrv = SSL_ech_get1_status(s, &inner_sni, &outer_sni);
     if (p->biodebug != NULL ) {
+# if !defined(OPENSSL_SYS_WINDOWS)
         /* spit out basic logging */
         BIO_printf(p->biodebug,
                    "ssl_ech_servername_cb: connection from %s at %s\n",
                    clientip, lstr);
+# endif
         /* Client supplied SNI from inner and outer */
         switch (echrv) {
         case SSL_ECH_STATUS_BACKEND:
@@ -1485,7 +1449,7 @@ const OPTIONS s_server_options[] = {
 };
 
 #ifndef OPENSSL_NO_ECH
-static int ech_load_dir(SSL_CTX *ctx, const char *thedir,
+static int ech_load_dir(SSL_CTX *lctx, const char *thedir,
                         int for_retry, int *nloaded)
 {
     size_t elen = strlen(thedir);
@@ -1503,7 +1467,7 @@ static int ech_load_dir(SSL_CTX *ctx, const char *thedir,
         BIO_printf(bio_err, "'%s' not a directory - exiting\n", thedir);
         return 0;
     }
-    if ((es = SSL_CTX_get1_echstore(ctx)) == NULL
+    if ((es = SSL_CTX_get1_echstore(lctx)) == NULL
         && (es = OSSL_ECHSTORE_new(app_get0_libctx(),
                                    app_get0_propq())) == NULL) {
         BIO_printf(bio_err, "internal error\n");
@@ -1530,7 +1494,7 @@ static int ech_load_dir(SSL_CTX *ctx, const char *thedir,
             BIO_printf(bio_s_out,"Added ECH key pair from: %s\n",thisfile);
         loaded++;
     }
-    if (SSL_CTX_set1_echstore(ctx, es) != 1) {
+    if (SSL_CTX_set1_echstore(lctx, es) != 1) {
         BIO_printf(bio_err, "internal error\n");
         return 0;
     }
@@ -2938,11 +2902,6 @@ int s_server_main(int argc, char *argv[])
         SSL_CTX_set_tlsext_servername_arg(ctx, &tlsextcbp);
         SSL_CTX_ech_set_callback(ctx2, ech_print_cb);
         SSL_CTX_ech_set_callback(ctx, ech_print_cb);
-# ifndef OPENSSL_NO_SSL_TRACE
-        if (s_msg == 2)
-            OSSL_trace_set_callback(OSSL_TRACE_CATEGORY_TLS, ech_trace_cb,
-                                    bio_s_out);
-# endif
 #else
         SSL_CTX_set_tlsext_servername_callback(ctx2, ssl_servername_cb);
         SSL_CTX_set_tlsext_servername_arg(ctx2, &tlsextcbp);
