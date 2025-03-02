@@ -18,6 +18,9 @@
 #if defined(_WIN32)
 /* Included before async.h to avoid some warnings */
 # include <windows.h>
+# ifndef PATH_MAX
+#  defined PATH_MAX 1024
+# endif
 #endif
 
 #include <openssl/e_os2.h>
@@ -482,12 +485,14 @@ static int ssl_ech_servername_cb(SSL *s, int *ad, void *arg)
     tlsextctx *p = (tlsextctx *) arg;
     time_t now = time(0); /* For a bit of basic logging */
 # if !defined(OPENSSL_SYS_WINDOWS)
-    int sockfd = 0, res = 0, echrv = 0, srv = 0;
+    int sockfd = 0, res = 0;
     struct sockaddr_storage ss;
     socklen_t salen = sizeof(ss);
     struct sockaddr *sa;
-    char clientip[INET6_ADDRSTRLEN], lstr[ECH_TIME_STR_LEN];
+    char clientip[INET6_ADDRSTRLEN];
 # endif
+    int srv = 0, echrv = 0; 
+    char lstr[ECH_TIME_STR_LEN];
     const char *servername = NULL;
     char *inner_sni = NULL, *outer_sni = NULL;
     struct tm local;
