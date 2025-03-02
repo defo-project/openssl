@@ -612,8 +612,11 @@ static int ssl_ech_servername_cb(SSL *s, int *ad, void *arg)
         return SSL_TLSEXT_ERR_NOACK;
     if (echrv == SSL_ECH_STATUS_SUCCESS && servername != NULL) {
         if (ctx2 != NULL) {
-            int check_hostrv = X509_check_host(p->scert, servername, 0, 0, NULL);
+            int check_hostrv = 1;
 
+# if !defined(OPENSSL_NO_OCSP) && !defined(OPENSSL_NO_HTTP)
+            check_hostrv = X509_check_host(p->scert, servername, 0, 0, NULL);
+# endif
             if (check_hostrv == 1) {
                 if (p->biodebug != NULL)
                      BIO_printf(p->biodebug,
