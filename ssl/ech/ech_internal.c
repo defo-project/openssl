@@ -167,7 +167,7 @@ void ossl_ech_ctx_clear(OSSL_ECH_CTX *ce)
 
 static void ech_free_stashed_key_shares(OSSL_ECH_CONN *ec)
 {
-    int i;
+    size_t i;
 
     if (ec == NULL)
         return;
@@ -2630,7 +2630,7 @@ err:
 
 int ossl_ech_stash_keyshares(SSL_CONNECTION *s)
 {
-    int i;
+    size_t i;
 
     ech_free_stashed_key_shares(&s->ext.ech);
     for (i = 0; i != s->s3.tmp.num_ks_pkey; i++) {
@@ -2644,7 +2644,7 @@ int ossl_ech_stash_keyshares(SSL_CONNECTION *s)
 
 int ossl_ech_unstash_keyshares(SSL_CONNECTION *s)
 {
-    int i;
+    size_t i;
 
     for (i = 0; i != s->s3.tmp.num_ks_pkey; i++) {
         EVP_PKEY_free(s->s3.tmp.ks_pkey[i]);
