@@ -1321,6 +1321,22 @@ EXT_RETURN tls_construct_ctos_psk(SSL_CONNECTION *s, WPACKET *pkt,
          * good enough.
          */
         agems = agesec * (uint32_t)1000;
+#ifndef OPENSSL_NO_ECH
+        /*
+         * When doing ECH, we get here twice (for inner then outer), and don't
+         * want to risk getting different values for the age in milliseconds
+         * so when doing the inner, we'll store the |agems| value and then
+         * use that the 2nd time when doing the outer CH. The actual processing
+         * for the outer CH (inserting random values) is further below.
+         */
+        if (s->ext.ech.es != NULL && s->ext.ech.ch_depth == 1)
+            /* inner processing - record agems */
+            s->ext.ech.agems = agems;
+        if (s->ext.ech.es != NULL && s->ext.ech.ch_depth == 0)
+            /* outer processing - re-use agems from inner */
+            agems = s->ext.ech.agems;
+#endif
+
 
         if (agesec != 0 && agems / (uint32_t)1000 != agesec) {
             /*
