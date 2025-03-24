@@ -240,6 +240,7 @@ typedef struct ossl_ech_conn_st {
     uint16_t ks_group_id[OPENSSL_CLIENT_MAX_KEY_SHARES];
     size_t num_ks_pkey; /* how many keyshares are there */
     unsigned char client_random[SSL3_RANDOM_SIZE]; /* CH random */
+    uint32_t agems; /* for PSK processing */
 } OSSL_ECH_CONN;
 
 /* Return values from ossl_ech_same_ext */
