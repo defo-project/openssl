@@ -39,6 +39,9 @@
 # include "internal/ssl.h"
 # include "internal/cryptlib.h"
 # include "record/record.h"
+# ifndef OPENSSL_NO_ECH
+#  include "ech/ech_local.h"
+# endif
 
 # ifdef OPENSSL_BUILD_SHLIBSSL
 #  undef OPENSSL_EXTERN
@@ -701,6 +704,8 @@ typedef enum tlsext_index_en {
     TLSEXT_IDX_compress_certificate,
     TLSEXT_IDX_early_data,
     TLSEXT_IDX_certificate_authorities,
+    TLSEXT_IDX_ech,
+    TLSEXT_IDX_outer_extensions,
     TLSEXT_IDX_padding,
     TLSEXT_IDX_psk,
     /* Dummy index - must always be the last entry */
@@ -1076,6 +1081,9 @@ struct ssl_ctx_st {
 # endif
 
         unsigned char cookie_hmac_key[SHA256_DIGEST_LENGTH];
+# ifndef OPENSSL_NO_ECH
+        OSSL_ECH_CTX ech;
+# endif
     } ext;
 
 # ifndef OPENSSL_NO_PSK
@@ -1677,6 +1685,10 @@ struct ssl_connection_st {
         uint8_t client_cert_type_ctos;
         uint8_t server_cert_type;
         uint8_t server_cert_type_ctos;
+
+# ifndef OPENSSL_NO_ECH
+        OSSL_ECH_CONN ech;
+# endif
     } ext;
 
     /*
@@ -2581,6 +2593,8 @@ __owur STACK_OF(SSL_CIPHER) *ssl_get_ciphers_by_id(SSL_CONNECTION *sc);
 __owur int ssl_x509err2alert(int type);
 void ssl_sort_cipher_list(void);
 int ssl_load_ciphers(SSL_CTX *ctx);
+int ssl_cipher_list_to_bytes(SSL_CONNECTION *s, STACK_OF(SSL_CIPHER) *sk,
+                             WPACKET *pkt);
 __owur int ssl_setup_sigalgs(SSL_CTX *ctx);
 int ssl_load_groups(SSL_CTX *ctx);
 int ssl_load_sigalgs(SSL_CTX *ctx);
