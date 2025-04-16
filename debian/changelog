@@ -1,4 +1,4 @@
-openssl (3.4.0-0~1.gbp9f532ba7fd) UNRELEASED; urgency=medium
+openssl (3.5.0-0~1.gbp9f532ba7fd) UNRELEASED; urgency=medium
 
   ** SNAPSHOT build @9f532ba7fd **
 
@@ -7,9 +7,79 @@ openssl (3.4.0-0~1.gbp9f532ba7fd) UNRELEASED; urgency=medium
 
  -- Jochen Sprickerhof <jspricke@debian.org>  Tue, 10 Oct 2023 16:36:40 +0200
 
+openssl (3.5.0-1) unstable; urgency=medium
+
+  * Import 3.5.0
+  * Upload to unstable.
+
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Tue, 08 Apr 2025 21:15:30 +0200
+
+openssl (3.5.0~~beta1-1) experimental; urgency=medium
+
+  * Import 3.5.0-beta1.
+
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Wed, 26 Mar 2025 21:38:19 +0100
+
+openssl (3.5.0~~alpha1-1) experimental; urgency=medium
+
+  * Import 3.5.0-alpha1.
+  * Remove usr/share/doc/libssl3 (Closes: #1098515).
+
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Wed, 12 Mar 2025 22:08:55 +0100
+
+openssl (3.4.1-1) unstable; urgency=medium
+
+  * Import 3.4.1
+  - CVE-2024-12797 (RFC7250 handshakes with unauthenticated servers don't
+    abort as expected) (Closes: #1095765).
+  - CVE-2024-13176 (Timing side-channel in ECDSA signature computation)
+    (Closes: #1094027).
+  - Compile on LoongArch again (Closes: #1092307).
+
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Tue, 11 Feb 2025 21:30:30 +0100
+
+openssl (3.4.0-2) unstable; urgency=medium
+
+  * Disable padlockeng on non-x86 architectures.
+  * Upload to unstable.
+
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Mon, 06 Jan 2025 19:01:42 +0100
+
+openssl (3.4.0-1) experimental; urgency=medium
+
+  * Import 3.4.0
+  - CVE-2024-9143 (Low-level invalid GF(2^m) parameters lead to OOB memory
+    access) (Closes: #1085378).
+
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Wed, 23 Oct 2024 21:18:43 +0200
+
+openssl (3.4.0~~beta1-2) experimental; urgency=medium
+
+  * Add a patch to avoid using other memory allocations if custom malloc is
+    provided.
+  * Add a patch to check length in the SPARC assembly implementation of
+    AES-CBC.
+
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Sun, 13 Oct 2024 22:07:10 +0200
+
+openssl (3.4.0~~beta1-1) experimental; urgency=medium
+
+  * Import 3.4.0-beta1
+
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Mon, 07 Oct 2024 23:03:28 +0200
+
+openssl (3.3.2-1) unstable; urgency=medium
+
+  * Import 3.3.2.
+    - CVE-2024-6119 (Possible denial of service in X.509 name checks).
+    - CVE-2024-5535 (SSL_select_next_proto buffer overread)
+      (Closes: #1074487).
+
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Tue, 03 Sep 2024 21:43:24 +0200
+
 openssl (3.3.1-7) unstable; urgency=medium
 
-  * Make linssl3t64 depend on openssl-provider-legacy (See further development
+  * Make libssl3t64 depend on openssl-provider-legacy (See further development
     in #965041).
 
  -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Mon, 19 Aug 2024 23:38:33 +0200
@@ -20,7 +90,7 @@ openssl (3.3.1-6) unstable; urgency=medium
   * Enable ec_nistp_64_gcc_128 on arm64, ppc64el, riscv64. Initially suggested
     by Joel Stanley.
   * Add a "prefix" for pkg-config and cmake exporter
-    (Closes: #1078413, #1078020).
+    (Closes: #1078509, #1078020).
   * Add Breaks/ Replaces to the legacy provider also against libssl3
     (Closes: #1078551).
   * Upload to unstable.
