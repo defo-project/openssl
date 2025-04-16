@@ -4,10 +4,10 @@ Section: utils
 Priority: optional
 Maintainer: Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>
 Uploaders: Christoph Martin <christoph.martin@uni-mainz.de>, Kurt Roeckx <kurt@roeckx.be>, Sebastian Andrzej Siewior <sebastian@breakpoint.cc>
-Standards-Version: 4.6.2
+Standards-Version: 4.7.2
 Vcs-Browser: https://salsa.debian.org/debian/openssl
 Vcs-Git: https://salsa.debian.org/debian/openssl.git
-Homepage: https://www.openssl.org/
+Homepage: https://openssl-library.org
 Rules-Requires-Root: no
 
 Package: openssl

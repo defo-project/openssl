@@ -45,6 +45,10 @@ ifneq ($(filter amd64 arm64 ppc64el riscv64,$(DEB_HOST_ARCH_CPU)),)
 	CONFARGS += enable-ec_nistp_64_gcc_128
 endif
 
+ifeq ($(filter amd64 i386,$(DEB_HOST_ARCH_CPU)),)
+	CONFARGS += no-padlockeng
+endif
+
 %:
 	dh $@ --without autoreconf
 
