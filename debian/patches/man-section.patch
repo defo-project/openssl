@@ -7,7 +7,7 @@ Subject: man-section
  1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/Configurations/unix-Makefile.tmpl b/Configurations/unix-Makefile.tmpl
-index d5c430702b22..38ddb0b50245 100644
+index 09a90e006ecf..35bccf844bd4 100644
 --- a/Configurations/unix-Makefile.tmpl
 +++ b/Configurations/unix-Makefile.tmpl
 @@ -347,7 +347,8 @@ HTMLDIR=$(DOCDIR)/html
@@ -20,7 +20,7 @@ index d5c430702b22..38ddb0b50245 100644
  HTMLSUFFIX=html
  
  # For "optional" echo messages, to get "real" silence
-@@ -1565,7 +1566,7 @@ EOF
+@@ -1569,7 +1570,7 @@ EOF
            my $pod = $gen0;
            return <<"EOF";
  $args{src}: $pod
