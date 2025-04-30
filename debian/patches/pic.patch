@@ -5,9 +5,9 @@ Subject: pic
 ---
  crypto/des/asm/desboth.pl | 17 ++++++++++++++---
  crypto/perlasm/cbc.pl     | 24 ++++++++++++++++++++----
- crypto/perlasm/x86gas.pl  | 16 ++++++++++++++++
- crypto/x86cpuid.pl        | 10 +++++-----
- 4 files changed, 55 insertions(+), 12 deletions(-)
+ crypto/perlasm/x86gas.pl  |  1 +
+ crypto/x86cpuid.pl        |  8 ++++----
+ 4 files changed, 39 insertions(+), 11 deletions(-)
 
 diff --git a/crypto/des/asm/desboth.pl b/crypto/des/asm/desboth.pl
 index afffd20d84cd..b50e85ce24f8 100644
@@ -107,43 +107,19 @@ index ef09e0fd297a..fe6ff45d1804 100644
  	&mov("eax",	&DWP($data_off,"esp","",0));	# get return
  	&mov("ebx",	&DWP($data_off+4,"esp","",0));	#
 diff --git a/crypto/perlasm/x86gas.pl b/crypto/perlasm/x86gas.pl
-index f3c01ea89b4b..2fba3d831c74 100644
+index c6054953f7ba..59d830f19e79 100644
 --- a/crypto/perlasm/x86gas.pl
 +++ b/crypto/perlasm/x86gas.pl
-@@ -172,6 +172,7 @@ sub ::file_end
+@@ -170,6 +170,7 @@ sub ::file_end
  	if ($::macosx)	{ push (@out,"$tmp,2\n"); }
  	elsif ($::elf)	{ push (@out,"$tmp,4\n"); }
  	else		{ push (@out,"$tmp\n"); }
 +	if ($::elf)     { push (@out,".hidden\tOPENSSL_ia32cap_P\n"); }
      }
-     push(@out,$initseg) if ($initseg);
      if ($::elf) {
-@@ -250,8 +251,23 @@ ___
-     elsif ($::elf)
-     {	$initseg.=<<___;
- .section	.init
-+___
-+        if ($::pic)
-+	{   $initseg.=<<___;
-+	pushl	%ebx
-+	call	.pic_point0
-+.pic_point0:
-+	popl	%ebx
-+	addl	\$_GLOBAL_OFFSET_TABLE_+[.-.pic_point0],%ebx
-+	call	$f\@PLT
-+	popl	%ebx
-+___
-+	}
-+	else
-+	{   $initseg.=<<___;
- 	call	$f
- ___
-+	}
-     }
-     elsif ($::coff)
-     {   $initseg.=<<___;	# applies to both Cygwin and Mingw
+ 	push(@out,"
 diff --git a/crypto/x86cpuid.pl b/crypto/x86cpuid.pl
-index 35e2c5b0a540..282058ce87f3 100644
+index f66c941b19c6..39eea147b0a9 100644
 --- a/crypto/x86cpuid.pl
 +++ b/crypto/x86cpuid.pl
 @@ -16,6 +16,8 @@ $output = pop and open STDOUT,">$output";
@@ -175,12 +151,3 @@ index 35e2c5b0a540..282058ce87f3 100644
  	&picmeup("ecx","OPENSSL_ia32cap_P");
  	&bt	(&DWP(0,"ecx"),4);
  	&jnc	(&label("nohalt"));	# no TSC
-@@ -268,7 +268,7 @@ for (@ARGV) { $sse2=1 if (/-DOPENSSL_IA32_SSE2/); }
- 	&ret	();
- &function_end_B("OPENSSL_far_spin");
- 
--&function_begin_B("OPENSSL_wipe_cpu","EXTRN\t_OPENSSL_ia32cap_P:DWORD");
-+&function_begin_B("OPENSSL_wipe_cpu");
- 	&xor	("eax","eax");
- 	&xor	("edx","edx");
- 	&picmeup("ecx","OPENSSL_ia32cap_P");
