@@ -34,7 +34,7 @@ jobs:
 
       - name: Prepare build environment
         run: |
-          sudo DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends sbuild mmdebstrap debian-archive-keyring ccache uidmap
+          sudo DEBIAN_FRONTEND=noninteractive apt -U install -y --no-install-recommends sbuild mmdebstrap debian-archive-keyring ccache uidmap
 
           mkdir -p "$HOME/.cache/sbuild"
           mmdebstrap --variant=buildd --include=apt,ccache,ca-certificates \
