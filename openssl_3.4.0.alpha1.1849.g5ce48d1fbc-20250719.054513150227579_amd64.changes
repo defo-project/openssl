@@ -1,0 +1,68 @@
+Format: 1.8
+Date: Tue, 10 Oct 2023 16:36:40 +0200
+Source: openssl
+Binary: libcrypto3-udeb libssl-dev libssl-doc libssl3-udeb libssl3t64 libssl3t64-dbgsym openssl openssl-dbgsym openssl-provider-fips openssl-provider-fips-dbgsym openssl-provider-legacy openssl-provider-legacy-dbgsym
+Architecture: amd64 all
+Version: 1:3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579
+Distribution: testing
+Urgency: medium
+Maintainer: Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>
+Changed-By: Jochen Sprickerhof <jspricke@debian.org>
+Description:
+ libcrypto3-udeb - Secure Sockets Layer toolkit - libcrypto udeb (udeb)
+ libssl-dev - Secure Sockets Layer toolkit - development files
+ libssl-doc - Secure Sockets Layer toolkit - development documentation
+ libssl3-udeb - ssl shared library - udeb (udeb)
+ libssl3t64 - Secure Sockets Layer toolkit - shared libraries
+ openssl    - Secure Sockets Layer toolkit - cryptographic utility
+ openssl-provider-fips - Secure Sockets Layer toolkit - cryptographic utility
+ openssl-provider-legacy - Secure Sockets Layer toolkit - cryptographic utility
+Changes:
+ openssl (1:3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579) UNRELEASED; urgency=medium
+ .
+   ** SNAPSHOT build @9f532ba7fd **
+ .
+   * Add DEfO patches
+   * Fix Debian patches and symbols
+Checksums-Sha1:
+ 5bc2bbf2e27398fbb668d200326cabf7170422b6 2015872 libcrypto3-udeb_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.udeb
+ 94ecd26558261ddf55580006a82ccedd635f2e39 2993992 libssl-dev_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.deb
+ a553b9932c751fa5d166a253b929357a721de8a7 2259132 libssl-doc_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_all.deb
+ 72a63fee14635a90fe31cb5983e97214d66b8514 399676 libssl3-udeb_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.udeb
+ 8eb5cf382b452d745fd7c01b10cc83826fb97746 6342348 libssl3t64-dbgsym_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.deb
+ ec4cf96112131860c1546ff0c1b295d2659ebb34 2442360 libssl3t64_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.deb
+ 943163d6c7511ee4052e3437cda27d7ae420064d 764284 openssl-dbgsym_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.deb
+ a57db4c65035933af3b701540dcdd7a7442c9967 1839612 openssl-provider-fips-dbgsym_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.deb
+ 14db4f311181051c852433d1a322d054b100cbbb 1097884 openssl-provider-fips_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.deb
+ 3cfc9fa936d7a8456e0c7733abc32a8ef62717eb 100736 openssl-provider-legacy-dbgsym_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.deb
+ 606ff976fd5b380eb9edeff3d49d8fdf5c2d8cad 309112 openssl-provider-legacy_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.deb
+ 2e091ca03eafb01a5e740aae00362b2347c29e1d 9513 openssl_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.buildinfo
+ f5ea41faa90922a1dd8339f6d6fac51376acaf91 1513436 openssl_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.deb
+Checksums-Sha256:
+ f60cd7bc5e7fc7d96ec56990c7a288dc37481785a2f3e4dfcef1604e03e73601 2015872 libcrypto3-udeb_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.udeb
+ d73c521ac50433007ef724b6281a6b64ebf9bcc68426132307459541886e904c 2993992 libssl-dev_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.deb
+ db5ea716aae34ee7d93ee8d11f689c0430b8e614ce124c3e235bc901803b633d 2259132 libssl-doc_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_all.deb
+ 92b1d51f25936dbf90b7f1e2980d2a8dea2816cd5db20f6891a90d54127973f5 399676 libssl3-udeb_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.udeb
+ 83bffe80b9ea032a384b5359e415743f1a5b84c832899136b8db4ae464df8c83 6342348 libssl3t64-dbgsym_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.deb
+ 929a2af7e8ff3001bde880851b03eb611a06ac1a37f3b90850aea50f064f5baa 2442360 libssl3t64_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.deb
+ 7a5865a4089a3c426090e67049604fc2aa14976e1e3d522babcff144182cde68 764284 openssl-dbgsym_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.deb
+ bef801d1222ec264ce51d6c9e59d39596dc95bb3b07f56b2b237f54455f2878a 1839612 openssl-provider-fips-dbgsym_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.deb
+ ed4f212ad0d60a17f9bc816705a10fe77019da998d261e44d8dbb9cc9b3a64b8 1097884 openssl-provider-fips_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.deb
+ 53cbebb07d7fbd9507b3a66debf91c84346d742982d6bbac0d68393d49615db7 100736 openssl-provider-legacy-dbgsym_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.deb
+ 1ae4002bd52d6846ba29fc80dd45050dcd5ed25641d7daeff34aab31700e287c 309112 openssl-provider-legacy_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.deb
+ a721151bc1f01dc2df2e48e083d11795c90a493363021c5f2b27b4156bca7847 9513 openssl_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.buildinfo
+ a9a7ad10235f01664d8060d0892b189e6ee3fb2cc214c6694c42f68fce2435ba 1513436 openssl_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.deb
+Files:
+ 962709b08f1a13ef646edc7cb4f5a678 2015872 debian-installer optional libcrypto3-udeb_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.udeb
+ 8cb402d8a60df6a7824e449da8faaabe 2993992 libdevel optional libssl-dev_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.deb
+ 16a0adb060ee4030240b7d60a939b6d9 2259132 doc optional libssl-doc_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_all.deb
+ ca50b9cbbb99e020e95e5a7d935add28 399676 debian-installer optional libssl3-udeb_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.udeb
+ 260f55bcfa4ddc77ff0b74fe9760872e 6342348 debug optional libssl3t64-dbgsym_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.deb
+ 5257acb30411b413228756e488f7bec4 2442360 libs optional libssl3t64_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.deb
+ 6f66c4ac0610e3893effaa7359222e15 764284 debug optional openssl-dbgsym_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.deb
+ 25559768af0470772d11a46e4599e844 1839612 debug optional openssl-provider-fips-dbgsym_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.deb
+ d6128f1c137674b86cfcf0e24158f79f 1097884 utils optional openssl-provider-fips_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.deb
+ 6c7e03610c91c51c2babad625f34f236 100736 debug optional openssl-provider-legacy-dbgsym_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.deb
+ 7e837a43fb5a5b56139346f188297fbd 309112 utils optional openssl-provider-legacy_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.deb
+ 9ce414d77dda69327ddb7aefe9488cdf 9513 utils optional openssl_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.buildinfo
+ 58eaf8b8b03af5114c1c8bf8b20e742e 1513436 utils optional openssl_3.4.0.alpha1.1849.g5ce48d1fbc-20250719.054513150227579_amd64.deb
