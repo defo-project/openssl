@@ -34,13 +34,15 @@ jobs:
 
       - name: Prepare build environment
         run: |
-          sudo DEBIAN_FRONTEND=noninteractive apt -U install -y --no-install-recommends sbuild mmdebstrap debian-archive-keyring ccache uidmap
+          sudo DEBIAN_FRONTEND=noninteractive apt -U install -y --no-install-recommends sbuild mmdebstrap debian-archive-keyring ccache uidmap autopkgtest podman passt dbus-user-session
 
           mkdir -p "$HOME/.cache/sbuild"
           mmdebstrap --variant=buildd --include=apt,ccache,ca-certificates \
             --keyring=/usr/share/keyrings/debian-archive-keyring.gpg \
             --customize-hook='chroot "$1" update-ccache-symlinks' \
             testing "$HOME/.cache/sbuild/testing-amd64.tar"
+
+          autopkgtest-build-podman --init=systemd --release testing -t debian-testing
 
           ccache --zero-stats --max-size=10.0G
           chmod a+X "$HOME" "$HOME/.cache"
@@ -53,6 +55,10 @@ jobs:
           $dsc_dir = "package";
           $unshare_bind_mounts = [ { directory => "$HOME/.cache/ccache", mountpoint => "/build/ccache" } ];
           $verbose = 1;
+          $run_autopkgtest = 1;
+          $autopkgtest_root_args = 'PATH=/usr/sbin:/usr/bin:/sbin:/bin';
+          $autopkgtest_opts = ['--apt-upgrade', '--', 'podman', '--init', 'debian-testing'];
+          $autopkgtest_require_success = 1;
           EOF
           mkdir "$HOME/apt_repo"
 
