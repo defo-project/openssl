@@ -1,3 +1,9 @@
+openssl (3.5.0-2) UNRELEASED; urgency=medium
+
+  * Add DEfO patches
+
+ -- Jochen Sprickerhof <jspricke@debian.org>  Wed, 06 Aug 2025 13:47:09 +0200
+
 openssl (3.5.1-1) unstable; urgency=medium
 
   * Import 3.5.1
