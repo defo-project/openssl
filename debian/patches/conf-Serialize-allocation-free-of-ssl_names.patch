@@ -15,7 +15,7 @@ Signed-off-by: Sebastian Andrzej Siewior <sebastian@breakpoint.cc>
  1 file changed, 32 insertions(+), 3 deletions(-)
 
 diff --git a/crypto/conf/conf_ssl.c b/crypto/conf/conf_ssl.c
-index 84c5b2afe581..d6596e60c3b5 100644
+index 2a6db33b135f..f7eebc62e6ce 100644
 --- a/crypto/conf/conf_ssl.c
 +++ b/crypto/conf/conf_ssl.c
 @@ -12,6 +12,7 @@
@@ -87,7 +87,7 @@ index 84c5b2afe581..d6596e60c3b5 100644
      cnt = sk_CONF_VALUE_num(cmd_lists);
 -    ssl_module_free(md);
 +    ssl_module_free_unlocked(md);
-     ssl_names = OPENSSL_zalloc(sizeof(*ssl_names) * cnt);
+     ssl_names = OPENSSL_calloc(cnt, sizeof(*ssl_names));
      if (ssl_names == NULL)
          goto err;
 @@ -126,7 +154,8 @@ static int ssl_module_init(CONF_IMODULE *md, const CONF *cnf)
