@@ -1,0 +1,286 @@
+Package: libcrypto3-udeb
+Architecture: amd64
+Version: 1:3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375
+Priority: optional
+Section: debian-installer
+Source: openssl
+Maintainer: Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>
+Installed-Size: 9494
+Depends: libc6-udeb (>= 2.41), libzstd1-udeb (>= 1.5.5), zlib1g-udeb (>= 1:1.2.3.3.dfsg-1)
+Filename: ./libcrypto3-udeb_3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375_amd64.udeb
+Size: 2051568
+MD5sum: f78ed8e7849192e2d9dd135f9b8047f3
+SHA1: 779d72953af0f6a73d078aa12ed18757ad6ce2bc
+SHA256: 564e37e065767a45b17c805756609bef6dc7af5f3dd90798d716fe39a0b191d3
+SHA512: 4591d468c3b620ddcb077426c97c478d3b0c0676f7e69823faaf09a0ac917dd0234cf68cbc3cbd3b706e218ce64c50ad55b28be2cca1b2b1db20bbed4d69c6d3
+Description: Secure Sockets Layer toolkit - libcrypto udeb
+ This package is part of the OpenSSL project's implementation of the SSL
+ and TLS cryptographic protocols for secure communication over the
+ Internet.
+ .
+ It contains a version of the libcrypto shared library for use with the
+ Debian Installer. Do not install it on a normal system.
+
+Package: libssl-dev
+Architecture: amd64
+Version: 1:3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: openssl
+Maintainer: Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>
+Installed-Size: 16481
+Depends: libssl3t64 (= 1:3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375)
+Suggests: libssl-doc
+Filename: ./libssl-dev_3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375_amd64.deb
+Size: 3021620
+MD5sum: b1a6d18511a9c250c00f43852c0a53c7
+SHA1: 0c07d570d3e81fc7c0917ffa93c9f145ee0c848e
+SHA256: 489b61398d542deaed621da3c74381efae8deff233786a71f248d07072a67866
+SHA512: 2ae2f9a28d488b3e49158b7fe1b92f28df0b25cd86b0aed335f2bebf8ed50008e39658fad1b177672fdc7397e717cac9c2c8c55d6fb290f69f1191335279a8d7
+Homepage: https://openssl-library.org
+Description: Secure Sockets Layer toolkit - development files
+ This package is part of the OpenSSL project's implementation of the SSL
+ and TLS cryptographic protocols for secure communication over the
+ Internet.
+ .
+ It contains development libraries, header files, and manpages for libssl
+ and libcrypto.
+
+Package: libssl-doc
+Architecture: all
+Version: 1:3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375
+Multi-Arch: foreign
+Priority: optional
+Section: doc
+Source: openssl
+Maintainer: Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>
+Installed-Size: 8230
+Filename: ./libssl-doc_3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375_all.deb
+Size: 2264276
+MD5sum: bcbfcf2557876ec545a4ba62bb6ef233
+SHA1: fd3fa1dbebdd6c92e1f3287ced56892ea3e9573c
+SHA256: f12ead3c16e364a97b388201ddf4000bdd2f3c8416251930b59d3b815931f491
+SHA512: 19bd938da39703335cd75c1f25f11307a1357be3480d06620cf08aabc235e7798b3739d3b411429260e83a752c1c838f8b7422fddcc3a5df76b8fa5cc447f0ea
+Homepage: https://openssl-library.org
+Description: Secure Sockets Layer toolkit - development documentation
+ This package is part of the OpenSSL project's implementation of the SSL
+ and TLS cryptographic protocols for secure communication over the
+ Internet.
+ .
+ It contains manpages and demo files for libssl and libcrypto.
+
+Package: libssl3-udeb
+Architecture: amd64
+Version: 1:3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375
+Priority: optional
+Section: debian-installer
+Source: openssl
+Maintainer: Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>
+Installed-Size: 1148
+Depends: libc6-udeb (>= 2.41), libcrypto3-udeb (>= 1:3.4.0.alpha1.2151.gadc8e35776)
+Filename: ./libssl3-udeb_3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375_amd64.udeb
+Size: 400288
+MD5sum: d6e1408cebc4d66d061c47ca36355875
+SHA1: f02e08651c6400095e56205504ec9d6c4671a384
+SHA256: 0b951d8a5795f67ee942812cd1d722c06bdbae146223e0ad31162317b60d5b87
+SHA512: 61f180d1456e582983e384431b43b22bb2202b4f16e70e31d1bb697d842d7b6d30f51800f8a529b5581e654ce7d48c8adee80d5bf483ac2c4778e7235e9b15e1
+Description: ssl shared library - udeb
+ libssl shared library.
+ .
+ Do not install it on a normal system.
+
+Package: libssl3t64-dbgsym
+Architecture: amd64
+Version: 1:3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375
+Auto-Built-Package: debug-symbols
+Multi-Arch: same
+Priority: optional
+Section: debug
+Source: openssl
+Maintainer: Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>
+Installed-Size: 7172
+Depends: libssl3t64 (= 1:3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375)
+Filename: ./libssl3t64-dbgsym_3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375_amd64.deb
+Size: 6421468
+MD5sum: 27d5e0dcaa8279ebe22e26713c2999a6
+SHA1: 1144399005a44519d6e2a0c1c9701792a06a956b
+SHA256: cbbd2a7359d84161da855c7bda713c00849363534a2118fe7368a2f0643248f9
+SHA512: be9f4a53620ad4651378f1fac75e88de2429322e972bca3ce2018b2fb954508ab193692457380f764213cbb6f2461b7cccfdc9dac19dd2a784fd42fd0190c2cc
+Description: debug symbols for libssl3t64
+Build-Ids: 09fc47f723603cbb8f76212942494671799a557c 157546f68cdf04c8a7d2f8afe3bd6e356d48e6f1 3e20d63dec72762fe1102cb1db2baaef52edf790 4570c334c01a05335e1074c814781617451529be 53a7683d246c0a8d620ba44ef67dddc6a5d56a26
+
+Package: libssl3t64
+Architecture: amd64
+Version: 1:3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: openssl
+Maintainer: Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>
+Installed-Size: 7973
+Provides: libssl3 (= 1:3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375)
+Depends: libc6 (>= 2.38), libzstd1 (>= 1.5.5), zlib1g (>= 1:1.1.4), openssl-provider-legacy
+Breaks: libssl3 (<< 1:3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375), openssh-client (<< 1:9.4p1), openssh-server (<< 1:9.4p1), python3-m2crypto (<< 0.38.0-4)
+Replaces: libssl3
+Filename: ./libssl3t64_3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375_amd64.deb
+Size: 2464116
+MD5sum: 96c64a4e7a7ae0bc4a0b807a78c5b2db
+SHA1: 6c6a656bbc25fa258f5fbfca8901df16f98c0939
+SHA256: 60f162849b4ea90b372c1ee1d09fafc3be659a7f0a1803931d65e13271653c90
+SHA512: 359e0e4bfa20ceee9557534aba088b4a38b8550ac859563b51bd3afa2d4df0da6a08bfec6d1cf603fae7f83d88682d71487c917849d7390423dc7e03204f877f
+Homepage: https://openssl-library.org
+Description: Secure Sockets Layer toolkit - shared libraries
+ This package is part of the OpenSSL project's implementation of the SSL
+ and TLS cryptographic protocols for secure communication over the
+ Internet.
+ .
+ It provides the libssl and libcrypto shared libraries.
+
+Package: openssl-dbgsym
+Architecture: amd64
+Version: 1:3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375
+Auto-Built-Package: debug-symbols
+Priority: optional
+Section: debug
+Source: openssl
+Maintainer: Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>
+Installed-Size: 1103
+Depends: openssl (= 1:3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375)
+Filename: ./openssl-dbgsym_3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375_amd64.deb
+Size: 769000
+MD5sum: f82b12a704586054229b2553e86a7d1c
+SHA1: f70bcd3fac3c21650d02c968a3525b7590985e1d
+SHA256: 73530f41ea0c76bf624399b0665d3bf713abeb69e25b7a4f15a4bdde2ab21e2a
+SHA512: 8786b0fea96dfd153902abecfb5c0adcb44f310cad9fb62f0601412ea629d674ef267bb28ae324289166666448a2ea132d27392daac5c362cbf0db720047fcfe
+Description: debug symbols for openssl
+Build-Ids: a8b000325c909dc96ea45b3cad91ca1b537971bc
+
+Package: openssl-provider-fips-dbgsym
+Architecture: amd64
+Version: 1:3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375
+Auto-Built-Package: debug-symbols
+Priority: optional
+Section: debug
+Source: openssl
+Maintainer: Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>
+Installed-Size: 2065
+Depends: openssl-provider-fips (= 1:3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375)
+Filename: ./openssl-provider-fips-dbgsym_3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375_amd64.deb
+Size: 1885128
+MD5sum: 2a31b108e6a71cfac7117086995cfe4b
+SHA1: 9d20aab0433f3b762a8bc49fa57382fad96d0abb
+SHA256: c4877cbe58dbad8157fba3ef6732c94bc1ce8b41f36178fab38c730e78d1de03
+SHA512: c6d9f8b519b1ce01ef645846c7d95607e03ab718afba02e4edcc3ab60c719ad7baf61d3e89d760d968d3ba53a29d57b4209b1e47a4b33d9e2617b3e73f166d8a
+Description: debug symbols for openssl-provider-fips
+Build-Ids: a3de465bcb2f52b1b1dfac92e4a11ead0c0db29f
+
+Package: openssl-provider-fips
+Architecture: amd64
+Version: 1:3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375
+Multi-Arch: foreign
+Priority: optional
+Section: utils
+Source: openssl
+Maintainer: Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>
+Installed-Size: 3167
+Depends: libc6 (>= 2.34)
+Filename: ./openssl-provider-fips_3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375_amd64.deb
+Size: 1116356
+MD5sum: 88f60e3f55874e42891265285f0ca72f
+SHA1: 5df7fa549a49db3d4641c4fa1f6c1b4a2a90b44e
+SHA256: 1450bf69ef4650fddcf2b7e16f0b381b95157f2389236cdd0f4bfa13ff052771
+SHA512: 6fe4b633d2cbbb003ae3a0d3a9204d1d08a319edbcf58bd93f71e4e8b7dd03c7303c8474070fd519d4e88657bba59701bdd9b625058384b2ad7a3b75ca384f24
+Homepage: https://openssl-library.org
+Description: Secure Sockets Layer toolkit - cryptographic utility
+ This package is part of the OpenSSL project's implementation of the SSL
+ and TLS cryptographic protocols for secure communication over the
+ Internet.
+ .
+ This package contains the FIPS provider. The OpenSSL FIPS provider is a
+ special provider that conforms to the Federal Information Processing Standards
+ (FIPS) specified in FIPS 140-2. This 'module' contains an approved set of
+ cryptographic algorithms that is validated by an accredited testing
+ laboratory.
+ For details see OSSL_PROVIDER-fips and fips_module man page.
+
+Package: openssl-provider-legacy-dbgsym
+Architecture: amd64
+Version: 1:3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375
+Auto-Built-Package: debug-symbols
+Priority: optional
+Section: debug
+Source: openssl
+Maintainer: Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>
+Installed-Size: 133
+Depends: openssl-provider-legacy (= 1:3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375)
+Filename: ./openssl-provider-legacy-dbgsym_3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375_amd64.deb
+Size: 103472
+MD5sum: fc2ce080a898bf5bc57ac4148addc91f
+SHA1: 0d4eb4096d2d13de9cbd73f5eaee393383f4ecc2
+SHA256: 75523008d7261aaaac6f934eb842df521cf1f5f87e4eac53b9d6ca290bb3ede0
+SHA512: de5e4bdca316cf23b62ac532584556a363b27ac01340be899d6a06c80eb29ddb6ac081eec522b725db5ead4e64b59866ab2f3e8a89c83b5001cdef480bbb165d
+Description: debug symbols for openssl-provider-legacy
+Build-Ids: ef843624d854b2cb6443d04d0364b5b9c0bbcc46
+
+Package: openssl-provider-legacy
+Architecture: amd64
+Version: 1:3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375
+Multi-Arch: foreign
+Priority: optional
+Section: utils
+Source: openssl
+Maintainer: Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>
+Installed-Size: 420
+Depends: libc6 (>= 2.14), libssl3t64 (>= 1:3.4.0.alpha1.2151.gadc8e35776)
+Breaks: libssl3 (<< 3.3.1-5), libssl3t64 (<< 3.3.1-5)
+Replaces: libssl3 (<< 3.3.1-5), libssl3t64 (<< 3.3.1-5)
+Filename: ./openssl-provider-legacy_3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375_amd64.deb
+Size: 310396
+MD5sum: 3966af9c9bcf444aa86c88579cbe1cb5
+SHA1: 42b1a3f8ac93387875d6e617270c11649ef09c09
+SHA256: 2aa19972b397de2e0ca3e2636c31346336bb4d4b7b09341940c1d38b2c9874eb
+SHA512: 6949be5602effc1de7b2c742fe136bccb0db6ea4ba4dea15acdf7bb2eb7d8dccdd4a22bf1d8913970c99011aede649ae12b70fa09595bde98f251421d4ae30f3
+Homepage: https://openssl-library.org
+Description: Secure Sockets Layer toolkit - cryptographic utility
+ This package is part of the OpenSSL project's implementation of the SSL
+ and TLS cryptographic protocols for secure communication over the
+ Internet.
+ .
+ This package contains the legacy provider. The OpenSSL legacy provider
+ supplies OpenSSL implementations of algorithms that have been deemed legacy.
+ Such algorithms have commonly fallen out of use, have been deemed insecure by
+ the cryptography community, or something similar.
+ For details see OSSL_PROVIDER-legacy man page.
+
+Package: openssl
+Architecture: amd64
+Version: 1:3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375
+Multi-Arch: foreign
+Priority: optional
+Section: utils
+Maintainer: Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>
+Installed-Size: 2543
+Depends: libc6 (>= 2.34), libssl3t64 (>= 1:3.4.0.alpha1.2151.gadc8e35776)
+Suggests: ca-certificates
+Filename: ./openssl_3.4.0.alpha1.2151.gadc8e35776-20250816.054230063338375_amd64.deb
+Size: 1518152
+MD5sum: 53cc7c4dd9d1ac05ad228126b62b9d62
+SHA1: 1e14b3a1336d47c341a3d2ffcf14b40721b3b76c
+SHA256: 81b7757d829e0abb02e90b1715fa26a7835c3b56e5b112e7ac8ff75968e74d88
+SHA512: 2883acb2f402573902f5aafcc8b30391b5235aea60d9745d509721732ed2b59b6d09f275e4d57f26e479c0006eb3d08aecc1a86320508961e115e0f5636c26a3
+Homepage: https://openssl-library.org
+Description: Secure Sockets Layer toolkit - cryptographic utility
+ This package is part of the OpenSSL project's implementation of the SSL
+ and TLS cryptographic protocols for secure communication over the
+ Internet.
+ .
+ It contains the general-purpose command line binary /usr/bin/openssl,
+ useful for cryptographic operations such as:
+  * creating RSA, DH, and DSA key parameters;
+  * creating X.509 certificates, CSRs, and CRLs;
+  * calculating message digests;
+  * encrypting and decrypting with ciphers;
+  * testing SSL/TLS clients and servers;
+  * handling S/MIME signed or encrypted mail.
+
