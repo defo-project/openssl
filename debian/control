@@ -62,13 +62,12 @@ Description: Secure Sockets Layer toolkit - cryptographic utility
  laboratory.
  For details see OSSL_PROVIDER-fips and fips_module man page.
 
-Package: libssl3t64
+Package: libssl4
 Provides: ${t64:Provides}
-Replaces: libssl3
 Section: libs
 Architecture: any
 Multi-Arch: same
-Breaks: libssl3 (<< ${source:Version}), openssh-client (<< 1:9.4p1), openssh-server (<< 1:9.4p1), python3-m2crypto (<< 0.38.0-4)
+Breaks: openssh-client (<< 1:9.4p1), openssh-server (<< 1:9.4p1), python3-m2crypto (<< 0.38.0-4)
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends}, ${misc:Depends}, openssl-provider-legacy
 Description: Secure Sockets Layer toolkit - shared libraries
@@ -78,7 +77,7 @@ Description: Secure Sockets Layer toolkit - shared libraries
  .
  It provides the libssl and libcrypto shared libraries.
 
-Package: libcrypto3-udeb
+Package: libcrypto4-udeb
 Package-Type: udeb
 Build-Profiles: <!noudeb>
 Section: debian-installer
@@ -92,7 +91,7 @@ Description: Secure Sockets Layer toolkit - libcrypto udeb
  It contains a version of the libcrypto shared library for use with the
  Debian Installer. Do not install it on a normal system.
 
-Package: libssl3-udeb
+Package: libssl4-udeb
 Package-Type: udeb
 Build-Profiles: <!noudeb>
 Section: debian-installer
@@ -108,7 +107,7 @@ Section: libdevel
 Architecture: any
 Multi-Arch: same
 Suggests: libssl-doc
-Depends: libssl3t64 (= ${binary:Version}), ${misc:Depends}
+Depends: libssl4 (= ${binary:Version}), ${misc:Depends}
 Description: Secure Sockets Layer toolkit - development files
  This package is part of the OpenSSL project's implementation of the SSL
  and TLS cryptographic protocols for secure communication over the
