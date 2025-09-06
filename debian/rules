@@ -122,10 +122,10 @@ override_dh_auto_install-arch:
 	ln -s /etc/ssl/{certs,openssl.cnf,private} debian/tmp/usr/lib/ssl/
 	ln -s /etc/ssl/certs/ca-certificates.crt debian/tmp/usr/lib/ssl/cert.pem
 ifeq (,$(filter noudeb,$(DEB_BUILD_PROFILES)))
-	cp -pf debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/libcrypto.so.* debian/libcrypto3-udeb/usr/lib/
-	cp -pf debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/ossl-modules/*.so debian/libcrypto3-udeb/usr/lib/ossl-modules
-	cp -pf debian/tmp/etc/ssl/openssl.cnf debian/libcrypto3-udeb/usr/lib/ssl/openssl.cnf
-	cp -pf debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/libssl.so.* debian/libssl3-udeb/usr/lib/
+	cp -pf debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/libcrypto.so.* debian/libcrypto4-udeb/usr/lib/
+	cp -pf debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/ossl-modules/*.so debian/libcrypto4-udeb/usr/lib/ossl-modules
+	cp -pf debian/tmp/etc/ssl/openssl.cnf debian/libcrypto4-udeb/usr/lib/ssl/openssl.cnf
+	cp -pf debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/libssl.so.* debian/libssl4-udeb/usr/lib/
 endif
 	cp -auv build_shared/lib*.so* debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/
 	for opt in $(OPTS); \
@@ -150,8 +150,8 @@ override_dh_perl:
 	dh_perl -d
 
 override_dh_makeshlibs:
-	dh_makeshlibs -a -V --add-udeb="libcrypto3-udeb" -Xengines -Xossl-modules -- -c4
+	dh_makeshlibs -a -V --add-udeb="libcrypto4-udeb" -Xengines -Xossl-modules -- -c4
 
 override_dh_shlibdeps:
-	sed -i '/^udeb: libssl/s/libcrypto3-udeb/libssl3-udeb/' debian/libssl3t64/DEBIAN/shlibs
-	dh_shlibdeps -a -L libssl3t64
+	sed -i '/^udeb: libssl/s/libcrypto4-udeb/libssl4-udeb/' debian/libssl4/DEBIAN/shlibs
+	dh_shlibdeps -a -L libssl4
