@@ -20,12 +20,12 @@ index e1fb462b8043..774fb4085b98 100644
  HTMLSUFFIX=html
  
  # For "optional" echo messages, to get "real" silence
-@@ -1572,7 +1573,7 @@ EOF
+@@ -1586,7 +1586,7 @@ EOF
            my $pod = $gen0;
            return <<"EOF";
  $args{src}: $pod
 -	pod2man --name=$name --section=$section\$(MANSUFFIX) --center=OpenSSL \\
-+	pod2man --name=$name --section=$section\$(MANSECTION) --center=OpenSSL \\
- 		--release=\$(VERSION) $pod >\$\@
++    pod2man --name=$name --section=$section\$(MANSECTION) --center=OpenSSL \\
+ 		--date=\$(RELEASE_DATE) --release=\$(VERSION) \\
+ 		$pod >\$\@
  EOF
-       } elsif (platform->isdef($args{src})) {
