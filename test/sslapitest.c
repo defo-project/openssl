@@ -134,7 +134,7 @@ static X509 *ocspcert = NULL;
         && defined(OPENSSL_NO_BROTLI) && defined(OPENSSL_NO_ZSTD) \
         && !defined(OPENSSL_NO_ECX) && !defined(OPENSSL_NO_DH) \
         && !defined(OPENSSL_NO_ML_DSA) && !defined(OPENSSL_NO_ML_KEM) \
-        && !defined(OPENSSL_NO_TLS1_3)
+        && !defined(OPENSSL_NO_TLS1_3) && defined(OPENSSL_NO_ECH)
 # define DO_SSL_TRACE_TEST
 #endif
 
