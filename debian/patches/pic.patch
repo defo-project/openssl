@@ -107,7 +107,7 @@ index ef09e0fd297a..fe6ff45d1804 100644
  	&mov("eax",	&DWP($data_off,"esp","",0));	# get return
  	&mov("ebx",	&DWP($data_off+4,"esp","",0));	#
 diff --git a/crypto/perlasm/x86gas.pl b/crypto/perlasm/x86gas.pl
-index c6054953f7ba..59d830f19e79 100644
+index d810fd5479b8..babcef030e0a 100644
 --- a/crypto/perlasm/x86gas.pl
 +++ b/crypto/perlasm/x86gas.pl
 @@ -170,6 +170,7 @@ sub ::file_end
@@ -119,7 +119,7 @@ index c6054953f7ba..59d830f19e79 100644
      if ($::elf) {
  	push(@out,"
 diff --git a/crypto/x86cpuid.pl b/crypto/x86cpuid.pl
-index f66c941b19c6..39eea147b0a9 100644
+index 329a57618f7a..bb9e9b65e52b 100644
 --- a/crypto/x86cpuid.pl
 +++ b/crypto/x86cpuid.pl
 @@ -16,6 +16,8 @@ $output = pop and open STDOUT,">$output";

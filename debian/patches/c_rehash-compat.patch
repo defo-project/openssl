@@ -7,7 +7,7 @@ Subject: also create old hash for compatibility
  1 file changed, 8 insertions(+), 11 deletions(-)
 
 diff --git a/tools/c_rehash.in b/tools/c_rehash.in
-index 7b574daef7f3..3a3fcf6fc558 100644
+index bb68c44692b3..09fab3d6145c 100644
 --- a/tools/c_rehash.in
 +++ b/tools/c_rehash.in
 @@ -17,8 +17,6 @@ my $prefix = {- quotify1($config{prefix}) -};
@@ -31,7 +31,7 @@ index 7b574daef7f3..3a3fcf6fc558 100644
          help();
      } elsif ( $flag eq '-n' ) {
          $removelinks = 0;
-@@ -203,22 +198,24 @@ sub compute_hash {
+@@ -204,22 +199,24 @@ sub compute_hash {
  # certificate fingerprints
  
  sub link_hash_cert {
