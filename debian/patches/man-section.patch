@@ -7,10 +7,10 @@ Subject: man-section
  1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/Configurations/unix-Makefile.tmpl b/Configurations/unix-Makefile.tmpl
-index e1fb462b8043..774fb4085b98 100644
+index 3b8fee0171ca..f99da98dc92e 100644
 --- a/Configurations/unix-Makefile.tmpl
 +++ b/Configurations/unix-Makefile.tmpl
-@@ -347,7 +347,8 @@ HTMLDIR=$(DOCDIR)/html
+@@ -358,7 +358,8 @@ HTMLDIR=$(DOCDIR)/html
  # MANSUFFIX is for the benefit of anyone who may want to have a suffix
  # appended after the manpage file section number.  "ssl" is popular,
  # resulting in files such as config.5ssl rather than config.5.
@@ -20,7 +20,7 @@ index e1fb462b8043..774fb4085b98 100644
  HTMLSUFFIX=html
  
  # For "optional" echo messages, to get "real" silence
-@@ -1586,7 +1586,7 @@ EOF
+@@ -1586,7 +1587,7 @@ EOF
            my $pod = $gen0;
            return <<"EOF";
  $args{src}: $pod
