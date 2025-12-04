@@ -94,7 +94,7 @@ static int configure_ech(SSL_CTX *ctx, int server,
                          unsigned char *buf, size_t len)
 {
     OSSL_ECHSTORE *es = NULL;
-    BIO *es_in = BIO_new_mem_buf(buf, len);
+    BIO *es_in = BIO_new_mem_buf(buf, (int)len);
     int rv = 0;
 
     if (es_in == NULL || (es = OSSL_ECHSTORE_new(NULL, NULL)) == NULL)
@@ -553,7 +553,7 @@ static int create_3way_ssl_connection(SSL *serverssl, SSL *fe_ssl,
      */
     for (i = 0; i < 2; i++) {
         if (SSL_read_ex(clientssl, &buf, sizeof(buf), &readbytes) > 0) {
-            if (!TEST_ulong_eq(readbytes, 0))
+            if (!TEST_ulong_eq((unsigned long)readbytes, 0))
                 goto err;
         } else if (!TEST_int_eq(SSL_get_error(clientssl, 0),
                                 SSL_ERROR_WANT_READ)) {
