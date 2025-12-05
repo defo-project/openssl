@@ -18,28 +18,27 @@ This commit is based on changes for afalgeng in commit
 
 Signed-off-by: Sebastian Andrzej Siewior <sebastian@breakpoint.cc>
 ---
- Configurations/10-main.conf | 2 +-
+ Configurations/10-main.conf | 1 +
  Configure                   | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/Configurations/10-main.conf b/Configurations/10-main.conf
-index 7e9396868afd..c8e458402ab3 100644
+index 92b3923e40fc..ab3dab75829b 100644
 --- a/Configurations/10-main.conf
 +++ b/Configurations/10-main.conf
-@@ -694,7 +694,7 @@ my %targets = (
+@@ -694,6 +694,7 @@ my %targets = (
          shared_target    => "linux-shared",
          shared_cflag     => "-fPIC",
          shared_ldflag    => sub { $disabled{pinshared} ? () : "-Wl,-znodelete" },
--        enable           => [ "afalgeng" ],
-+        enable           => [ "afalgeng", "ktls" ],
++        enable           => [ "ktls" ],
      },
      "linux-latomic" => {
          inherit_from     => [ "linux-generic32" ],
 diff --git a/Configure b/Configure
-index 8d0bc57ae652..146981a783df 100755
+index b358719cdd86..1ee1f1207a94 100755
 --- a/Configure
 +++ b/Configure
-@@ -1862,7 +1862,7 @@ unless ($disabled{devcryptoeng}) {
+@@ -1807,7 +1807,7 @@ $config{CFLAGS} = [ map { $_ eq '--ossl-strict-warnings'
  unless ($disabled{ktls}) {
      $config{ktls}="";
      my $cc = $config{CROSS_COMPILE}.$config{CC};
