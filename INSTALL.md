@@ -800,6 +800,10 @@ Disable legacy TLS EC groups that were deprecated in RFC8422.  These are the
 Koblitz curves, B<secp160r1>, B<secp160r2>, B<secp192r1>, B<secp224r1>, and the
 binary Elliptic curves that would also be disabled by C<no-ec2m>.
 
+### no-ech
+
+Don't build support for Encrypted Client Hello (ECH) extension.
+
 ### enable-ec_nistp_64_gcc_128
 
 Enable support for optimised implementations of some commonly used NIST
