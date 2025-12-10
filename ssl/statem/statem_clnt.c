@@ -2204,6 +2204,9 @@ static MSG_PROCESS_RETURN tls_process_as_hello_retry_request(SSL_CONNECTION *s,
         goto err;
     }
 
+    OPENSSL_free(extensions);
+    extensions = NULL;
+
     if (s->ext.tls13_cookie_len == 0 && s->s3.tmp.pkey != NULL) {
         /*
          * We didn't receive a cookie or a new key_share so the next
