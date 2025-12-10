@@ -1416,13 +1416,14 @@ __owur CON_FUNC_RETURN tls_construct_client_hello(SSL_CONNECTION *s, WPACKET *pk
     /* if we're doing ECH, re-use session ID setup earlier */
     if (s->ext.ech.es == NULL)
 #endif
-    if (sess == NULL
-        || !ssl_version_supported(s, sess->ssl_version, NULL)
-        || !SSL_SESSION_is_resumable(sess)) {
-        if (s->hello_retry_request == SSL_HRR_NONE
-            && !ssl_get_new_session(s, 0)) {
-            /* SSLfatal() already called */
-            return CON_FUNC_ERROR;
+        if (sess == NULL
+            || !ssl_version_supported(s, sess->ssl_version, NULL)
+            || !SSL_SESSION_is_resumable(sess)) {
+            if (s->hello_retry_request == SSL_HRR_NONE
+                    && !ssl_get_new_session(s, 0)) {
+                /* SSLfatal() already called */
+                return CON_FUNC_ERROR;
+            }
         }
         /* else use the pre-loaded session */
 
@@ -1451,7 +1452,8 @@ __owur CON_FUNC_RETURN tls_construct_client_hello(SSL_CONNECTION *s, WPACKET *pk
         i = (s->hello_retry_request == SSL_HRR_NONE);
     }
 
-    if (i && ssl_fill_hello_random(s, 0, p, sizeof(s->s3.client_random), DOWNGRADE_NONE) <= 0) {
+    if (i && ssl_fill_hello_random(s, 0, p, sizeof(s->s3.client_random),
+                                   DOWNGRADE_NONE) <= 0) {
         SSLfatal(s, SSL_AD_INTERNAL_ERROR, ERR_R_INTERNAL_ERROR);
         return CON_FUNC_ERROR;
     }
@@ -1490,7 +1492,7 @@ __owur CON_FUNC_RETURN tls_construct_client_hello(SSL_CONNECTION *s, WPACKET *pk
      * supported_versions extension for the real supported versions.
      */
     if (!WPACKET_put_bytes_u16(pkt, s->client_version)
-        || !WPACKET_memcpy(pkt, p, SSL3_RANDOM_SIZE)) {
+            || !WPACKET_memcpy(pkt, p, SSL3_RANDOM_SIZE)) {
         SSLfatal(s, SSL_AD_INTERNAL_ERROR, ERR_R_INTERNAL_ERROR);
         return CON_FUNC_ERROR;
     }
@@ -1503,30 +1505,29 @@ __owur CON_FUNC_RETURN tls_construct_client_hello(SSL_CONNECTION *s, WPACKET *pk
         sess_id_len = sizeof(s->tmp_session_id);
     } else {
 #endif
-    if (s->new_session || s->session->ssl_version == TLS1_3_VERSION) {
-        if (s->version == TLS1_3_VERSION
-            && (s->options & SSL_OP_ENABLE_MIDDLEBOX_COMPAT) != 0) {
-            sess_id_len = sizeof(s->tmp_session_id);
-            s->tmp_session_id_len = sess_id_len;
-            session_id = s->tmp_session_id;
-            if (s->hello_retry_request == SSL_HRR_NONE
-                && RAND_bytes_ex(sctx->libctx, s->tmp_session_id,
-                       sess_id_len, 0)
-                    <= 0) {
-                SSLfatal(s, SSL_AD_INTERNAL_ERROR, ERR_R_INTERNAL_ERROR);
-                return CON_FUNC_ERROR;
+        if (s->new_session || s->session->ssl_version == TLS1_3_VERSION) {
+            if (s->version == TLS1_3_VERSION
+                    && (s->options & SSL_OP_ENABLE_MIDDLEBOX_COMPAT) != 0) {
+                sess_id_len = sizeof(s->tmp_session_id);
+                s->tmp_session_id_len = sess_id_len;
+                session_id = s->tmp_session_id;
+                if (s->hello_retry_request == SSL_HRR_NONE
+                        && RAND_bytes_ex(sctx->libctx, s->tmp_session_id,
+                                         sess_id_len, 0) <= 0) {
+                    SSLfatal(s, SSL_AD_INTERNAL_ERROR, ERR_R_INTERNAL_ERROR);
+                    return CON_FUNC_ERROR;
+                }
+            } else {
+                sess_id_len = 0;
             }
         } else {
-            sess_id_len = 0;
-        }
-    } else {
-        assert(s->session->session_id_length <= sizeof(s->session->session_id));
-        sess_id_len = s->session->session_id_length;
-        if (s->version == TLS1_3_VERSION) {
+            assert(s->session->session_id_length <= sizeof(s->session->session_id));
+            sess_id_len = s->session->session_id_length;
+            if (s->version == TLS1_3_VERSION) {
                 s->tmp_session_id_len = sess_id_len;
-            memcpy(s->tmp_session_id, s->session->session_id, sess_id_len);
+                memcpy(s->tmp_session_id, s->session->session_id, sess_id_len);
+            }
         }
-    }
 #ifndef OPENSSL_NO_ECH
     }
 #endif
@@ -1795,21 +1796,12 @@ MSG_PROCESS_RETURN tls_process_server_hello(SSL_CONNECTION *s, PACKET *pkt)
     if (PACKET_remaining(pkt) == 0 && !hrr) {
         PACKET_null_init(&extpkt);
     } else if (!PACKET_as_length_prefixed_2(pkt, &extpkt)
-               || PACKET_remaining(pkt) != 0) {
+        || PACKET_remaining(pkt) != 0) {
         SSLfatal(s, SSL_AD_DECODE_ERROR, SSL_R_BAD_LENGTH);
         goto err;
     }
 
-    if (hrr) {
-        if (!tls_collect_extensions(s, &extpkt, SSL_EXT_TLS1_3_HELLO_RETRY_REQUEST,
-                                    &extensions, NULL, 1)
-            || !tls_parse_extension(s, TLSEXT_IDX_ech,
-                SSL_EXT_TLS1_3_HELLO_RETRY_REQUEST,
-                extensions, NULL, 0)) {
-            /* SSLfatal() already called */
-            goto err;
-        }
-    } else {
+    if (!hrr) {
         if (!tls_collect_extensions(s, &extpkt,
                                     SSL_EXT_TLS1_2_SERVER_HELLO
                                     | SSL_EXT_TLS1_3_SERVER_HELLO,
@@ -1817,7 +1809,12 @@ MSG_PROCESS_RETURN tls_process_server_hello(SSL_CONNECTION *s, PACKET *pkt)
             /* SSLfatal() already called */
             goto err;
         }
-    }
+
+        if (!ssl_choose_client_version(s, sversion, extensions)) {
+            /* SSLfatal() already called */
+            goto err;
+        }
+    } 
 
 #ifndef OPENSSL_NO_ECH
     /*
@@ -1899,30 +1896,6 @@ MSG_PROCESS_RETURN tls_process_server_hello(SSL_CONNECTION *s, PACKET *pkt)
     }
 #endif
 
-    /* TLS extensions */
-    if (PACKET_remaining(pkt) == 0 && !hrr) {
-        PACKET_null_init(&extpkt);
-    } else if (!PACKET_as_length_prefixed_2(pkt, &extpkt)
-        || PACKET_remaining(pkt) != 0) {
-        SSLfatal(s, SSL_AD_DECODE_ERROR, SSL_R_BAD_LENGTH);
-        goto err;
-    }
-
-    if (!hrr) {
-        if (!tls_collect_extensions(s, &extpkt,
-                SSL_EXT_TLS1_2_SERVER_HELLO
-                    | SSL_EXT_TLS1_3_SERVER_HELLO,
-                &extensions, NULL, 1)) {
-            /* SSLfatal() already called */
-            goto err;
-        }
-
-        if (!ssl_choose_client_version(s, sversion, extensions)) {
-            /* SSLfatal() already called */
-            goto err;
-        }
-    }
-
     if (SSL_CONNECTION_IS_TLS13(s) || hrr) {
         if (compression != 0) {
             SSLfatal(s, SSL_AD_ILLEGAL_PARAMETER,
@@ -1940,17 +1913,12 @@ MSG_PROCESS_RETURN tls_process_server_hello(SSL_CONNECTION *s, PACKET *pkt)
     }
 
     if (hrr) {
-        int ret;
-
         if (!set_client_ciphersuite(s, cipherchars)) {
             /* SSLfatal() already called */
             goto err;
         }
 
-        ret = tls_process_as_hello_retry_request(s, extensions);
-        OPENSSL_free(extensions);
-
-        return ret;
+        return tls_process_as_hello_retry_request(s, &extpkt);
     }
 
     /*
