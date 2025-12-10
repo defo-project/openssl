@@ -1136,9 +1136,6 @@ int tls_construct_extensions(SSL_CONNECTION *s, WPACKET *pkt,
                 SSLfatal(s, SSL_AD_INTERNAL_ERROR, ERR_R_INTERNAL_ERROR);
             return 0;
         }
-        if (ret == EXT_RETURN_SENT
-            && (context & (SSL_EXT_CLIENT_HELLO | SSL_EXT_TLS1_3_CERTIFICATE_REQUEST | SSL_EXT_TLS1_3_NEW_SESSION_TICKET)) != 0)
-            s->ext.extflags[i] |= SSL_EXT_FLAG_SENT;
     }
 #else
     if (!WPACKET_close(pkt)) {
