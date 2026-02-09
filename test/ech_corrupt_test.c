@@ -395,20 +395,17 @@ static TEST_ECHINNER test_inners[] = {
     { NULL, 0,
       outer_short_encoded_inner, sizeof(outer_short_encoded_inner),
       NULL, 0,
-      0, /* expected result */
-      SSL_R_DECRYPTION_FAILED_OR_BAD_RECORD_MAC},
+      0, /* expected result */ SSL_R_BAD_EXTENSION},
     /* 3. otherwise-correct case that fails only due to client random */
     { NULL, 0,
       entire_encoded_inner, sizeof(entire_encoded_inner),
       NULL, 0,
-      0, /* expected result */
-      SSL_R_DECRYPTION_FAILED_OR_BAD_RECORD_MAC},
+      0, /* expected result */ SSL_R_BAD_EXTENSION},
     /* 4. otherwise-correct case that fails only due to client random */
     { encoded_inner_pre, sizeof(encoded_inner_pre),
       encoded_inner_outers, sizeof(encoded_inner_outers),
       encoded_inner_post, sizeof(encoded_inner_post),
-      0, /* expected result */
-      SSL_R_DECRYPTION_FAILED_OR_BAD_RECORD_MAC},
+      0, /* expected result */ SSL_R_BAD_EXTENSION},
     /* 5. fails HPKE decryption due to bad padding so treated as GREASE */
     { encoded_inner_pre, sizeof(encoded_inner_pre),
       encoded_inner_outers, sizeof(encoded_inner_outers),
