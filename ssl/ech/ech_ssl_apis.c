@@ -418,3 +418,19 @@ err:
     BIO_free_all(es_in);
     return rv;
 }
+
+int SSL_CTX_ech_raw_decrypt(SSL_CTX *ctx,
+                            int *decrypted_ok,
+                            char **inner_sni, char **outer_sni,
+                            unsigned char *outer_ch, size_t outer_len,
+                            unsigned char *inner_ch, size_t *inner_len,
+                            unsigned char **hrrtok, size_t *toklen)
+{
+    if (ctx == NULL) {
+        ERR_raise(ERR_LIB_SSL, SSL_R_ECH_REQUIRED);
+        return 0;
+    }
+    return ossl_ech_raw_dec(ctx, decrypted_ok, inner_sni, outer_sni,
+                            outer_ch, outer_len, inner_ch, inner_len,
+                            hrrtok, toklen);
+}

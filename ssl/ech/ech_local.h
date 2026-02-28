@@ -368,5 +368,11 @@ size_t ossl_ech_calc_padding(SSL_CONNECTION *s, OSSL_ECHSTORE_ENTRY *ee,
 int ossl_ech_stash_keyshares(SSL_CONNECTION *s);
 int ossl_ech_unstash_keyshares(SSL_CONNECTION *s);
 
+int ossl_ech_raw_dec(SSL_CTX *ctx, int *decrypted_ok,
+    char **inner_sni, char **outer_sni,
+    unsigned char *outer_ch, size_t outer_len,
+    unsigned char *inner_ch, size_t *inner_len,
+    unsigned char **hrrtok, size_t *toklen);
+
 #endif
 #endif
