@@ -1,0 +1,7 @@
+Tests: run-25-test-verify
+Depends: openssl, perl
+Restrictions: rw-build-tree, allow-stderr
+
+Test-Command: curl -L 'https://github.com/defo-project/ech-dev-utils/archive/refs/heads/main.tar.gz' | tar xz; cd ech-dev-utils-main; PACKAGING=1 scripts/localhost-tests.sh
+Restrictions: needs-internet, needs-root, allow-stderr
+Depends: curl, ca-certificates, openssl, bind9-dnsutils, knot-dnsutils, procps
