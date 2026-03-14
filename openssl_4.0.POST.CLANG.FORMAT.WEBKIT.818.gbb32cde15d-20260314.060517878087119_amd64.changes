@@ -1,0 +1,65 @@
+Format: 1.8
+Date: Wed, 06 Aug 2025 13:47:09 +0200
+Source: openssl
+Binary: libcrypto4-udeb libssl-dev libssl-doc libssl4 libssl4-dbgsym libssl4-udeb openssl openssl-dbgsym openssl-provider-fips openssl-provider-fips-dbgsym openssl-provider-legacy openssl-provider-legacy-dbgsym
+Architecture: amd64 all
+Version: 1:4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119
+Distribution: testing
+Urgency: medium
+Maintainer: Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>
+Changed-By: Jochen Sprickerhof <jspricke@debian.org>
+Description:
+ libcrypto4-udeb - Secure Sockets Layer toolkit - libcrypto udeb (udeb)
+ libssl-dev - Secure Sockets Layer toolkit - development files
+ libssl-doc - Secure Sockets Layer toolkit - development documentation
+ libssl4    - Secure Sockets Layer toolkit - shared libraries
+ libssl4-udeb - ssl shared library - udeb (udeb)
+ openssl    - Secure Sockets Layer toolkit - cryptographic utility
+ openssl-provider-fips - Secure Sockets Layer toolkit - cryptographic utility
+ openssl-provider-legacy - Secure Sockets Layer toolkit - cryptographic utility
+Changes:
+ openssl (1:4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119) UNRELEASED; urgency=medium
+ .
+   * Add DEfO patches
+Checksums-Sha1:
+ d559ceeceb59670ec549e089903378fda72bbf37 2045684 libcrypto4-udeb_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.udeb
+ c838f6f2a01f60a43b0f15cadd72a202f690a6f7 3008032 libssl-dev_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.deb
+ 6e1a35d0153a9f6156c48ba1e8fb541f21c8ccee 2274660 libssl-doc_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_all.deb
+ 7008a3393b136ba2543c20e40ac5499baa1e3f9f 6222616 libssl4-dbgsym_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.deb
+ 92587465255c06dca0b0aed538081c1602b3a297 404764 libssl4-udeb_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.udeb
+ 9bf56024664aca994b3db658ab03ac621dd7fa31 2438476 libssl4_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.deb
+ a9e9d5696a1d77c62e6b71fe1fccd08840889af2 760488 openssl-dbgsym_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.deb
+ 805951414f3e26c0298633148792c5d345b4ad96 1947132 openssl-provider-fips-dbgsym_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.deb
+ 995bda35b1ce5866b77d7631a0432c886b7e601e 1153352 openssl-provider-fips_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.deb
+ 0937847669982c26b1b2b5245c58c95edddf38eb 106160 openssl-provider-legacy-dbgsym_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.deb
+ eccecac1552061fb004e8a4193e06e6f4eb7cca4 319580 openssl-provider-legacy_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.deb
+ 2cdf0ee0b7c87e5c0f75776ecedcf4ce72f82082 10065 openssl_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.buildinfo
+ 44416729b97e71bafe3132e585482cafbcbe6f7d 1544696 openssl_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.deb
+Checksums-Sha256:
+ 6bd0e2610ea298a0e20692879c457a3fd0d5b29e4b345db9381401774e57923e 2045684 libcrypto4-udeb_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.udeb
+ 1f927786ecb7b62cb2f148d7d2911489a86812497d38f3ad9e80d21dbb541f8a 3008032 libssl-dev_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.deb
+ 278da003254ec8ae857297c239ca845f6ebe1dda8e952119908f48eedc358aa6 2274660 libssl-doc_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_all.deb
+ bbedccbdfab013348b1d2c8d191efd165788f1a37468e5f9e47b83010db06c39 6222616 libssl4-dbgsym_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.deb
+ 837bbaf671e63aa5b53721b473ae4c64bc6af6673b2b50522d5f7d53a3d12bb5 404764 libssl4-udeb_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.udeb
+ d9007be1f145bd477ba081ffdecc0fdc795eb6202a759dcd0c6d1d948babf29d 2438476 libssl4_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.deb
+ fe7c5db8c42569a7c649e4cc028cfd093cd31c4903bcc50a215bec9cd2bd6782 760488 openssl-dbgsym_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.deb
+ 2ca077985b28a1c9006454bf6b98e4f535090af3dbf204740b8452955f3bab68 1947132 openssl-provider-fips-dbgsym_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.deb
+ 9a3f11e1126db72ba4a4494947843817471794d285ee8835a32fdf9ce905fd21 1153352 openssl-provider-fips_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.deb
+ bc99ea18760674a0d31f584bb59c6c514095f2369ecee838ced66f37836e899c 106160 openssl-provider-legacy-dbgsym_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.deb
+ 8a5570443aa4cb68a264b7e7c90f7e871b29ff97e0ceb59f92942194a75eb4ed 319580 openssl-provider-legacy_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.deb
+ 6af860e79fd93154d5ed081f99a151b0912fb9db1af8e7799221be165ca27016 10065 openssl_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.buildinfo
+ df5d6bed46d81a2121c6c5ebdebaec9b4bc60c83953bb98233552891d6f5877b 1544696 openssl_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.deb
+Files:
+ 074170a98d529c7d966e439659c5af31 2045684 debian-installer optional libcrypto4-udeb_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.udeb
+ ae175bd9b405a76f13fb0cf3294a263f 3008032 libdevel optional libssl-dev_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.deb
+ 3569afe5a8341a8fe0b7191b532b677b 2274660 doc optional libssl-doc_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_all.deb
+ b68492cb52f8df70693c2d24bf122ea4 6222616 debug optional libssl4-dbgsym_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.deb
+ 9dec0513b3d2946e0bab06d800d2fa9c 404764 debian-installer optional libssl4-udeb_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.udeb
+ dcd6cf1fc5e9d2093293bc970a63b2e5 2438476 libs optional libssl4_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.deb
+ ff16783a86c01f56cf4ff99834e520db 760488 debug optional openssl-dbgsym_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.deb
+ 06b2c785d35867cc18503dbb52d8cafc 1947132 debug optional openssl-provider-fips-dbgsym_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.deb
+ 6ba9c54e2fc73c009af474a7f217f715 1153352 utils optional openssl-provider-fips_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.deb
+ 9bb8932edd15662ec8587c99ec43445d 106160 debug optional openssl-provider-legacy-dbgsym_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.deb
+ 100e8eb99535c40ce24d867020e162f5 319580 utils optional openssl-provider-legacy_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.deb
+ ffd896dc416681c9a78585f0d97a1a3a 10065 utils optional openssl_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.buildinfo
+ d7c5f7c85df3895b9b5dda9434a726c3 1544696 utils optional openssl_4.0.POST.CLANG.FORMAT.WEBKIT.818.gbb32cde15d-20260314.060517878087119_amd64.deb
