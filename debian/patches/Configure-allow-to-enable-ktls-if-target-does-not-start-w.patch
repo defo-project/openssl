@@ -23,7 +23,7 @@ Signed-off-by: Sebastian Andrzej Siewior <sebastian@breakpoint.cc>
  2 files changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/Configurations/10-main.conf b/Configurations/10-main.conf
-index 92b3923e40fc..ab3dab75829b 100644
+index 76cbf0ffa0c1..a8e860148004 100644
 --- a/Configurations/10-main.conf
 +++ b/Configurations/10-main.conf
 @@ -694,6 +694,7 @@ my %targets = (
@@ -35,10 +35,10 @@ index 92b3923e40fc..ab3dab75829b 100644
      "linux-latomic" => {
          inherit_from     => [ "linux-generic32" ],
 diff --git a/Configure b/Configure
-index b358719cdd86..1ee1f1207a94 100755
+index 38b7399de044..483ca9d19795 100755
 --- a/Configure
 +++ b/Configure
-@@ -1807,7 +1807,7 @@ $config{CFLAGS} = [ map { $_ eq '--ossl-strict-warnings'
+@@ -1838,7 +1838,7 @@ $config{CFLAGS} = [ map { $_ eq '--ossl-strict-warnings'
  unless ($disabled{ktls}) {
      $config{ktls}="";
      my $cc = $config{CROSS_COMPILE}.$config{CC};

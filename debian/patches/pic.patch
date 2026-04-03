@@ -107,19 +107,19 @@ index ef09e0fd297a..fe6ff45d1804 100644
  	&mov("eax",	&DWP($data_off,"esp","",0));	# get return
  	&mov("ebx",	&DWP($data_off+4,"esp","",0));	#
 diff --git a/crypto/perlasm/x86gas.pl b/crypto/perlasm/x86gas.pl
-index d810fd5479b8..babcef030e0a 100644
+index 04e0d043b401..ab5fe9e537c4 100644
 --- a/crypto/perlasm/x86gas.pl
 +++ b/crypto/perlasm/x86gas.pl
-@@ -170,6 +170,7 @@ sub ::file_end
+@@ -172,6 +172,7 @@ sub ::file_end
  	if ($::macosx)	{ push (@out,"$tmp,2\n"); }
  	elsif ($::elf)	{ push (@out,"$tmp,4\n"); }
  	else		{ push (@out,"$tmp\n"); }
 +	if ($::elf)     { push (@out,".hidden\tOPENSSL_ia32cap_P\n"); }
      }
+     push(@out,$initseg) if ($initseg);
      if ($::elf) {
- 	push(@out,"
 diff --git a/crypto/x86cpuid.pl b/crypto/x86cpuid.pl
-index 329a57618f7a..bb9e9b65e52b 100644
+index 32f6e4352395..8bfc92a242ab 100644
 --- a/crypto/x86cpuid.pl
 +++ b/crypto/x86cpuid.pl
 @@ -16,6 +16,8 @@ $output = pop and open STDOUT,">$output";
