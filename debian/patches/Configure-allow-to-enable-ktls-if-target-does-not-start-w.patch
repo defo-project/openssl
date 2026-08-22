@@ -22,19 +22,6 @@ Signed-off-by: Sebastian Andrzej Siewior <sebastian@breakpoint.cc>
  Configure                   | 2 +-
  2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/Configurations/10-main.conf b/Configurations/10-main.conf
-index e62721e22fd9..3a87fe018754 100644
---- a/Configurations/10-main.conf
-+++ b/Configurations/10-main.conf
-@@ -695,7 +695,7 @@ my %targets = (
-         shared_target    => "linux-shared",
-         shared_cflag     => "-fPIC",
-         shared_ldflag    => sub { $disabled{pinshared} ? () : "-Wl,-znodelete" },
--        enable           => [ "afalgeng" ],
-+        enable           => [ "afalgeng", "ktls" ],
-     },
-     "linux-latomic" => {
-         inherit_from     => [ "linux-generic32" ],
 diff --git a/Configure b/Configure
 index ac7f6af1bbed..8bcc0a372630 100755
 --- a/Configure
