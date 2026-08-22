@@ -1,5 +1,5 @@
 etc/ssl
-usr/bin/*
+usr/bin/openssl
 usr/lib/ssl/cert.pem
 usr/lib/ssl/certs 
 usr/lib/ssl/private
