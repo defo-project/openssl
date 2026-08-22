@@ -1,0 +1,23 @@
+# This is a template from
+# https://salsa.debian.org/salsa-ci-team/pipeline/-/raw/master/recipes/salsa-ci.yml
+#
+# If this pipeline is not running at after committing and pushing this file,
+# ensure that https://salsa.debian.org/%{project_path}/-/settings/ci_cd has in
+# field "CI/CD configuration file" filename "debian/salsa-ci.yml".
+#
+# Feel free disable and enable tests to find a good balance between extensive
+# coverage and having a consistently green pipeline where failures are rare
+# enough that they are always investigated and addressed. For documeenation
+# please read https://salsa.debian.org/salsa-ci-team/pipeline
+---
+include:
+  - https://salsa.debian.org/salsa-ci-team/pipeline/raw/master/recipes/debian.yml
+
+# Disable jobs that are failing at the time of adopting Salsa CI. The purpose of
+# a CI system is to detect regressions, so it must be green initially, so change
+# to red is clear. Fixing build flags and reprotest is of course needed, but
+# that is an independent effort from enabling Salsa CI to protect from futher
+# regressions.
+variables:
+  SALSA_CI_DISABLE_BLHC: 1
+  SALSA_CI_DISABLE_REPROTEST: 1
