@@ -3,16 +3,16 @@ Date: Sun, 5 Nov 2017 15:09:09 +0100
 Subject: debian-targets
 
 ---
- Configurations/20-debian.conf | 163 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 163 insertions(+)
+ Configurations/20-debian.conf | 175 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 175 insertions(+)
  create mode 100644 Configurations/20-debian.conf
 
 diff --git a/Configurations/20-debian.conf b/Configurations/20-debian.conf
 new file mode 100644
-index 000000000000..f75c06d305b0
+index 000000000000..efc6215b90a4
 --- /dev/null
 +++ b/Configurations/20-debian.conf
-@@ -0,0 +1,163 @@
+@@ -0,0 +1,175 @@
 +my %targets = (
 +	"debian" => {
 +		cflags => add("-Wa,--noexecstack -Wall -fzero-call-used-regs=used-gpr"),
@@ -106,6 +106,9 @@ index 000000000000..f75c06d305b0
 +		cflags => add("-DL_ENDIAN"),
 +	},
 +
++	"debian-musl-linux-amd64" => {
++		inherit_from => [ "linux-x86_64", "debian" ],
++	},
 +	"debian-musl-linux-arm64" => {
 +		inherit_from => [ "linux-aarch64", "debian" ],
 +	},
@@ -122,6 +125,15 @@ index 000000000000..f75c06d305b0
 +	"debian-musl-linux-mipsel" => {
 +		inherit_from => [ "linux-mips32", "debian" ],
 +		cflags => add("-DL_ENDIAN"),
++	},
++	"debian-musl-linux-ppc64el" => {
++		inherit_from => [ "linux-ppc64le", "debian" ],
++	},
++	"debian-musl-linux-riscv64" => {
++		inherit_from => [ "linux64-riscv64", "debian" ],
++	},
++	"debian-musl-linux-s390x" => {
++		inherit_from => [ "linux64-s390x", "debian" ],
 +	},
 +
 +	"debian-nios2" => {
