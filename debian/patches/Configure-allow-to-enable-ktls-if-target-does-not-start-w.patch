@@ -18,32 +18,20 @@ This commit is based on changes for afalgeng in commit
 
 Signed-off-by: Sebastian Andrzej Siewior <sebastian@breakpoint.cc>
 ---
- Configurations/10-main.conf | 1 +
+ Configurations/10-main.conf | 2 +-
  Configure                   | 2 +-
- 2 files changed, 2 insertions(+), 1 deletion(-)
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/Configurations/10-main.conf b/Configurations/10-main.conf
-index 76cbf0ffa0c1..a8e860148004 100644
---- a/Configurations/10-main.conf
-+++ b/Configurations/10-main.conf
-@@ -694,6 +694,7 @@ my %targets = (
-         shared_target    => "linux-shared",
-         shared_cflag     => "-fPIC",
-         shared_ldflag    => sub { $disabled{pinshared} ? () : "-Wl,-znodelete" },
-+        enable           => [ "ktls" ],
-     },
-     "linux-latomic" => {
-         inherit_from     => [ "linux-generic32" ],
 diff --git a/Configure b/Configure
-index 38b7399de044..483ca9d19795 100755
+index ac7f6af1bbed..8bcc0a372630 100755
 --- a/Configure
 +++ b/Configure
-@@ -1838,7 +1838,7 @@ $config{CFLAGS} = [ map { $_ eq '--ossl-strict-warnings'
+@@ -1862,7 +1862,7 @@ unless ($disabled{devcryptoeng}) {
  unless ($disabled{ktls}) {
      $config{ktls}="";
      my $cc = $config{CROSS_COMPILE}.$config{CC};
 -    if ($target =~ m/^linux/) {
-+    if (grep { $_ eq 'afalgeng' } @{$target{enable}}) {
++    if (grep { $_ eq 'ktls' } @{$target{enable}}) {
          system("printf '#include <sys/types.h>\n#include <linux/tls.h>' | $cc -E - >/dev/null 2>&1");
          if ($? != 0) {
              disable('too-old-kernel', 'ktls');
