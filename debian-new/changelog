@@ -1,8 +1,129 @@
-openssl (3.5.0-2) UNRELEASED; urgency=medium
+openssl (3.6.3-1) unstable; urgency=medium
 
-  * Add DEfO patches
+  * Import 3.6.3 (Closes: #1139674)
+   - CVE-2026-7383 ("Possible Heap Buffer Overflow in ASN.1 Multibyte String
+     Conversion")
+   - CVE-2026-9076 ("Out-of-Bounds Read in CMS Password-Based Decryption")
+   - CVE-2026-34180 ("Heap Buffer Over-read in ASN.1 Content Parsing")
+   - CVE-2026-34181 ("PKCS#12 Files with PBMAC1 Are Accepted with Short HMAC
+     Keys")
+   - CVE-2026-34182 ("CMS AuthEnvelopedData Processing May Accept Forged
+     Messages")
+   - CVE-2026-34183 ("Unbounded Memory Growth in the QUIC PATH_CHALLENGE
+     Handler")
+   - CVE-2026-35188 ("Double-free When Checking OCSP Stapled Response")
+   - CVE-2026-42764 ("NULL pointer dereference in QUIC server initial packet
+     handling")
+   - CVE-2026-42765 ("NULL Dereference in Certificate Verification with OCSP
+     Checking")
+   - CVE-2026-42766 ("Possible NULL Dereference in Password-Based CMS
+     Decryption")
+   - CVE-2026-42767 ("NULL Pointer Dereference in CRMF EncryptedValue
+     Decryption")
+   - CVE-2026-42768 ("Multi-RecipientInfo Bleichenbacher Oracle in
+     CMS_decrypt() and PKCS7_decrypt()")
+   - CVE-2026-42769 ("Trust-Anchor Substitution via cert/issuer Typo in CMP
+     rootCaKeyUpdate")
+   - CVE-2026-42770 ("FFC-DH Peer Validation Uses Attacker-Supplied q")
+   - CVE-2026-45445 ("AES-OCB IV Ignored on EVP_Cipher() Path")
+   - CVE-2026-45446 ("Incorrect Tag Processing for Empty Messages in
+     AES-GCM-SIV and AES-SIV modes")
+   - CVE-2026-45447 ("Heap Use-After-Free in OpenSSL PKCS7_verify()")
 
- -- Jochen Sprickerhof <jspricke@debian.org>  Wed, 06 Aug 2025 13:47:09 +0200
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Sat, 13 Jun 2026 19:00:51 +0200
+
+openssl (3.6.2-1) unstable; urgency=medium
+
+  * Import 3.6.2
+   - CVE-2026-2673 ("OpenSSL TLS 1.3 server may choose unexpected key agreement
+     group") (Closes: #1130650).
+   - CVE-2026-28387 ("Potential use-after-free in DANE client code")
+   - CVE-2026-28389 ("Possible NULL dereference when processing CMS
+     KeyAgreeRecipientInfo")
+   - CVE-2026-28390 ("Possible NULL dereference when processing CMS
+     KeyTransportRecipient Info")
+   - CVE-2026-31789 ("Heap buffer overflow in hexadecimal conversion")
+   - CVE-2026-31790 ("Incorrect failure handling in RSA KEM RSASVE
+     encapsulation")
+   - CVE-2026-28386 ("Out-of-bounds Read in AES-CFB-128 on X86-64 with AVX-512
+     Support")
+   - CVE-2026-28388 ("NULL Pointer Dereference When Processing a Delta CRL")
+
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Sat, 11 Apr 2026 16:27:58 +0200
+
+openssl (3.6.1-3) unstable; urgency=medium
+
+  * Add breaks on openssl-provider-qat due to #1131121.
+  * Apply fix for FTBFS on ppc64, thanks to John Paul Adrian Glaubitz
+    (Closes: #1126531).
+  * Add musl targets (Closes: #1131164).
+
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Wed, 18 Mar 2026 22:33:48 +0100
+
+openssl (3.6.1-2) unstable; urgency=medium
+
+  * Upload to unstable
+
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Thu, 12 Mar 2026 21:00:23 +0100
+
+openssl (3.6.1-1) experimental; urgency=medium
+
+  * Import 3.6.1
+   - CVE-2025-11187 (Improper validation of PBMAC1 parameters in PKCS#12 MAC
+     verification)
+   - CVE-2025-15467 (Stack buffer overflow in CMS AuthEnvelopedData parsing)
+   - CVE-2025-15468 (NULL dereference in SSL_CIPHER_find() function on unknown
+     cipher ID)
+   - CVE-2025-15469 ("openssl dgst" one-shot codepath silently truncates inputs
+     >16MB)
+   - CVE-2025-66199 (TLS 1.3 CompressedCertificate excessive memory allocation)
+   - CVE-2025-68160 (Heap out-of-bounds write in BIO_f_linebuffer on short
+     writes)
+   - CVE-2025-69418 (Unauthenticated/unencrypted trailing bytes with low-level
+     OCB function calls)
+   - CVE-2025-69419 (Out of bounds write in PKCS12_get_friendlyname() UTF-8
+     conversion)
+   - CVE-2025-69420 (Missing ASN1_TYPE validation in TS_RESP_verify_response()
+     function)
+   - CVE-2025-69421 (NULL Pointer Dereference in PKCS12_item_decrypt_d2i_ex
+     function)
+   - CVE-2026-22795 (Missing ASN1_TYPE validation in PKCS#12 parsing)
+   - CVE-2026-22796 (ASN1_TYPE Type Confusion in the
+   - PKCS7_digest_from_attributes() function)
+
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Tue, 27 Jan 2026 21:32:02 +0100
+
+openssl (3.6.0-2) experimental; urgency=medium
+
+  * Apply fix for upstream issue #28902
+
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Fri, 26 Dec 2025 17:01:03 +0100
+
+openssl (3.6.0-1) experimental; urgency=medium
+
+  * Import 3.6.0
+  * Stop shipping c_rehash. It bas been long replaced by "openssl rehash"
+
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Fri, 03 Oct 2025 17:40:10 +0200
+
+openssl (3.6.0~~beta1-1) experimental; urgency=medium
+
+  * Import 3.6.0-beta1
+  * Drop pic & Bsymbolic patches. This shouldn't be needed anymore.
+
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Thu, 18 Sep 2025 21:36:20 +0200
+
+openssl (3.6.0~~alpha1-1) experimental; urgency=medium
+
+  * Import 3.6.0-alpha1
+
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Sat, 06 Sep 2025 20:21:28 +0200
+
+openssl (3.5.2-1) unstable; urgency=medium
+
+  * Import 3.5.2
+
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Sun, 10 Aug 2025 11:30:37 +0200
 
 openssl (3.5.1-1) unstable; urgency=medium
 
