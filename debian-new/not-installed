@@ -1,0 +1,6 @@
+usr/bin/c_rehash
+usr/lib/ssl/ct_log_list.cnf
+usr/lib/ssl/ct_log_list.cnf.dist
+usr/lib/ssl/fipsmodule.cnf
+usr/lib/ssl/openssl.cnf.dist
+usr/share/doc/openssl/html
