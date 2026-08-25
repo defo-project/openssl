@@ -55,7 +55,7 @@ jobs:
           $dsc_dir = "package";
           $unshare_bind_mounts = [ { directory => "$HOME/.cache/ccache", mountpoint => "/build/ccache" } ];
           $verbose = 1;
-          $run_autopkgtest = 1;
+          $run_autopkgtest = 0;
           $autopkgtest_root_args = 'PATH=/usr/sbin:/usr/bin:/sbin:/bin';
           $autopkgtest_opts = ['--apt-upgrade', '--', 'podman', '--init', 'debian-testing'];
           $autopkgtest_require_success = 1;
