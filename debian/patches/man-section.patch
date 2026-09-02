@@ -1,8 +1,17 @@
+From 55ca568d09d5a6b29c0840d0b7dd5c622705f9e8 Mon Sep 17 00:00:00 2001
+From: sftcd <stephen.farrell@cs.tcd.ie>
+Date: Thu, 3 Sep 2026 00:15:57 +0100
+Subject: [PATCH] fix man-suffix patch
+
+---
+ Configurations/unix-Makefile.tmpl | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
 diff --git a/Configurations/unix-Makefile.tmpl b/Configurations/unix-Makefile.tmpl
-index 3f9d04b6d0..054b3d04ff 100644
+index f8a5b1612e..7426d85172 100644
 --- a/Configurations/unix-Makefile.tmpl
 +++ b/Configurations/unix-Makefile.tmpl
-@@ -350,7 +350,8 @@ HTMLDIR=$(DOCDIR)/html
+@@ -375,7 +375,8 @@ HTMLDIR=$(DOCDIR)/html
  # MANSUFFIX is for the benefit of anyone who may want to have a suffix
  # appended after the manpage file section number.  "ssl" is popular,
  # resulting in files such as config.5ssl rather than config.5.
@@ -12,12 +21,15 @@ index 3f9d04b6d0..054b3d04ff 100644
  HTMLSUFFIX=html
  
  # For "optional" echo messages, to get "real" silence
-@@ -1594,7 +1595,7 @@ EOF
-           } elsif ($config{manpage_format} eq "roff") {
+@@ -1647,7 +1648,7 @@ EOF
+               # which has more of its own start-up to do.
                return <<"EOF";
  $args{src}: $pod
--	pod2man --name=$name --section=$section\$(MANSUFFIX) --center=OpenSSL \\
-+	pod2man --name=$name --section=$section\$(MANSECTION) --center=OpenSSL \\
- 		--date=\$(RELEASE_DATE) --release=\$(VERSION) \\
- 		$pod >\$\@
+-	\$(PERL) \$(SRCDIR)/util/mkpod2man.pl -o doc/man -m "\$(MANSUFFIX)" \\
++	\$(PERL) \$(SRCDIR)/util/mkpod2man.pl -o doc/man -m "\$(MANSECTION)" \\
+ 		-d "\$(RELEASE_DATE)" -r "\$(VERSION)" $pod
  EOF
+           } else {
+-- 
+2.53.0
+
