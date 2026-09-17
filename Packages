@@ -1,0 +1,284 @@
+Package: libcrypto4-udeb
+Architecture: amd64
+Version: 1:4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442
+Priority: optional
+Section: debian-installer
+Source: openssl
+Maintainer: Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>
+Installed-Size: 10151
+Depends: libc6-udeb (>= 2.43), libzstd1-udeb (>= 1.5.5), zlib1g-udeb (>= 1:1.2.3.3.dfsg-1)
+Filename: ./libcrypto4-udeb_4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442_amd64.udeb
+Size: 2237040
+MD5sum: f3c82d345982bc1e217c46c6ad3aebff
+SHA1: 6e604ee280930e57381e953d10755c77a09448b8
+SHA256: f8637264400cc3aeafa318c458ece388b4c5a86e1a70bd25d8d14f591818ee5c
+SHA512: da51e533735e3cf0bd731fbd4b57c73207b17f3b17217ab03bb28fc726d98160667b61c505d6ee22192091ad0cf8603f19ebbac028f8c5dccda0a5d38050e32f
+Description: Secure Sockets Layer toolkit - libcrypto udeb
+ This package is part of the OpenSSL project's implementation of the SSL
+ and TLS cryptographic protocols for secure communication over the
+ Internet.
+ .
+ It contains a version of the libcrypto shared library for use with the
+ Debian Installer. Do not install it on a normal system.
+
+Package: libssl-dev
+Architecture: amd64
+Version: 1:4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: openssl
+Maintainer: Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>
+Installed-Size: 17156
+Depends: libssl4 (= 1:4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442)
+Suggests: libssl-doc
+Filename: ./libssl-dev_4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442_amd64.deb
+Size: 3263172
+MD5sum: b7d54aee05040e545f30ae8c19399c8a
+SHA1: caa67bdd6fab96ed69d591c7ff2d2883a3446ad7
+SHA256: 9feaa20799750f736ad5381d3f9b9ffd2063e90ab83503d5bd2fd823931ae170
+SHA512: f353eac83da1627403c9ae35e1f8f39817eca7a11b6b8591d17fb4dd07e8af0b93af7421a30e59807e3e4dd5a3c1e8cb3710aabeeb68a86eb35e9e78c11f4b7f
+Homepage: https://openssl-library.org
+Description: Secure Sockets Layer toolkit - development files
+ This package is part of the OpenSSL project's implementation of the SSL
+ and TLS cryptographic protocols for secure communication over the
+ Internet.
+ .
+ It contains development libraries, header files, and manpages for libssl
+ and libcrypto.
+
+Package: libssl-doc
+Architecture: all
+Version: 1:4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442
+Multi-Arch: foreign
+Priority: optional
+Section: doc
+Source: openssl
+Maintainer: Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>
+Installed-Size: 8369
+Filename: ./libssl-doc_4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442_all.deb
+Size: 2382484
+MD5sum: abf487f43140a362546ff2da71639ded
+SHA1: f77b3ef4d8098629f9cf4b2891bc1d7f2e16a735
+SHA256: 62ce81e3815efd709449a7543b18b376a5cf22c04495c96f9a7cd1e9f05d9c1c
+SHA512: 0660348faab8141315ab8b9bc7ee54be8b8a8d0c3c61f4aafdc96bddd3de32610a3890f6a821710f898b6e605c0fd1c12923033b817fb965274db802800b9e39
+Homepage: https://openssl-library.org
+Description: Secure Sockets Layer toolkit - development documentation
+ This package is part of the OpenSSL project's implementation of the SSL
+ and TLS cryptographic protocols for secure communication over the
+ Internet.
+ .
+ It contains manpages and demo files for libssl and libcrypto.
+
+Package: libssl4-dbgsym
+Architecture: amd64
+Version: 1:4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442
+Auto-Built-Package: debug-symbols
+Multi-Arch: same
+Priority: optional
+Section: debug
+Source: openssl
+Maintainer: Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>
+Installed-Size: 7553
+Depends: libssl4 (= 1:4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442)
+Filename: ./libssl4-dbgsym_4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442_amd64.deb
+Size: 6810964
+MD5sum: 97fbc3863e8f51b870c3fe5cca88d31b
+SHA1: 24cca7e6915a0a1a1bc1d04163833c6acdd2b772
+SHA256: 475f145251a8f3715315cddb5f33832970c64ab535ed16d5941b650660802a3e
+SHA512: 85d09f081fbc519bfabdaf2fccd1a589a81e0db86ebd718e106750ec9eedfaa8aadc5e52759924b9e0e6fa381334672bcbc781a245f03e0ca8365750a274e082
+Description: debug symbols for libssl4
+Build-Ids: 094984e8c2796cb10928225b261095d9e64ed730 94e7f2ef63c356165af9b2a802e0b566ce6f7961
+
+Package: libssl4-udeb
+Architecture: amd64
+Version: 1:4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442
+Priority: optional
+Section: debian-installer
+Source: openssl
+Maintainer: Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>
+Installed-Size: 1284
+Depends: libc6-udeb (>= 2.43), libcrypto4-udeb (>= 1:4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f)
+Filename: ./libssl4-udeb_4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442_amd64.udeb
+Size: 461400
+MD5sum: 1dd73e461e6248ceac6a726b2f1cf396
+SHA1: 5a98f60d29a7fee282fdc5c3be521e166f97ea61
+SHA256: e61e84b378b6f3a757e78ced59210f057d1ad401ff0df1d7e01ea80fff1beed4
+SHA512: f891802d8b096f6b2994f29c96a985b92a25aa018314f4b0b1e20fb5d0d1f719d61211573b0697e9631e1ca4e799caf86ba93377bdf05da00583198a91d900ef
+Description: ssl shared library - udeb
+ libssl shared library.
+ .
+ Do not install it on a normal system.
+
+Package: libssl4
+Architecture: amd64
+Version: 1:4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: openssl
+Maintainer: Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>
+Installed-Size: 8359
+Depends: libc6 (>= 2.38), libzstd1 (>= 1.5.5), zlib1g (>= 1:1.1.4), openssl-provider-legacy
+Breaks: openssh-client (<< 1:9.4p1), openssh-server (<< 1:9.4p1), python3-m2crypto (<< 0.38.0-4)
+Filename: ./libssl4_4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442_amd64.deb
+Size: 2664784
+MD5sum: 03273e13382bf1490b06cbbdbcc54610
+SHA1: fea949a53dc75654ec15271d3a04e76001337855
+SHA256: c1e59128bfe2378083cd86b78cf8bff14903659255127a5aa20a28d811c30983
+SHA512: 5256e86a265a28685d9bae428a01a40ba376084fa3604023739e5882a94670607e8c5e5c4e656ae0692583af4a1b3e283e517bcf9b356a06d9d79cdc7d671274
+Homepage: https://openssl-library.org
+Description: Secure Sockets Layer toolkit - shared libraries
+ This package is part of the OpenSSL project's implementation of the SSL
+ and TLS cryptographic protocols for secure communication over the
+ Internet.
+ .
+ It provides the libssl and libcrypto shared libraries.
+
+Package: openssl-dbgsym
+Architecture: amd64
+Version: 1:4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442
+Auto-Built-Package: debug-symbols
+Priority: optional
+Section: debug
+Source: openssl
+Maintainer: Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>
+Installed-Size: 1154
+Depends: openssl (= 1:4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442)
+Filename: ./openssl-dbgsym_4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442_amd64.deb
+Size: 812952
+MD5sum: 93d89fe07daf35e3f9b93a2cfd04cf6f
+SHA1: cb0aec57e5c0d8a1d278340959324421ec000dfa
+SHA256: f7bee7302346b80ca9fd933d4ac439168f84fa08e1f1dd0928c7045fe291a6b9
+SHA512: 6d8120b542af2ab7dfa10decda0d31aa7e7df1bae1680d2b1479d50fe8b5b31c21fcdad96a513b50b6af59afd1a5649cebe168d9002a4b5054d20305ef6a2439
+Description: debug symbols for openssl
+Build-Ids: 2bf72ef9bd7bc66012cb712ba69b81071aceeaa8
+
+Package: openssl-provider-fips-dbgsym
+Architecture: amd64
+Version: 1:4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442
+Auto-Built-Package: debug-symbols
+Priority: optional
+Section: debug
+Source: openssl
+Maintainer: Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>
+Installed-Size: 2312
+Depends: openssl-provider-fips (= 1:4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442)
+Filename: ./openssl-provider-fips-dbgsym_4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442_amd64.deb
+Size: 2118500
+MD5sum: c1892de01db9d1dc6576c162c1b8d4f8
+SHA1: adc7f9e5f14221f5ce9ad09f722368aa42e52677
+SHA256: 362c2ba005d2a31d06ae4ddb9042eb4d1d5450c91ae3293d97b3759be327a1c2
+SHA512: ee7dbc30a856475f477cdc108fe70afb451be35918cac8a88d7d42b9f608ad41ba9861374388bd0a6ea986219c075431288980a2a43ebda5c8dc06bdf235302d
+Description: debug symbols for openssl-provider-fips
+Build-Ids: 9233d60ad7d1999a4873214fd9c7e054fe1eeec1
+
+Package: openssl-provider-fips
+Architecture: amd64
+Version: 1:4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442
+Multi-Arch: foreign
+Priority: optional
+Section: utils
+Source: openssl
+Maintainer: Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>
+Installed-Size: 3504
+Depends: libc6 (>= 2.38)
+Filename: ./openssl-provider-fips_4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442_amd64.deb
+Size: 1242272
+MD5sum: af610ddc844668f438e52a8363b613bd
+SHA1: e084234ed1dcf00b852d68f95363b8d557882d53
+SHA256: 678511c09d663e4163f5fd9e60c56362d69da3a4bc8eab8c37044ea9c6f9e4e5
+SHA512: 083ee3951559fae2e5e57e3f1825c238860169a14edc812fd06a0324313fa1126b241ed303489ca236f41a43bd7f1fe5bae5e64a76140254c9da705b7cb97339
+Homepage: https://openssl-library.org
+Description: Secure Sockets Layer toolkit - cryptographic utility
+ This package is part of the OpenSSL project's implementation of the SSL
+ and TLS cryptographic protocols for secure communication over the
+ Internet.
+ .
+ This package contains the FIPS provider. The OpenSSL FIPS provider is a
+ special provider that conforms to the Federal Information Processing Standards
+ (FIPS) specified in FIPS 140-2. This 'module' contains an approved set of
+ cryptographic algorithms that is validated by an accredited testing
+ laboratory.
+ For details see OSSL_PROVIDER-fips and fips_module man page.
+
+Package: openssl-provider-legacy-dbgsym
+Architecture: amd64
+Version: 1:4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442
+Auto-Built-Package: debug-symbols
+Priority: optional
+Section: debug
+Source: openssl
+Maintainer: Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>
+Installed-Size: 147
+Depends: openssl-provider-legacy (= 1:4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442)
+Filename: ./openssl-provider-legacy-dbgsym_4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442_amd64.deb
+Size: 116880
+MD5sum: 35cfa56617d47c40b4081c4f88c5bf75
+SHA1: 37dbc63705e8345c07f05887ae55f4ea225305eb
+SHA256: 549b4588c6a0654fb25c4bc544e261a15e6f08b0842e5e06ff20592a1242ec35
+SHA512: fd1e59a53100ce5abe76c637a7adee26b10c30b7255b0df6ec7505e48bc65fccb81ed179b37ea287515a78979b1d64c65d5a86a24cc2402392d9f75b2f01d737
+Description: debug symbols for openssl-provider-legacy
+Build-Ids: 3669c4dd9facac94bfe7a1b0633b3d3a56bf3469
+
+Package: openssl-provider-legacy
+Architecture: amd64
+Version: 1:4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442
+Multi-Arch: foreign
+Priority: optional
+Section: utils
+Source: openssl
+Maintainer: Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>
+Installed-Size: 462
+Depends: libc6 (>= 2.14), libssl4 (>= 1:4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f)
+Breaks: libssl3 (<< 3.3.1-5), libssl3t64 (<< 3.3.1-5)
+Replaces: libssl3 (<< 3.3.1-5), libssl3t64 (<< 3.3.1-5)
+Filename: ./openssl-provider-legacy_4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442_amd64.deb
+Size: 343532
+MD5sum: 03d47c3a670fb7a769b6a03261b79b4a
+SHA1: f2af0fc4afabb93f4ef91d4add8b29f889917232
+SHA256: 2c82621d187763802a5a2d9f5ad3bc259b730591a70c8da433c6e527ab5fbc0f
+SHA512: f9b96f196b00922f81f0d9c3f0832a60ff0e03a2b0260c54a2affb38adc0550c1f045755df78371e5e3a097ee88df5188c5954e212f25946dbdaeeb0caebf389
+Homepage: https://openssl-library.org
+Description: Secure Sockets Layer toolkit - cryptographic utility
+ This package is part of the OpenSSL project's implementation of the SSL
+ and TLS cryptographic protocols for secure communication over the
+ Internet.
+ .
+ This package contains the legacy provider. The OpenSSL legacy provider
+ supplies OpenSSL implementations of algorithms that have been deemed legacy.
+ Such algorithms have commonly fallen out of use, have been deemed insecure by
+ the cryptography community, or something similar.
+ For details see OSSL_PROVIDER-legacy man page.
+
+Package: openssl
+Architecture: amd64
+Version: 1:4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442
+Multi-Arch: foreign
+Priority: optional
+Section: utils
+Maintainer: Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>
+Installed-Size: 2791
+Depends: libc6 (>= 2.38), libssl4 (>= 1:4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f)
+Suggests: ca-certificates
+Filename: ./openssl_4.0.POST.CLANG.FORMAT.WEBKIT.2590.gd7a6583c2f-20260917.101229626862442_amd64.deb
+Size: 1616088
+MD5sum: e3d857635434101116dd79efd05319fe
+SHA1: d52e9b1608a3946cce46e145a400701088e57f14
+SHA256: f770d6b0dfa87a2560e87dea5f21782366fbac420e89d9c49ccb38485eebfdd3
+SHA512: c7ed6255a34039c539c198ee8b4d4595ace85be32b3f3ad91039be7792236ed138a17f8d6457f045796c014e196823ed5323974ce0f27d3f97cce15061e47c68
+Homepage: https://openssl-library.org
+Description: Secure Sockets Layer toolkit - cryptographic utility
+ This package is part of the OpenSSL project's implementation of the SSL
+ and TLS cryptographic protocols for secure communication over the
+ Internet.
+ .
+ It contains the general-purpose command line binary /usr/bin/openssl,
+ useful for cryptographic operations such as:
+  * creating RSA, DH, and DSA key parameters;
+  * creating X.509 certificates, CSRs, and CRLs;
+  * calculating message digests;
+  * encrypting and decrypting with ciphers;
+  * testing SSL/TLS clients and servers;
+  * handling S/MIME signed or encrypted mail.
+
