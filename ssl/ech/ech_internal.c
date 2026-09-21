@@ -275,7 +275,7 @@ err:
 }
 
 /* GREASEy constants */
-#define OSSL_ECH_MAX_GREASE_PUB 0x100 /* buffer size for 'enc' values */
+#define OSSL_ECH_MAX_GREASE_PUB 0x800 /* buffer size for 'enc' values */
 #define OSSL_ECH_MAX_GREASE_CT 0x200 /* max GREASEy ciphertext we'll emit */
 
 /*
