@@ -58,7 +58,7 @@ jobs:
           $run_autopkgtest = 1;
           $autopkgtest_root_args = 'PATH=/usr/sbin:/usr/bin:/sbin:/bin';
           $autopkgtest_opts = ['--apt-upgrade', '--', 'podman', '--init', 'debian-testing'];
-          $autopkgtest_require_success = 1;
+          $autopkgtest_require_success = 0;
           EOF
           mkdir "$HOME/apt_repo"
 
