@@ -1077,5 +1077,5 @@ DECLARE_DISPATCH(x448, 5);
 DECLARE_DISPATCH(curve_sm2, 6);
 #endif
 #if !defined(FIPS_MODULE) && !defined(OPENSSL_NO_ECX)
-DECLARE_DISPATCH(xwing, 5);
+DECLARE_DISPATCH(xwing, 7);
 #endif
