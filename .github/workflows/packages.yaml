@@ -35,7 +35,8 @@ jobs:
       - name: Prepare build environment
         run: |
           # The tmpfs on /tmp became too small
-          sudo umount -l /tmp
+          # this stopped working, so try again without...
+          # sudo umount -l /tmp
 
           sudo DEBIAN_FRONTEND=noninteractive apt -U install -y --no-install-recommends sbuild mmdebstrap debian-archive-keyring ccache uidmap autopkgtest podman passt dbus-user-session
 
