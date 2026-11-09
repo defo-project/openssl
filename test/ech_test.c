@@ -1278,6 +1278,7 @@ end:
 #define OSSL_ECH_TEST_CBS 5 /* test callbacks */
 #define OSSL_ECH_TEST_V12 6 /* test TLSv1.2 */
 #define OSSL_ECH_TEST_NO_INNER 7 /* test no inner SNI */
+#define OSSL_ECH_TEST_V12_SRV 8 /* test TLSv1.2 server fallback */
 /* note: early-data is prohibited after HRR so no tests for that */
 
 /*
@@ -1346,6 +1347,13 @@ static int test_ech_roundtrip_helper(int idx, int combo)
         if (!TEST_true(SSL_CTX_set_min_proto_version(cctx, TLS1_2_VERSION)))
             goto end;
     }
+    if (combo == OSSL_ECH_TEST_V12_SRV) {
+        /* force server to TLSv1.2 and later fail as expected */
+        if (!TEST_true(SSL_CTX_set_max_proto_version(sctx, TLS1_2_VERSION)))
+            goto end;
+        if (!TEST_true(SSL_CTX_set_min_proto_version(sctx, TLS1_2_VERSION)))
+            goto end;
+    }
     if (combo == OSSL_ECH_TEST_EARLY || combo == OSSL_ECH_TEST_ENOE) {
         if (!TEST_true(SSL_CTX_set_options(sctx, SSL_OP_NO_ANTI_REPLAY))
             || !TEST_true(SSL_CTX_set_max_early_data(sctx,
@@ -1389,7 +1397,7 @@ static int test_ech_roundtrip_helper(int idx, int combo)
     if (combo != OSSL_ECH_TEST_NO_INNER
         && !TEST_true(SSL_set_tlsext_host_name(clientssl, "server.example")))
         goto end;
-    if (combo == OSSL_ECH_TEST_V12) {
+    if (combo == OSSL_ECH_TEST_V12 || combo == OSSL_ECH_TEST_V12_SRV) {
         if (!TEST_false(create_ssl_connection(serverssl, clientssl,
                 SSL_ERROR_NONE)))
             goto end;
@@ -1564,6 +1572,14 @@ static int ech_v12_test(int idx)
     if (verbose)
         TEST_info("Doing: ech TLSv1.2 test ");
     return test_ech_roundtrip_helper(idx, OSSL_ECH_TEST_V12);
+}
+
+/* Test a roundtrip (fails) with ECH but a TLSv1.2 SSL_CTX */
+static int ech_v12_svr_test(int idx)
+{
+    if (verbose)
+        TEST_info("Doing: ech TLSv1.2 server test ");
+    return test_ech_roundtrip_helper(idx, OSSL_ECH_TEST_V12_SRV);
 }
 
 /*
@@ -2725,6 +2741,7 @@ int setup_tests(void)
     ADD_ALL_TESTS(test_ech_keylog_random, 4);
     ADD_TEST(ech_unauth_client_status_test);
     ADD_ALL_TESTS(test_ech_cb_server_random, 3);
+    ADD_ALL_TESTS(ech_v12_svr_test, suite_combos);
     return 1;
 err:
     return 0;

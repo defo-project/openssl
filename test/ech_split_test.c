@@ -47,6 +47,7 @@ static const char echprivbuf[] =
 # define SPLIT_GREASE 1
 # define SPLIT_HRR (1 << 1)
 # define SPLIT_EARLY (1 << 2)
+# define SPLIT_1_2 (1 << 3)
 
 typedef struct SPLIT_testcase {
     char *descrip; /* descriptor */
@@ -88,6 +89,12 @@ static SPLIT_TESTCASE testcases[] = {
       SSL_ECH_STATUS_SUCCESS,
       SSL_ECH_STATUS_NOT_TRIED,
       SSL_ECH_STATUS_BACKEND},
+    { "TLSv1.2 be server", SPLIT_1_2, 0,
+      SSL_ERROR_SSL,
+      /* cli */ SSL_ECH_STATUS_FAILED,
+      /* fe */ SSL_ECH_STATUS_NOT_TRIED,
+      /* the backend status here might be arguable */
+      /* be */ SSL_ECH_STATUS_BACKEND},
 };
 
 static int configure_ech(SSL_CTX *ctx, int server,
@@ -642,6 +649,12 @@ static int ech_split_mode(int idx)
     } else {
         if (!TEST_true(configure_ech(cctx, 0, (unsigned char*)echconfig,
                                      sizeof(echconfig) - 1)))
+            goto end;
+    }
+    if (st->bitmask & SPLIT_1_2) {
+        if (!TEST_true(SSL_CTX_set_max_proto_version(sctx, TLS1_2_VERSION)))
+            goto end;
+        if (!TEST_true(SSL_CTX_set_min_proto_version(sctx, TLS1_2_VERSION)))
             goto end;
     }
     if (!TEST_ptr(c_to_s_fbio = BIO_new(bio_f_tls_split_mode())))
